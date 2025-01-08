@@ -10,7 +10,6 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
@@ -29,7 +28,7 @@
                 {% if is_granted('ROLE_MANAGER') %}
                     <li>Administration
                         <ul>
-                            {% if is_granted('ROLE_ENSHROUDED') %}<li>Enshrouded</li>{% endif %}
+                            {% if is_granted('ROLE_ENSHROUDED') %}<li class="btn">Enshrouded</li>{% endif %}
                             {% if is_granted('ROLE_ONCEHUMAN') %}<li>Once Human</li>{% endif %}
                             {% if is_granted('ROLE_PALIA') %}<li>Palia</li>{% endif %}
                         </ul>
