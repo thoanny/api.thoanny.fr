@@ -14,6 +14,33 @@
         {% endblock %}
     </head>
     <body>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <ul>
+            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li><a href="{{ path('app_register') }}">Inscription</a></li>
+                <li><a href="{{ path('app_login') }}">Connexion</a></li>
+            {% else %}
+                {% if is_granted('ROLE_MANAGER') %}
+                    <li>Administration
+                        <ul>
+                            {% if is_granted('ROLE_ENSHROUDED') %}<li>Enshrouded</li>{% endif %}
+                            {% if is_granted('ROLE_ONCEHUMAN') %}<li>Once Human</li>{% endif %}
+                            {% if is_granted('ROLE_PALIA') %}<li>Palia</li>{% endif %}
+                        </ul>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('app_admin_user_index') }}">Utilisateurs</a></li>
+                {% endif %}
+                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+            {% endif %}
+        </ul>
         {% block body %}{% endblock %}
     </body>
 </html>
