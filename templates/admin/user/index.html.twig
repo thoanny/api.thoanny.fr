@@ -9,7 +9,6 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Email</th>
                 <th>Roles</th>
                 <th>IsVerified</th>
                 <th>Username</th>
@@ -22,12 +21,11 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
                 <td>{{ user.roles ? user.roles|join(', ') }}</td>
                 <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
                 <td>{{ user.username }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.lastLoginAt ? user.lastLoginAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.createdAt ? user.createdAt|format_datetime('medium', 'short') : '' }}</td>
+                <td>{{ user.lastLoginAt ? user.lastLoginAt|format_datetime('medium', 'short') : '' }}</td>
                 <td>
                     <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>

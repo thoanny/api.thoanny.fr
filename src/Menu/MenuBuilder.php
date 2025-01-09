@@ -14,68 +14,71 @@ class MenuBuilder extends AbstractController
 
     public function createMainMenu(array $options): ItemInterface
     {
-        $manager = $this->isGranted('ROLE_MANAGER');
+        $isAdmin = $this->isGranted('ROLE_ADMIN');
+        $isManager = $this->isGranted('ROLE_MANAGER');
+        $isEnshrouded = $this->isGranted('ROLE_ENSHROUDED');
+        $isOnceHuman = $this->isGranted('ROLE_ONCEHUMAN');
+        $isPalia = $this->isGranted('ROLE_PALIA');
 
-        $menu = $this->factory->createItem('root', ['attributes' => ['class' => 'xxx']]);
+        $menu = $this->factory->createItem('root');
 
-        $menu->addChild('Accueil', ['route' => 'app_home']);
+        $menu->addChild('Home', ['route' => 'app_home', 'label' => 'Accueil'])->setExtra('icon', 'xxx');
 
-        if($manager) {
+        // Enshrouded
 
-            if($this->isGranted('ROLE_ENSHROUDED')) {
-                $menu->addChild('Enshrouded');
+        $menu->addChild('Enshrouded')->setDisplay($isManager && $isEnshrouded);
 
-                $menu['Enshrouded']->addChild('Carte interactive');
-                $menu['Enshrouded']['Carte interactive']->addChild('Catégories', ['uri' => 'app_home']);
-                $menu['Enshrouded']['Carte interactive']->addChild('Marqueurs', ['route' => 'app_home']);
-                $menu['Enshrouded']['Carte interactive']->addChild('Icônes', ['uri' => 'app_home']);
+        $menu['Enshrouded']->addChild('Map', ['label' => 'Carte interactive']);
+        $menu['Enshrouded']['Map']->addChild('Categories', ['uri' => 'app_home', 'label' => 'Catégories']);
+        $menu['Enshrouded']['Map']->addChild('Markers', ['uri' => 'app_home', 'label' => 'Marqueurs']);
+        $menu['Enshrouded']['Map']->addChild('Icons', ['uri' => 'app_home', 'label' => 'Icônes']);
 
-                $menu['Enshrouded']->addChild('Objets');
-                $menu['Enshrouded']['Objets']->addChild('Tous les objets', ['uri' => 'app_home']);
-                $menu['Enshrouded']['Objets']->addChild('Catégories', ['uri' => 'app_home']);
+        $menu['Enshrouded']->addChild('Objects', ['label' => 'Objets']);
+        $menu['Enshrouded']['Objects']->addChild('All', ['uri' => 'app_home', 'label' => 'Tous les objets']);
+        $menu['Enshrouded']['Objects']->addChild('Categories', ['uri' => 'app_home', 'label' => 'Catégories']);
 
-                $menu['Enshrouded']->addChild('Personnages', ['uri' => 'app_home']);
+        $menu['Enshrouded']->addChild('Characters', ['uri' => 'app_home', 'label' => 'Personnages']);
 
-                $menu['Enshrouded']->addChild('Recettes');
-                $menu['Enshrouded']['Recettes']->addChild('Toutes les recettes', ['uri' => 'app_home']);
-                $menu['Enshrouded']['Recettes']->addChild('Catégories', ['uri' => 'app_home']);
-                $menu['Enshrouded']['Recettes']->addChild('Sources', ['uri' => 'app_home']);
-            }
+        $menu['Enshrouded']->addChild('Recipes', ['label' => 'Recettes']);
+        $menu['Enshrouded']['Recipes']->addChild('All', ['uri' => 'app_home', 'label' => 'Tous les recettes']);
+        $menu['Enshrouded']['Recipes']->addChild('Categories', ['uri' => 'app_home', 'label' => 'Catégories']);
+        $menu['Enshrouded']['Recipes']->addChild('Sources', ['uri' => 'app_home']);
 
-            if($this->isGranted('ROLE_ONCEHUMAN')) {
-                $menu->addChild('Once Human');
+        // Once Human
 
-                $menu['Once Human']->addChild('Spécialisations', ['uri' => 'app_home']);
-            }
+        $menu->addChild('OnceHuman', ['label' => 'Once Human'])->setDisplay($isManager && $isOnceHuman);
 
-            if($this->isGranted('ROLE_PALIA')) {
-                $menu->addChild('Palia');
+        $menu['OnceHuman']->addChild('Specializations', ['uri' => 'app_home', 'label' => 'Spécialisations']);
 
-                $menu['Palia']->addChild('Objets');
-                $menu['Palia']['Objets']->addChild('Tous les objets', ['uri' => 'app_home']);
-                $menu['Palia']['Objets']->addChild('Catégories', ['uri' => 'app_home']);
+        // Palia
 
-                $menu['Palia']->addChild('Options');
-                $menu['Palia']['Options']->addChild('Compétences', ['uri' => 'app_home']);
-                $menu['Palia']['Options']->addChild('Localisations', ['uri' => 'app_home']);
-                $menu['Palia']['Options']->addChild('Monnaies', ['uri' => 'app_home']);
+        $menu->addChild('Palia')->setDisplay($isManager && $isPalia);
 
-                $menu['Palia']->addChild('Personnages');
-                $menu['Palia']['Personnages']->addChild('Tous les personnages', ['uri' => 'app_home']);
-                $menu['Palia']['Personnages']->addChild('Groupes', ['uri' => 'app_home']);
+        $menu['Palia']->addChild('Objects');
+        $menu['Palia']['Objects']->addChild('All', ['uri' => 'app_home', 'label' => 'Tous les objets']);
+        $menu['Palia']['Objects']->addChild('Categories', ['uri' => 'app_home', 'label' => 'Catégories']);
 
-                $menu['Palia']->addChild('Recettes', ['uri' => 'app_home']);
-            }
+        $menu['Palia']->addChild('Options');
+        $menu['Palia']['Options']->addChild('Skills', ['uri' => 'app_home', 'label' => 'Compétences']);
+        $menu['Palia']['Options']->addChild('Locations', ['uri' => 'app_home', 'label' => 'Localisations']);
+        $menu['Palia']['Options']->addChild('Coins', ['uri' => 'app_home', 'label' => 'Monnaies']);
 
-            if($this->isGranted('ROLE_ADMIN')) {
-                $menu->addChild('Administration');
+        $menu['Palia']->addChild('Characters', ['label' => 'Personnages']);
+        $menu['Palia']['Characters']->addChild('All', ['uri' => 'app_home', 'label' => 'Tous les personnages']);
+        $menu['Palia']['Characters']->addChild('Groups', ['uri' => 'app_home', 'label' => 'Groupes']);
 
-                $menu['Administration']->addChild('Utilisateurs', ['route' => 'app_admin_user_index']);
-            }
+        $menu['Palia']->addChild('Recipes', ['uri' => 'app_home', 'label' => 'Recettes']);
 
-        }
+        // Administration
 
-        $menu->addChild('Déconnexion', ['route' => 'app_logout']);
+        $menu->addChild('Admin', ['label' => 'Administration'])->setDisplay($isAdmin);
+
+        $menu['Admin']
+            ->addChild('Users', ['route' => 'app_admin_user_index', 'label' => 'Utilisateurs'])
+            ->setExtra('routes', ['app_admin_user_index', 'app_admin_user_edit', 'app_admin_user_show'])
+        ;
+
+        $menu->addChild('Logout', ['route' => 'app_logout', 'label' => 'Déconnexion']);
 
         return $menu;
     }
