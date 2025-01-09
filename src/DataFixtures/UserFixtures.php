@@ -25,10 +25,10 @@ class UserFixtures extends Fixture
         ];
 
         foreach ($users as $email => $roles) {
-            list($username) = explode('@', $email);
+            list($nickname) = explode('@', $email);
 
             $user = (new User())
-                ->setUsername($username)
+                ->setNickname($nickname)
                 ->setEmail($email)
                 ->setVerified(false)
                 ->setRoles($roles)
