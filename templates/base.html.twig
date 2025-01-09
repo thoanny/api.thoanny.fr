@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr" data-theme="">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -12,34 +12,24 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="flash-{{ label }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-        <ul>
-            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                <li><a href="{{ path('app_register') }}">Inscription</a></li>
-                <li><a href="{{ path('app_login') }}">Connexion</a></li>
-            {% else %}
-                {% if is_granted('ROLE_MANAGER') %}
-                    <li>Administration
-                        <ul>
-                            {% if is_granted('ROLE_ENSHROUDED') %}<li class="btn">Enshrouded</li>{% endif %}
-                            {% if is_granted('ROLE_ONCEHUMAN') %}<li>Once Human</li>{% endif %}
-                            {% if is_granted('ROLE_PALIA') %}<li>Palia</li>{% endif %}
-                        </ul>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('app_admin_user_index') }}">Utilisateurs</a></li>
-                {% endif %}
-                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+    <body class="bg-base-200">
+
+        <div class="flex min-h-dvh">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div id="sidebar">
+                {{ knp_menu_render('main') }}
+            </div>
             {% endif %}
-        </ul>
-        {% block body %}{% endblock %}
+            <div class="p-4 w-full{% if not is_granted('IS_AUTHENTICATED_FULLY') %} flex flex-col gap-4 items-center justify-center{% endif %}" id="main">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="flash-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% block body %}{% endblock %}
+            </div>
+        </div>
     </body>
 </html>
