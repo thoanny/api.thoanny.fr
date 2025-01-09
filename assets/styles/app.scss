@@ -19,7 +19,7 @@ body {
 }
 
 #sidebar {
-    @apply w-64 border-r border-base-300 bg-base-100 p-2 shrink-0;
+    @apply w-64 border-r border-base-300 bg-base-100 shrink-0;
 
     ul {
         @apply flex flex-col text-sm select-none;

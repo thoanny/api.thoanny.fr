@@ -17,7 +17,9 @@
         <div class="flex min-h-dvh">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div id="sidebar">
-                {{ knp_menu_render('main') }}
+                <div class="sticky top-0 bottom-0 h-dvh p-2 overflow-x-auto">
+                    {{ knp_menu_render('main') }}
+                </div>
             </div>
             {% endif %}
             <div class="p-4 w-full{% if not is_granted('IS_AUTHENTICATED_FULLY') %} flex flex-col gap-4 items-center justify-center{% endif %}" id="main">
