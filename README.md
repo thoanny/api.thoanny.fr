@@ -61,3 +61,9 @@ php bin/console lexik:jwt:generate-keypair
 ```php
 php bin/console doctrine:fixtures:load
 ```
+
+## Clean up refresh tokens
+
+```php
+php bin/console gesdinet:jwt:clear
+```
