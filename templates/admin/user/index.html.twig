@@ -9,9 +9,9 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Nickname</th>
                 <th>Roles</th>
                 <th>IsVerified</th>
-                <th>Username</th>
                 <th>CreatedAt</th>
                 <th>LastLoginAt</th>
                 <th>actions</th>
@@ -21,9 +21,9 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
+                <td class="font-bold">{{ user.nickname }}</td>
                 <td>{{ user.roles ? user.roles|join(', ') }}</td>
                 <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-                <td>{{ user.username }}</td>
                 <td>{{ user.createdAt ? user.createdAt|format_datetime('medium', 'short') : '' }}</td>
                 <td>{{ user.lastLoginAt ? user.lastLoginAt|format_datetime('medium', 'short') : '' }}</td>
                 <td>
