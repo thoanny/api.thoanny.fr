@@ -1,3 +1,4 @@
+import '@tabler/icons-webfont/dist/tabler-icons.min.css';
 import './styles/app.scss';
 
 // Menu

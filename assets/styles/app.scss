@@ -28,10 +28,11 @@ body {
 
         li {
             > span {
-                @apply font-semibold flex px-2 py-1 justify-between items-center cursor-pointer;
+                @apply font-semibold flex pl-2 py-1 justify-between items-center cursor-pointer;
 
                 &:after {
-                    content: '+';
+                    content: "\eb0b";
+                    font-family: tabler-icons;
                 }
 
                 &:hover {
@@ -64,7 +65,7 @@ body {
 
         li.current_ancestor > span {
             &:after {
-                content: '-';
+                content: "\eaf2";
             }
         }
     }
