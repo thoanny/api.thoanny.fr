@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon mot de passe{% endblock %}
+
+{% block body %}
+
+    {{ form_start(resetForm, {attr: {class: 'rounded-box p-6 shadow-xl w-72 bg-base-100'}}) }}
+        <h1>Modifier mon mot de passe</h1>
+        {{ form_row(resetForm.plainPassword) }}
+        <button class="btn btn-primary">Enregistrer mon mot de passe</button>
+    {{ form_end(resetForm) }}
+{% endblock %}

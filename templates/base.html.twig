@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr" data-theme="">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -10,10 +10,28 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="bg-base-200">
+
+        <div class="flex min-h-dvh">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div id="sidebar">
+                <div class="sticky top-0 bottom-0 h-dvh p-2 overflow-x-auto">
+                    {{ knp_menu_render('main', {'template': 'menu/main.html.twig'}) }}
+                </div>
+            </div>
+            {% endif %}
+            <div class="p-4 w-full{% if not is_granted('IS_AUTHENTICATED_FULLY') %} flex flex-col gap-4 items-center justify-center{% endif %}" id="main">
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="flash-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% block body %}{% endblock %}
+            </div>
+        </div>
     </body>
 </html>

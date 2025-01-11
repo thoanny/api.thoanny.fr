@@ -49,3 +49,21 @@ Symfony Docker is available under the MIT License.
 ## Credits
 
 Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).
+
+## JWT: generate SSL keys
+
+```php
+php bin/console lexik:jwt:generate-keypair
+```
+
+## Fixtures
+
+```php
+php bin/console doctrine:fixtures:load
+```
+
+## Clean up refresh tokens
+
+```php
+php bin/console gesdinet:jwt:clear
+```

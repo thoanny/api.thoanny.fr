@@ -3,7 +3,19 @@
 {% block title %}Hello World!{% endblock %}
 
 {% block body %}
-    <div>
-        Hello World!
-    </div>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div>
+            Hello World!
+        </div>
+    {% else %}
+        <div class="flex flex-col sm:flex-row gap-2 w-full justify-center">
+            <a href="https://enshrouded.vercel.app" target="_blank" class="btn btn-neutral">Enshrouded</a>
+            <a href="https://once-human.thoanny.fr" target="_blank" class="btn btn-neutral">Once Human</a>
+            <a href="https://palia.thoanny.fr" target="_blank" class="btn btn-neutral">Palia</a>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-2 w-full justify-center">
+            <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
+            <a href="{{ path('app_register') }}" class="btn btn-primary btn-outline">Inscription</a>
+        </div>
+    {% endif %}
 {% endblock %}
