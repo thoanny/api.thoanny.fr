@@ -46,7 +46,7 @@ jobs:
         run: npm run build
 
       - name: Clean unused files and directories
-        run: rm -rf .git .github .idea assets docs frankenphp node_modules tests .dockerignore .editorconfig .env .env.dev .env.test .gitattributes .gitignore compose.override.yaml compose.prod.yaml compose.yaml composer.lock Dockerfile importmap.php LICENSE package.json package-lock.json phpunit.xml.dist README.md symfony.lock webpack.config.js var/cache
+        run: rm -rf .git .github .idea assets docs frankenphp node_modules tests .dockerignore .editorconfig .env .env.dev .env.test .gitattributes .gitignore compose.override.yaml compose.prod.yaml compose.yaml composer.lock Dockerfile importmap.php LICENSE Makefile package.json package-lock.json phpunit.xml.dist README.md symfony.lock webpack.config.js var/cache
 
       - name: Copy file via ssh password
         uses: appleboy/scp-action@master
