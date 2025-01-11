@@ -24,7 +24,7 @@
         <div>
             <label for="password">Mot de passe</label>
             <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-
+            <div class="label-text-alt text-end mt-2"><a href="{{ path('app_forgot_password_request') }}" class="hover:underline">Mot de passe oublié&nbsp;?</a></div>
         </div>
 
         <input type="hidden" name="_csrf_token"

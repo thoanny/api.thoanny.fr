@@ -1,0 +1,30 @@
+<mjml>
+    <mj-head>
+        <mj-title>Réinitialiser mon mot de passe</mj-title>
+        <mj-attributes>
+            <mj-text font-family="Arial" font-size="16px" line-height="22.4px" color="#353740" />
+            <mj-button font-family="Arial" font-size="15px" line-height="21px" color="#353740" font-weight="bold" align="left" background-color="#93C045" />
+        </mj-attributes>
+    </mj-head>
+  <mj-body background-color="#93C045">
+      <mj-section background-color="#93C045">
+          <mj-column>
+              <mj-text font-size="21px" color="#353740" font-weight="bold">API.THOANNY.FR</mj-text>
+          </mj-column>
+      </mj-section>
+      <mj-section background-color="#ffffff">
+      <mj-column>
+        <mj-text font-weight="bold" font-size="19px">Réinitialiser mon mot de passe</mj-text>
+        <mj-text>
+            Pour réinitialiser votre mot de passe, merci de suivre ce lien&nbsp;:
+        </mj-text>
+        <mj-text>
+          <a href="{{ url('app_reset_password', {token: resetToken.token}) }}" style="color: inherit;">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+        </mj-text>
+        <mj-text>
+            Ce lien expire dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
