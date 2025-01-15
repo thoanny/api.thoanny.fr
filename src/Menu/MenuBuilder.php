@@ -19,10 +19,12 @@ class MenuBuilder extends AbstractController
         $isEnshrouded = $this->isGranted('ROLE_ENSHROUDED');
         $isOnceHuman = $this->isGranted('ROLE_ONCEHUMAN');
         $isPalia = $this->isGranted('ROLE_PALIA');
+        $isUser = $this->isGranted('ROLE_USER');
 
         $menu = $this->factory->createItem('root');
 
-        $menu->addChild('Home', ['route' => 'app_home', 'label' => 'Accueil'])->setExtra('icon', 'xxx');
+        $menu->addChild('Login', ['label' => 'Connexion', 'route' => 'app_login'])->setDisplay(!$isUser);
+        $menu->addChild('Register', ['label' => 'Inscription', 'route' => 'app_register'])->setDisplay(!$isUser);
 
         // Enshrouded
 
@@ -77,8 +79,6 @@ class MenuBuilder extends AbstractController
             ->addChild('Users', ['route' => 'app_admin_user_index', 'label' => 'Utilisateurs'])
             ->setExtra('routes', ['app_admin_user_index', 'app_admin_user_edit', 'app_admin_user_show'])
         ;
-
-        $menu->addChild('Logout', ['route' => 'app_logout', 'label' => 'Déconnexion']);
 
         return $menu;
     }

@@ -8,14 +8,10 @@
             Hello World!
         </div>
     {% else %}
-        <div class="flex flex-col sm:flex-row gap-2 w-full justify-center">
-            <a href="https://enshrouded.vercel.app" target="_blank" class="btn btn-neutral">Enshrouded</a>
-            <a href="https://once-human.thoanny.fr" target="_blank" class="btn btn-neutral">Once Human</a>
-            <a href="https://palia.thoanny.fr" target="_blank" class="btn btn-neutral">Palia</a>
-        </div>
-        <div class="flex flex-col sm:flex-row gap-2 w-full justify-center">
-            <a href="{{ path('app_login') }}" class="btn btn-primary">Connexion</a>
-            <a href="{{ path('app_register') }}" class="btn btn-primary btn-outline">Inscription</a>
+        <div class="d-inline-flex gap-2">
+            <a href="https://enshrouded.vercel.app" target="_blank" class="btn btn-primary">Enshrouded <i class="bi bi-box-arrow-up-right"></i></a>
+            <a href="https://once-human.thoanny.fr" target="_blank" class="btn btn-primary">Once Human <i class="bi bi-box-arrow-up-right"></i></a>
+            <a href="https://palia.thoanny.fr" target="_blank" class="btn btn-primary">Palia <i class="bi bi-box-arrow-up-right"></i></a>
         </div>
     {% endif %}
 {% endblock %}

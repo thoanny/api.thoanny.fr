@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\Admin\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/users')]
-#[IsGranted("ROLE_ADMIN")]
+#[IsGranted('ROLE_ADMIN')]
 final class UserController extends AbstractController
 {
     #[Route(name: 'app_admin_user_index', methods: ['GET'])]

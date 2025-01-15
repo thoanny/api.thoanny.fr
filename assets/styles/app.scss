@@ -1,119 +1,160 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+//$primary: darken(#428bca, 20%);
 
-table {
-    @apply table w-full shadow bg-base-100 rounded-md mt-4 overflow-hidden mb-4;
-
-    td {
-        &:last-of-type {
-            @apply whitespace-nowrap;
-
-            a {
-                @apply btn btn-sm btn-primary;
-            }
-        }
-    }
-}
+$primary: #93C045;
 
 body {
-    @apply bg-base-100;
+    min-height: 100dvh;
 }
 
-#sidebar {
-    @apply w-64 border-r border-base-300 bg-base-100 shrink-0;
+main {
+    height: 100dvh;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.scrollarea {
+    overflow-y: auto;
+}
+
+@import "~bootstrap/scss/bootstrap";
+
+#main-menu {
+
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: calc(100dvh - 10.5rem);
+    height: 100%;
+
+    > ul {
+        margin: 0px -.75rem !important;
+    }
 
     ul {
-        @apply flex flex-col text-sm select-none;
-
-        li {
-            > span {
-                @apply font-semibold flex pl-2 py-1 justify-between items-center cursor-pointer;
-
-                &:after {
-                    content: "\eb0b";
-                    font-family: tabler-icons;
-                }
-
-                &:hover {
-                    @apply text-primary;
-                }
-            }
-
-            a {
-                @apply w-full justify-start bg-base-100 flex px-2 py-1 rounded-none;
-
-                &:hover {
-                    @apply text-primary;
-                }
-            }
-
-            &.current {
-                > a {
-                    @apply font-semibold text-primary;
-                }
-            }
-        }
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        user-select: none;
+        display: flex;
+        flex-direction: column;
+        //font-size: .875rem;
 
         ul {
-            @apply border-l border-base-300 ml-2 hidden;
+            border-left: 2px solid rgba(var(--bs-light-rgb), .25);
+            margin-left: .75rem;
+            display: none;
         }
+    }
 
-        li.current_ancestor > ul {
-            @apply flex;
-        }
+    li {
+        &[data-has-children] {
+            > span {
+                font-weight: bold;
+                cursor: pointer;
+                color: rgba(var(--bs-light-rgb), .75);
+                justify-content: space-between;
+                align-items: center;
 
-        li.current_ancestor > span {
-            &:after {
-                content: "\eaf2";
+                &:after {
+                    font-family: "bootstrap-icons" !important;
+                    content: '\F4FE';
+                }
+
+                &:hover {
+                    color: rgb(var(--bs-light-rgb));
+                }
+            }
+
+            &.current_ancestor > span {
+                color: rgb(var(--bs-light-rgb));
+
+                &:after {
+                    content: '\F2EA';
+                }
             }
         }
+
+        &.current_ancestor > ul {
+            display: block;
+        }
+
+        a {
+            color: rgb(var(--bs-light-rgb));
+            text-decoration: none;
+        }
+
+        &.current > a, a:hover {
+            color: var(--bs-primary);
+        }
     }
 
+    a, span {
+        display: flex;
+        padding: .25rem .75rem;
+    }
 }
 
-form {
-    @apply flex gap-2 flex-col;
+//#sidebar {
+//    @apply w-64 border-r border-base-300 bg-base-100 shrink-0;
+//
+//    ul {
+//        @apply flex flex-col text-sm select-none;
+//
+//        li {
+//            > span {
+//                @apply font-semibold flex pl-2 py-1 justify-between items-center cursor-pointer;
+//
+//                &:after {
+//                    content: "\eb0b";
+//                    font-family: tabler-icons;
+//                }
+//
+//                &:hover {
+//                    @apply text-primary;
+//                }
+//            }
+//
+//            a {
+//                @apply w-full justify-start bg-base-100 flex px-2 py-1 rounded-none;
+//
+//                &:hover {
+//                    @apply text-primary;
+//                }
+//            }
+//
+//            &.current {
+//                > a {
+//                    @apply font-semibold text-primary;
+//                }
+//            }
+//        }
+//
+//        ul {
+//            @apply border-l border-base-300 ml-2 hidden;
+//        }
+//
+//        li.current_ancestor > ul {
+//            @apply flex;
+//        }
+//
+//        li.current_ancestor > span {
+//            &:after {
+//                content: "\eaf2";
+//            }
+//        }
+//    }
+//
+//}
 
-    .checkbox-input {
-        @apply flex gap-2 flex-row-reverse justify-end items-center;
-    }
+form {
 
     label {
         &.required {
             &:after {
-                @apply text-error;
+                color: red;
                 content: '*';
             }
         }
     }
-
-    input {
-        @apply w-full;
-
-        &[type="email"],
-        &[type="password"],
-        &[type="text"] {
-            @apply input input-bordered;
-        }
-
-        &[type="checkbox"] {
-            @apply checkbox;
-        }
-    }
-
-    label {
-        @apply label label-text justify-start;
-    }
-
-    button {
-        &[type="submit"] {
-            @apply mt-2;
-        }
-    }
 }
 
-
-h1 {
-    @apply text-primary font-bold text-2xl leading-none;
-}

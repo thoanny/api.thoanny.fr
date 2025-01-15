@@ -21,19 +21,19 @@
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td class="font-bold">{{ user.nickname }}</td>
-                <td>{{ user.roles ? user.roles|join(', ') }}</td>
+                <td class="fw-bold">{{ user.nickname }}</td>
+                <td>{{ user.roles ? user.roles|join(', ') : '' }}</td>
                 <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-                <td>{{ user.createdAt ? user.createdAt|format_datetime('medium', 'short') : '' }}</td>
-                <td>{{ user.lastLoginAt ? user.lastLoginAt|format_datetime('medium', 'short') : '' }}</td>
+                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.lastLoginAt ? user.lastLoginAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn-square"><i class="ti ti-eye text-base"></i></a>
-                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn-square"><i class="ti ti-edit text-base"></i></a>
+                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
