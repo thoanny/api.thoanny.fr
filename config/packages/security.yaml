@@ -14,7 +14,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         api:
-            pattern: ^/api
+            pattern: ^/(token|@me|once-human|enshrouded|palia)
             stateless: true
             entry_point: jwt
             json_login:
@@ -53,7 +53,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/api/(login|token/refresh), roles: PUBLIC_ACCESS }
+        - { path: ^/(token), roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_MANAGER }
         # - { path: ^/profile, roles: ROLE_USER }
 
