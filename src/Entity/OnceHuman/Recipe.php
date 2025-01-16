@@ -6,6 +6,7 @@ use App\Repository\OnceHuman\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 #[ORM\Table(name: 'oh_recipe')]
@@ -14,25 +15,31 @@ class Recipe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['item_show_recipe', 'recipe_index', 'recipe_show'])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\ManyToOne(inversedBy: 'recipe')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['recipe_index', 'recipe_show'])]
     private ?Item $item = null;
 
     #[ORM\Column]
+    #[Groups(['item_show_recipe', 'recipe_index', 'recipe_show'])]
     private ?int $quantity = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['item_show_recipe', 'recipe_index', 'recipe_show'])]
     private ?Item $workshop = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['item_show_recipe', 'recipe_show'])]
     private ?int $duration = null;
 
     /**
      * @var Collection<int, RecipeIngredient>
      */
     #[ORM\OneToMany(targetEntity: RecipeIngredient::class, mappedBy: 'recipe', cascade: ['persist'], orphanRemoval: true)]
+    #[Groups(['item_show_recipe'])]
     private Collection $ingredients;
 
     public function __construct()

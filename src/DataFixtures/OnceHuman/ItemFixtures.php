@@ -37,7 +37,7 @@ class ItemFixtures extends Fixture implements DependentFixtureInterface
                 ->setWeight($this->faker->numberBetween(50, 1000));
             ;
 
-            $itemScenarios = $this->faker->randomElements($scenarios);
+            $itemScenarios = $this->faker->randomElements($scenarios, $this->faker->numberBetween(1, count($scenarios)));
             foreach ($itemScenarios as $itemScenario) {
                 $item->addScenario($itemScenario);
             }

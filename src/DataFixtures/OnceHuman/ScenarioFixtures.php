@@ -33,11 +33,12 @@ class ScenarioFixtures extends Fixture
         foreach ($data as $prefix => $name) {
             $scenario = (new Scenario())
                 ->setName($name)
+                ->setDescription($this->faker->text(260))
             ;
             for($i = 0; $i < 10; $i++) {
                 $server = (new Server())
                     ->setName(
-                        implode('-', [
+                        implode('', [
                             $prefix,
                             str_pad($i, 4, '0', STR_PAD_LEFT)
                         ])

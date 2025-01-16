@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ScenarioRepository::class)]
 #[ORM\Table(name: 'oh_scenario')]
@@ -15,12 +16,15 @@ class Scenario
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['item_show_scenario', 'scenario_index', 'scenario_show', 'server_index', 'server_show_scenario'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 55)]
+    #[Groups(['item_show_scenario', 'scenario_index', 'scenario_show', 'server_show_scenario'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['scenario_show'])]
     private ?string $description = null;
 
     /**

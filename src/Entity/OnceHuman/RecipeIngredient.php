@@ -4,6 +4,7 @@ namespace App\Entity\OnceHuman;
 
 use App\Repository\OnceHuman\RecipeIngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: RecipeIngredientRepository::class)]
 #[ORM\Table(name: 'oh_recipe_ingredient')]
@@ -12,6 +13,7 @@ class RecipeIngredient
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['recipe_show_ingredient'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
@@ -20,9 +22,11 @@ class RecipeIngredient
 
     #[ORM\ManyToOne(inversedBy: 'recipeIngredients')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['item_show_recipe', 'recipe_show_ingredient'])]
     private ?Item $item = null;
 
     #[ORM\Column]
+    #[Groups(['item_show_recipe', 'recipe_show_ingredient'])]
     private ?int $quantity = null;
 
     public function getId(): ?int
