@@ -1,0 +1,29 @@
+{{ form_start(form) }}
+
+    {{ form_row(form.quantity) }}
+    {{ form_row(form.item) }}
+    {{ form_row(form.workshop) }}
+    {{ form_row(form.duration) }}
+
+    <h3>Ingrédients</h3>
+
+    <button type="button" class="btn btn-outline-primary add_recipe_ingredient mt-0" data-collection-holder-class="ingredients">Add an ingredient</button>
+
+    <ul
+        class="ingredients"
+        data-index="{{ form.ingredients|length > 0 ? form.ingredients|last.vars.name + 1 : 0 }}"
+        data-prototype="{{ form_widget(form.ingredients.vars.prototype)|e('html_attr') }}"
+    >
+        {% for i, ingredient in form.ingredients %}
+            <li>
+                <div id="recipe_ingredients_{{ i }}">
+                    {{ form_row(ingredient.quantity) }}
+                    {{ form_row(ingredient.item) }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {{ form_widget(form) }}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

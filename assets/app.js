@@ -11,3 +11,53 @@ $ancestors.forEach((ancestor)=> {
     ancestor.parentElement.classList.toggle('current_ancestor')
   });
 })
+
+// Once Human / Ajouter un ingrédient à une recipe
+
+document
+  .querySelectorAll('.add_recipe_ingredient')
+  .forEach(btn => {
+    btn.addEventListener("click", addFormToCollection)
+  });
+
+function addFormToCollection(e) {
+  const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+  const item = document.createElement('li');
+
+  item.innerHTML = collectionHolder
+    .dataset
+    .prototype
+    .replace(
+      /__name__/g,
+      collectionHolder.dataset.index
+    );
+
+  addIngredientFormDeleteLink(item);
+
+  collectionHolder.appendChild(item);
+
+  collectionHolder.dataset.index++;
+};
+
+document
+  .querySelectorAll('ul.ingredients li')
+  .forEach((ingredient) => {
+    addIngredientFormDeleteLink(ingredient)
+  });
+
+
+function addIngredientFormDeleteLink(item) {
+  const removeFormButton = document.createElement('button');
+  removeFormButton.innerText = 'Delete';
+  removeFormButton.classList.add('btn');
+  removeFormButton.classList.add('btn-danger');
+
+  item.append(removeFormButton);
+
+  removeFormButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    // remove the li for the tag form
+    item.remove();
+  });
+}

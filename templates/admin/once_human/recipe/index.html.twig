@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipe index{% endblock %}
+
+{% block body %}
+    <h1>Recipe index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Recipe</th>
+                <th>Workshop</th>
+                <th>Duration</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe.id }}</td>
+                <td class="fw-bold">{{ recipe.quantity }}&nbsp;&times; {{ recipe.item.name }}</td>
+                <td>{{ recipe.workshop.name }}</td>
+                <td>{{ recipe.duration }}</td>
+                <td>
+                    <a href="{{ path('app_admin_once_human_recipe_show', {'id': recipe.id}) }}">show</a>
+                    <a href="{{ path('app_admin_once_human_recipe_edit', {'id': recipe.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_once_human_recipe_new') }}" class="btn btn-primary">Create new</a>
+{% endblock %}

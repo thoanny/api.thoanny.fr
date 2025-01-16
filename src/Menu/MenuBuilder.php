@@ -50,6 +50,56 @@ class MenuBuilder extends AbstractController
 
         $menu->addChild('OnceHuman', ['label' => 'Once Human'])->setDisplay($isManager && $isOnceHuman);
 
+        $menu['OnceHuman']
+            ->addChild('Recipes', ['route' => 'app_admin_once_human_recipe_index', 'label' => 'Formules'])
+            ->setExtra('routes', [
+                'app_admin_once_human_recipe_index',
+                'app_admin_once_human_recipe_new',
+                'app_admin_once_human_recipe_show',
+                'app_admin_once_human_recipe_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']->addChild('Objects', ['label' => 'Objets']);
+
+        $menu['OnceHuman']['Objects']
+            ->addChild('All', ['route' => 'app_admin_once_human_item_index', 'label' => 'Tous les objets'])
+            ->setExtra('routes', [
+                'app_admin_once_human_item_index',
+                'app_admin_once_human_item_new',
+                'app_admin_once_human_item_show',
+                'app_admin_once_human_item_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']['Objects']
+            ->addChild('Categories', ['route' => 'app_admin_once_human_item_category_index', 'label' => 'Catégories'])
+            ->setExtra('routes', [
+                'app_admin_once_human_item_category_index',
+                'app_admin_once_human_item_category_new',
+                'app_admin_once_human_item_category_show',
+                'app_admin_once_human_item_category_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']
+            ->addChild('Scenarios', ['route' => 'app_admin_once_human_scenario_index', 'label' => 'Scénarios'])
+            ->setExtra('routes', [
+                'app_admin_once_human_scenario_index',
+                'app_admin_once_human_scenario_new',
+                'app_admin_once_human_scenario_show',
+                'app_admin_once_human_scenario_edit'
+            ]);
+        ;
+        $menu['OnceHuman']
+            ->addChild('Servers', ['route' => 'app_admin_once_human_server_index', 'label' => 'Serveurs'])
+            ->setExtra('routes', [
+                'app_admin_once_human_server_index',
+                'app_admin_once_human_server_new',
+                'app_admin_once_human_server_show',
+                'app_admin_once_human_server_edit'
+            ]);
+        ;
         $menu['OnceHuman']->addChild('Specializations', ['uri' => 'app_home', 'label' => 'Spécialisations']);
 
         // Palia

@@ -158,3 +158,36 @@ form {
     }
 }
 
+.btn {
+    margin-top: 1rem;
+}
+
+form {
+    ul.ingredients {
+        padding: 0;
+        margin: 1rem 0 0;
+
+        li {
+            width: 100%;
+            display: flex;
+            gap: .5rem;
+            align-items: center;
+
+            > div {
+                width: 100%;
+                display: flex;
+                gap: .5rem;
+                align-items: center;
+
+                > div {
+                    width: 100%;
+                }
+            }
+
+            .btn {
+                margin-top: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}

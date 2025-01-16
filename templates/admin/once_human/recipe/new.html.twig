@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Recipe{% endblock %}
+
+{% block body %}
+    <h1>Create new Recipe</h1>
+
+    {{ include('admin/once_human/recipe/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_once_human_recipe_index') }}" class="btn btn-secondary">back to list</a>
+{% endblock %}

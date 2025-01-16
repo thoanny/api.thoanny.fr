@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Recipe{% endblock %}
+
+{% block body %}
+    <h1>Edit Recipe</h1>
+
+    {{ include('admin/once_human/recipe/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_once_human_recipe_index') }}" class="btn btn-secondary">back to list</a>
+
+    {{ include('admin/once_human/recipe/_delete_form.html.twig') }}
+{% endblock %}
