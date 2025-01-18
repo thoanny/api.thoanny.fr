@@ -55,6 +55,9 @@
     "knplabs/knp-menu-bundle": {
         "version": "v3.5.0"
     },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v6.6.1"
+    },
     "lexik/jwt-authentication-bundle": {
         "version": "3.1",
         "recipe": {
@@ -259,6 +262,21 @@
             "config/routes/security.yaml"
         ]
     },
+    "symfony/stimulus-bundle": {
+        "version": "2.22",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.20",
+            "ref": "889bfd9d173f8952e6d0885c2fa411968f30ec73"
+        },
+        "files": [
+            "assets/bootstrap.js",
+            "assets/controllers.json",
+            "assets/controllers/csrf_protection_controller.js",
+            "assets/controllers/hello_controller.js"
+        ]
+    },
     "symfony/translation": {
         "version": "7.2",
         "recipe": {
@@ -283,6 +301,18 @@
         "files": [
             "config/packages/twig.yaml",
             "templates/base.html.twig"
+        ]
+    },
+    "symfony/ux-autocomplete": {
+        "version": "2.22",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.6",
+            "ref": "07d9602b7231ba355f484305d6cea58310c01741"
+        },
+        "files": [
+            "config/routes/ux_autocomplete.yaml"
         ]
     },
     "symfony/validator": {

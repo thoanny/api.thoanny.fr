@@ -6,6 +6,7 @@ use App\Entity\OnceHuman\Server;
 use App\Form\Admin\OnceHuman\ServerType;
 use App\Repository\OnceHuman\ServerRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +17,16 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class ServerController extends AbstractController
 {
     #[Route(name: 'app_admin_once_human_server_index', methods: ['GET'])]
-    public function index(ServerRepository $serverRepository): Response
+    public function index(ServerRepository $serverRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $servers = $paginator->paginate(
+            $serverRepository->findAll(),
+            $request->query->getInt('page', 1),
+            50
+        );
+
         return $this->render('admin/once_human/server/index.html.twig', [
-            'servers' => $serverRepository->findAll(),
+            'servers' => $servers,
         ]);
     }
 

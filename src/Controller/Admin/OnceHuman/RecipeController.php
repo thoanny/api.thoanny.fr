@@ -6,6 +6,7 @@ use App\Entity\OnceHuman\Recipe;
 use App\Form\Admin\OnceHuman\RecipeType;
 use App\Repository\OnceHuman\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +17,15 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class RecipeController extends AbstractController
 {
     #[Route(name: 'app_admin_once_human_recipe_index', methods: ['GET'])]
-    public function index(RecipeRepository $recipeRepository): Response
+    public function index(RecipeRepository $recipeRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $recipes = $paginator->paginate(
+            $recipeRepository->findAll(),
+            $request->query->getInt('page', 1),
+            50
+        );
         return $this->render('admin/once_human/recipe/index.html.twig', [
-            'recipes' => $recipeRepository->findAll(),
+            'recipes' => $recipes,
         ]);
     }
 

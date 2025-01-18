@@ -2,9 +2,7 @@
 
 namespace App\Form\Admin\OnceHuman;
 
-use App\Entity\OnceHuman\Item;
 use App\Entity\OnceHuman\Recipe;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,14 +14,8 @@ class RecipeType extends AbstractType
     {
         $builder
             ->add('quantity')
-            ->add('item', EntityType::class, [
-                'class' => Item::class,
-                'choice_label' => 'name',
-            ])
-            ->add('workshop', EntityType::class, [
-                'class' => Item::class,
-                'choice_label' => 'name',
-            ])
+            ->add('item', ItemAutocompleteField::class)
+            ->add('workshop', ItemAutocompleteField::class)
             ->add('duration')
             ->add('ingredients', CollectionType::class, [
                 'entry_type' => RecipeIngredientType::class,

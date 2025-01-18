@@ -6,6 +6,7 @@ use App\Entity\OnceHuman\ItemCategory;
 use App\Form\Admin\OnceHuman\ItemCategoryType;
 use App\Repository\OnceHuman\ItemCategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +17,16 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class ItemCategoryController extends AbstractController
 {
     #[Route(name: 'app_admin_once_human_item_category_index', methods: ['GET'])]
-    public function index(ItemCategoryRepository $itemCategoryRepository): Response
+    public function index(ItemCategoryRepository $itemCategoryRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $itemCategories = $paginator->paginate(
+            $itemCategoryRepository->findAll(),
+            $request->query->getInt('page', 1),
+            50
+        );
+
         return $this->render('admin/once_human/item_category/index.html.twig', [
-            'item_categories' => $itemCategoryRepository->findAll(),
+            'item_categories' => $itemCategories,
         ]);
     }
 

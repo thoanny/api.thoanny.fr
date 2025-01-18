@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Scenario index</h1>
 
+    <a href="{{ path('app_admin_once_human_scenario_new') }}" class="btn btn-primary">Create new</a>
+
     <table class="table">
         <thead>
             <tr>
@@ -33,5 +35,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_once_human_scenario_new') }}" class="btn btn-primary">Create new</a>
+    {{ knp_pagination_render(scenarios) }}
+
 {% endblock %}

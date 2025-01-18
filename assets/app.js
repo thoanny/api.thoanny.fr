@@ -1,3 +1,4 @@
+import './bootstrap.js';
 import 'bootstrap-icons/font/bootstrap-icons.scss';
 import './styles/app.scss';
 import * as bootstrap from 'bootstrap';

@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Item index</h1>
 
+    <a href="{{ path('app_admin_once_human_item_new') }}" class="btn btn-primary">Create new</a>
+
     <table class="table">
         <thead>
             <tr>
@@ -35,5 +37,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_once_human_item_new') }}" class="btn btn-primary">Create new</a>
+    {{ knp_pagination_render(items) }}
+
 {% endblock %}

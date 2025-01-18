@@ -2,10 +2,7 @@
 
 namespace App\Form\Admin\OnceHuman;
 
-use App\Entity\OnceHuman\Item;
-use App\Entity\OnceHuman\Recipe;
 use App\Entity\OnceHuman\RecipeIngredient;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,9 +19,7 @@ class RecipeIngredientType extends AbstractType
                     'placeholder' => 'Quantity'
                 ]
             ])
-            ->add('item', EntityType::class, [
-                'class' => Item::class,
-                'choice_label' => 'name',
+            ->add('item', ItemAutocompleteField::class, [
                 'label' => false,
             ])
         ;

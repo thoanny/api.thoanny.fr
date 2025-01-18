@@ -4,6 +4,7 @@ $primary: #93C045;
 
 body {
     min-height: 100dvh;
+    overflow: hidden;
 }
 
 main {
@@ -17,7 +18,7 @@ main {
     overflow-y: auto;
 }
 
-@import "~bootstrap/scss/bootstrap";
+
 
 #main-menu {
 
@@ -191,3 +192,9 @@ form {
         }
     }
 }
+
+h1 + .btn {
+    margin-bottom: 1rem;
+}
+
+@import "~bootstrap/scss/bootstrap";

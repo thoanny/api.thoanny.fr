@@ -6,6 +6,7 @@ use App\Entity\OnceHuman\Scenario;
 use App\Form\Admin\OnceHuman\ScenarioType;
 use App\Repository\OnceHuman\ScenarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +17,16 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class ScenarioController extends AbstractController
 {
     #[Route(name: 'app_admin_once_human_scenario_index', methods: ['GET'])]
-    public function index(ScenarioRepository $scenarioRepository): Response
+    public function index(ScenarioRepository $scenarioRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $scenarios = $paginator->paginate(
+            $scenarioRepository->findAll(),
+            $request->query->getInt('page', 1),
+            50
+        );
+
         return $this->render('admin/once_human/scenario/index.html.twig', [
-            'scenarios' => $scenarioRepository->findAll(),
+            'scenarios' => $scenarios,
         ]);
     }
 
