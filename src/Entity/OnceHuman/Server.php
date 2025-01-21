@@ -13,16 +13,16 @@ class Server
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['scenario_show_server', 'server_index', 'server_show'])]
+    #[Groups(['scenario_show_server', 'server_index', 'server_show', 'character_index', 'character_show', 'hive_index', 'hive_show'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'servers')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['server_index'])]
+    #[Groups(['server_index', 'character_index', 'character_show', 'hive_index', 'hive_show'])]
     private ?Scenario $scenario = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['server_show'])]
+    #[Groups(['server_show', 'character_show', 'hive_index', 'hive_show'])]
     private ?string $difficulty = null;
 
     #[ORM\Column]
@@ -34,7 +34,7 @@ class Server
     private ?bool $closed = null;
 
     #[ORM\Column(length: 25)]
-    #[Groups(['scenario_show_server', 'server_index', 'server_show'])]
+    #[Groups(['scenario_show_server', 'server_index', 'server_show', 'character_index', 'hive_index', 'hive_show'])]
     private ?string $name = null;
 
     public function getId(): ?int

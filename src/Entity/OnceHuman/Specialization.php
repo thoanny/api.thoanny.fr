@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: SpecializationRepository::class)]
 #[ORM\Table(name: 'oh_specialization')]
@@ -15,18 +16,23 @@ class Specialization
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['specialization_index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['specialization_index'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 55, nullable: true)]
+    #[Groups(['specialization_index'])]
     private ?string $type = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['specialization_index'])]
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['specialization_index'])]
     private ?array $levels = null;
 
     /**
@@ -34,6 +40,7 @@ class Specialization
      */
     #[ORM\JoinTable(name: 'oh_specialization_scenario')]
     #[ORM\ManyToMany(targetEntity: Scenario::class)]
+    #[Groups(['specialization_index'])]
     private Collection $scenarios;
 
     public function __construct()

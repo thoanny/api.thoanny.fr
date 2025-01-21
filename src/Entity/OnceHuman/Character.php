@@ -5,6 +5,7 @@ namespace App\Entity\OnceHuman;
 use App\Entity\User;
 use App\Repository\OnceHuman\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: CharacterRepository::class)]
 #[ORM\Table(name: 'oh_character')]
@@ -13,9 +14,11 @@ class Character
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['character_index', 'character_show', 'hive_show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 55)]
+    #[Groups(['character_index', 'character_show', 'hive_index', 'hive_show'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 10)]
@@ -28,6 +31,7 @@ class Character
     private ?string $ingameUid = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['character_index', 'character_show', 'hive_index', 'hive_show'])]
     private ?Server $server = null;
 
     #[ORM\ManyToOne]

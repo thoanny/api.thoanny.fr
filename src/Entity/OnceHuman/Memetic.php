@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: MemeticRepository::class)]
 #[ORM\Table(name: 'oh_memetic')]
@@ -15,16 +16,20 @@ class Memetic
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['memetic_index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 55)]
+    #[Groups(['memetic_index'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['memetic_index'])]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'memetics')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['memetic_index'])]
     private ?MemeticCategory $category = null;
 
     /**
@@ -32,6 +37,7 @@ class Memetic
      */
     #[ORM\JoinTable(name: 'oh_memetic_scenario')]
     #[ORM\ManyToMany(targetEntity: Scenario::class)]
+    #[Groups(['memetic_index'])]
     private Collection $scenarios;
 
     /**
@@ -39,6 +45,7 @@ class Memetic
      */
     #[ORM\JoinTable(name: 'oh_memetic_item')]
     #[ORM\ManyToMany(targetEntity: Item::class, inversedBy: 'memetics')]
+    #[Groups(['memetic_index'])]
     private Collection $items;
 
     public function __construct()

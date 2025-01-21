@@ -6,6 +6,7 @@ use App\Repository\OnceHuman\MemeticCategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: MemeticCategoryRepository::class)]
 #[ORM\Table(name: 'oh_memetic_category')]
@@ -14,6 +15,7 @@ class MemeticCategory
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['memetic_index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 25)]

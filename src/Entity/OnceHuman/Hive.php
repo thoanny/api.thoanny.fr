@@ -6,6 +6,7 @@ use App\Repository\OnceHuman\HiveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HiveRepository::class)]
 #[ORM\Table(name: 'oh_hive')]
@@ -14,9 +15,11 @@ class Hive
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['hive_index', 'hive_show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 25)]
+    #[Groups(['hive_index', 'hive_show'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 10)]
@@ -24,6 +27,7 @@ class Hive
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['hive_index', 'hive_show'])]
     private ?Character $leader = null;
 
     /**
@@ -101,5 +105,11 @@ class Hive
         $this->members->removeElement($member);
 
         return $this;
+    }
+
+    #[Groups(['hive_index'])]
+    public function getTotalMembers(): int
+    {
+        return count($this->members);
     }
 }

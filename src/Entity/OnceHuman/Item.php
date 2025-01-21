@@ -16,11 +16,11 @@ class Item
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['item_index', 'item_show', 'item_show_recipe', 'recipe_index', 'recipe_show', 'recipe_show_ingredient'])]
+    #[Groups(['item_index', 'item_show', 'item_show_recipe', 'recipe_index', 'recipe_show', 'recipe_show_ingredient', 'memetic_index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['item_index', 'item_show', 'item_show_recipe', 'recipe_index', 'recipe_show', 'recipe_show_ingredient'])]
+    #[Groups(['item_index', 'item_show', 'item_show_recipe', 'recipe_index', 'recipe_show', 'recipe_show_ingredient', 'memetic_index'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -32,7 +32,7 @@ class Item
     private ?string $howToGet = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['item_index', 'item_show', 'item_show_recipe', 'recipe_index', 'recipe_show', 'recipe_show_ingredient'])]
+    #[Groups(['item_index', 'item_show', 'item_show_recipe', 'recipe_index', 'recipe_show', 'recipe_show_ingredient', 'memetic_index'])]
     private ?string $rarity = null;
 
     #[ORM\Column(nullable: true)]
