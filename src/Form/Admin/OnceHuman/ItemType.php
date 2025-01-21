@@ -43,6 +43,7 @@ class ItemType extends AbstractType
             ->add('iconFile', VichImageType::class, [
                 'required' => false,
                 'download_label' => false,
+                'help' => '80×80px'
             ])
         ;
     }

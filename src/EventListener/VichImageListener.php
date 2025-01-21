@@ -26,7 +26,7 @@ final class VichImageListener
 
             case 'oh_items':
                 $image = $this->imageManager->read($file->getPathname());
-                $image->cover(64, 64);
+                $image->cover(80, 80);
                 $image->save($file->getPathname());
                 break;
 
