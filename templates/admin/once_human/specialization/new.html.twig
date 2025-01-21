@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Specialization{% endblock %}
+
+{% block body %}
+    <h1>Create new Specialization</h1>
+
+    {{ include('admin/once_human/specialization/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_once_human_specialization_index') }}" class="btn btn-secondary">back to list</a>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Memetic index{% endblock %}
+
+{% block body %}
+    <h1>Memetic index</h1>
+
+    <a href="{{ path('app_admin_once_human_memetic_new') }}" class="btn btn-primary">Create new</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for memetic in memetics %}
+            <tr>
+                <td>{{ memetic.id }}</td>
+                <td>{{ memetic.name }}</td>
+                <td>{{ memetic.description }}</td>
+                <td>
+                    <a href="{{ path('app_admin_once_human_memetic_show', {'id': memetic.id}) }}">show</a>
+                    <a href="{{ path('app_admin_once_human_memetic_edit', {'id': memetic.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(memetics) }}
+{% endblock %}

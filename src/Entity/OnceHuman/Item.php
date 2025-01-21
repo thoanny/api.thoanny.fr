@@ -62,11 +62,18 @@ class Item
     #[ORM\ManyToMany(targetEntity: Scenario::class, cascade: ['persist'])]
     private Collection $scenario;
 
+    /**
+     * @var Collection<int, Memetic>
+     */
+    #[ORM\ManyToMany(targetEntity: Memetic::class, mappedBy: 'items')]
+    private Collection $memetics;
+
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
         $this->recipeIngredients = new ArrayCollection();
         $this->scenario = new ArrayCollection();
+        $this->memetics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,6 +233,33 @@ class Item
     public function removeScenario(Scenario $scenario): static
     {
         $this->scenario->removeElement($scenario);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Memetic>
+     */
+    public function getMemetics(): Collection
+    {
+        return $this->memetics;
+    }
+
+    public function addMemetic(Memetic $memetic): static
+    {
+        if (!$this->memetics->contains($memetic)) {
+            $this->memetics->add($memetic);
+            $memetic->addItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMemetic(Memetic $memetic): static
+    {
+        if ($this->memetics->removeElement($memetic)) {
+            $memetic->removeItem($this);
+        }
 
         return $this;
     }

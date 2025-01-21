@@ -60,8 +60,27 @@ class MenuBuilder extends AbstractController
             ]);
         ;
 
-        $menu['OnceHuman']->addChild('Objects', ['label' => 'Objets']);
+        $menu['OnceHuman']->addChild('Memetics', ['label' => 'Mimétiques']);
+        $menu['OnceHuman']['Memetics']
+            ->addChild('All', ['route' => 'app_admin_once_human_memetic_index', 'label' => 'Toutes les mimétiques'])
+            ->setExtra('routes', [
+                'app_admin_once_human_memetic_index',
+                'app_admin_once_human_memetic_new',
+                'app_admin_once_human_memetic_show',
+                'app_admin_once_human_memetic_edit'
+            ]);
+        ;
+        $menu['OnceHuman']['Memetics']
+            ->addChild('Categories', ['route' => 'app_admin_once_human_memetic_category_index', 'label' => 'Catégories'])
+            ->setExtra('routes', [
+                'app_admin_once_human_memetic_category_index',
+                'app_admin_once_human_memetic_category_new',
+                'app_admin_once_human_memetic_category_show',
+                'app_admin_once_human_memetic_category_edit'
+            ]);
+        ;
 
+        $menu['OnceHuman']->addChild('Objects', ['label' => 'Objets']);
         $menu['OnceHuman']['Objects']
             ->addChild('All', ['route' => 'app_admin_once_human_item_index', 'label' => 'Tous les objets'])
             ->setExtra('routes', [
@@ -71,7 +90,6 @@ class MenuBuilder extends AbstractController
                 'app_admin_once_human_item_edit'
             ]);
         ;
-
         $menu['OnceHuman']['Objects']
             ->addChild('Categories', ['route' => 'app_admin_once_human_item_category_index', 'label' => 'Catégories'])
             ->setExtra('routes', [
@@ -100,7 +118,27 @@ class MenuBuilder extends AbstractController
                 'app_admin_once_human_server_edit'
             ]);
         ;
-        $menu['OnceHuman']->addChild('Specializations', ['uri' => 'app_home', 'label' => 'Spécialisations']);
+
+        $menu['OnceHuman']->addChild('Specializations', ['label' => 'Spécialisations']);
+        $menu['OnceHuman']['Specializations']
+            ->addChild('All', ['route' => 'app_admin_once_human_specialization_index', 'label' => 'Toutes les spécialisations'])
+            ->setExtra('routes', [
+                'app_admin_once_human_specialization_index',
+                'app_admin_once_human_specialization_new',
+                'app_admin_once_human_specialization_show',
+                'app_admin_once_human_specialization_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']['Specializations']
+            ->addChild('Groups', ['route' => 'app_admin_once_human_specialization_group_index', 'label' => 'Groupes de spécialisations'])
+            ->setExtra('routes', [
+                'app_admin_once_human_specialization_group_index',
+                'app_admin_once_human_specialization_group_new',
+                'app_admin_once_human_specialization_group_show',
+                'app_admin_once_human_specialization_group_edit'
+            ]);
+        ;
 
         // Palia
 
