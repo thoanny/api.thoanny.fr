@@ -11,7 +11,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th colspan="2">Name</th>
                 <th>Category</th>
                 <th>Rarity</th>
                 <th>actions</th>
@@ -21,7 +21,14 @@
         {% for item in items %}
             <tr>
                 <td>{{ item.id }}</td>
-                <td class="fw-bold">{{ item.name }}</td>
+                <td>
+                    {% if item.icon %}
+                        <img src="{{ vich_uploader_asset(item) }}" alt="" width="32" height="32">
+                    {% endif %}
+                </td>
+                <td class="fw-bold">
+                    {{ item.name }}
+                </td>
                 <td>{{ item.category.name }}</td>
                 <td>{{ item.rarity }}</td>
                 <td>

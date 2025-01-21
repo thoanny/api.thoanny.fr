@@ -28,3 +28,7 @@ services:
         arguments: [ "@knp_menu.factory" ]
         tags:
             - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
+
+    App\EventListener\VichImageListener:
+        tags:
+            - { name: kernel.event_listener, event: vich_uploader.post_upload }

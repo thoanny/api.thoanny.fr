@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ItemType extends AbstractType
 {
@@ -38,6 +39,10 @@ class ItemType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'choice_label' => 'name',
+            ])
+            ->add('iconFile', VichImageType::class, [
+                'required' => false,
+                'download_label' => false,
             ])
         ;
     }

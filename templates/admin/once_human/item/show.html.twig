@@ -35,6 +35,14 @@
                 <th>Scenarios</th>
                 <td>{{ item.scenario|join(', ') }}</td>
             </tr>
+            <tr>
+                <th>Icon</th>
+                <td>
+                    {% if item.icon %}
+                        <img src="{{ vich_uploader_asset(item) }}" alt="">
+                    {% endif %}
+                </td>
+            </tr>
         </tbody>
     </table>
 
