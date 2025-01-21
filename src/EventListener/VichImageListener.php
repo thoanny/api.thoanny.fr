@@ -29,6 +29,16 @@ final class VichImageListener
                 $image->cover(80, 80);
                 $image->save($file->getPathname());
                 break;
+            case 'oh_specializations':
+                $image = $this->imageManager->read($file->getPathname());
+                $image->cover(64, 64);
+                $image->save($file->getPathname());
+                break;
+            case 'oh_memetics':
+                $image = $this->imageManager->read($file->getPathname());
+                $image->cover(48, 48);
+                $image->save($file->getPathname());
+                break;
 
         endswitch;
     }

@@ -7,10 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: MemeticRepository::class)]
 #[ORM\Table(name: 'oh_memetic')]
+#[Vich\Uploadable]
 class Memetic
 {
     #[ORM\Id]
@@ -48,10 +51,28 @@ class Memetic
     #[Groups(['memetic_index'])]
     private Collection $items;
 
+    #[ORM\ManyToOne(targetEntity: Memetic::class, inversedBy: 'children')]
+    #[ORM\JoinColumn(name: 'parent_id', nullable: true)]
+    private ?Memetic $parent = null;
+
+    #[ORM\OneToMany(targetEntity: Memetic::class, mappedBy: 'parent')]
+    #[Groups(['memetic_index'])]
+    private Collection $children;
+
+    #[Vich\UploadableField(mapping: 'oh_memetics', fileNameProperty: 'icon')]
+    private ?File $iconFile = null;
+
+    #[ORM\Column(length: 55, nullable: true)]
+    private ?string $icon = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function __construct()
     {
         $this->scenarios = new ArrayCollection();
         $this->items = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -141,5 +162,72 @@ class Memetic
         $this->items->removeElement($item);
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Memetic>
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+
+    public function addChild(Memetic $memetic): static
+    {
+        if (!$this->children->contains($memetic)) {
+            $this->children->add($memetic);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(Memetic $memetic): static
+    {
+        $this->children->removeElement($memetic);
+
+        return $this;
+    }
+
+    public function getParent(): ?Memetic
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?Memetic $memetic): static
+    {
+        $this->parent = $memetic;
+
+        return $this;
+    }
+
+    public function setIconFile(?File $iconFile = null): void
+    {
+        $this->iconFile = $iconFile;
+
+        if (null !== $iconFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getIconFile(): ?File
+    {
+        return $this->iconFile;
+    }
+
+    public function setIcon(?string $icon): void
+    {
+        $this->icon = $icon;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    #[Groups(['memetic_index'])]
+    public function getIconUrl(): ?string
+    {
+        $root = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/images/once-human/memetics/';
+        return $this->icon ? $root.$this->icon : null;
     }
 }

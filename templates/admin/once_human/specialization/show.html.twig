@@ -27,6 +27,14 @@
                 <th>Levels</th>
                 <td>{{ specialization.levels ? specialization.levels|json_encode : '' }}</td>
             </tr>
+            <tr>
+                <th>Icon</th>
+                <td>
+                    {% if specialization.icon %}
+                        <img src="{{ vich_uploader_asset(specialization) }}" alt="">
+                    {% endif %}
+                </td>
+            </tr>
         </tbody>
     </table>
 

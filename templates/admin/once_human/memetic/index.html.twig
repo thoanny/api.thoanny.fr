@@ -11,8 +11,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
+                <th colspan="2">Name</th>
+                <th>Parent</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,8 +20,17 @@
         {% for memetic in memetics %}
             <tr>
                 <td>{{ memetic.id }}</td>
-                <td>{{ memetic.name }}</td>
-                <td>{{ memetic.description }}</td>
+                <td>
+                    {% if memetic.icon %}
+                        <img src="{{ vich_uploader_asset(memetic) }}" alt="" width="32" height="32">
+                    {% endif %}
+                </td>
+                <td class="fw-bold">{{ memetic.name }}</td>
+                <td>
+                    {% if memetic.parent %}
+                        {{ memetic.parent.name }}
+                    {% endif %}
+                </td>
                 <td>
                     <a href="{{ path('app_admin_once_human_memetic_show', {'id': memetic.id}) }}">show</a>
                     <a href="{{ path('app_admin_once_human_memetic_edit', {'id': memetic.id}) }}">edit</a>

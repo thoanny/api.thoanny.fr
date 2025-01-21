@@ -6,4 +6,11 @@ vich_uploader:
             uri_prefix: /images/once-human/items
             upload_destination: '%kernel.project_dir%/public/images/once-human/items'
             namer: Vich\UploaderBundle\Naming\Base64Namer
-    
+        oh_specializations:
+            uri_prefix: /images/once-human/specializations
+            upload_destination: '%kernel.project_dir%/public/images/once-human/specializations'
+            namer: Vich\UploaderBundle\Naming\Base64Namer
+        oh_memetics:
+            uri_prefix: /images/once-human/memetics
+            upload_destination: '%kernel.project_dir%/public/images/once-human/memetics'
+            namer: Vich\UploaderBundle\Naming\Base64Namer

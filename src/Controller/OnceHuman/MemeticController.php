@@ -20,7 +20,7 @@ class MemeticController extends AbstractController
     {
         return $this->json([
             'memetics' => $this->serializer->normalize(
-                $memeticRepository->findAll(),
+                $memeticRepository->findBy(['parent' => null]),
                 context: ['groups' => ['memetic_index']]
             )
         ]);

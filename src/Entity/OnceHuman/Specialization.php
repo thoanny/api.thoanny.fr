@@ -7,10 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: SpecializationRepository::class)]
 #[ORM\Table(name: 'oh_specialization')]
+#[Vich\Uploadable]
 class Specialization
 {
     #[ORM\Id]
@@ -42,6 +45,15 @@ class Specialization
     #[ORM\ManyToMany(targetEntity: Scenario::class)]
     #[Groups(['specialization_index'])]
     private Collection $scenarios;
+
+    #[Vich\UploadableField(mapping: 'oh_specializations', fileNameProperty: 'icon')]
+    private ?File $iconFile = null;
+
+    #[ORM\Column(length: 55, nullable: true)]
+    private ?string $icon = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {
@@ -123,5 +135,36 @@ class Specialization
         $this->scenarios->removeElement($scenario);
 
         return $this;
+    }
+
+    public function setIconFile(?File $iconFile = null): void
+    {
+        $this->iconFile = $iconFile;
+
+        if (null !== $iconFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getIconFile(): ?File
+    {
+        return $this->iconFile;
+    }
+
+    public function setIcon(?string $icon): void
+    {
+        $this->icon = $icon;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    #[Groups(['specialization_index'])]
+    public function getIconUrl(): ?string
+    {
+        $root = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/images/once-human/specializations/';
+        return $this->icon ? $root.$this->icon : null;
     }
 }

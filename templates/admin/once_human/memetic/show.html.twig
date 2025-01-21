@@ -19,6 +19,22 @@
                 <th>Description</th>
                 <td>{{ memetic.description }}</td>
             </tr>
+            <tr>
+                <th>Parent</th>
+                <td>
+                    {% if memetic.parent %}
+                        <a href="{{ path('app_admin_once_human_memetic_show', {'id': memetic.parent.id}) }}">{{ memetic.parent.name }}</a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Icon</th>
+                <td>
+                    {% if memetic.icon %}
+                        <img src="{{ vich_uploader_asset(memetic) }}" />
+                    {% endif %}
+                </td>
+            </tr>
         </tbody>
     </table>
 

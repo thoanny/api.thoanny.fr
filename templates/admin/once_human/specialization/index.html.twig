@@ -11,9 +11,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th colspan="2">Name</th>
                 <th>Type</th>
-                <th>Description</th>
                 <th>Levels</th>
                 <th>actions</th>
             </tr>
@@ -22,9 +21,13 @@
         {% for specialization in specializations %}
             <tr>
                 <td>{{ specialization.id }}</td>
+                <td>
+                    {% if specialization.icon %}
+                        <img src="{{ vich_uploader_asset(specialization) }}" alt="" width="32" height="32">
+                    {% endif %}
+                </td>
                 <td class="fw-bold">{{ specialization.name }}</td>
                 <td>{{ specialization.type }}</td>
-                <td>{{ specialization.description }}</td>
                 <td>{{ specialization.levels ? specialization.levels|json_encode : '' }}</td>
                 <td>
                     <a href="{{ path('app_admin_once_human_specialization_show', {'id': specialization.id}) }}">show</a>

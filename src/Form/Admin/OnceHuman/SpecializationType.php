@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class SpecializationType extends AbstractType
 {
@@ -46,6 +47,11 @@ class SpecializationType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
+            ])
+            ->add('iconFile', VichImageType::class, [
+                'required' => false,
+                'download_label' => false,
+                'help' => '64×64px'
             ])
         ;
     }
