@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Memetic index{% endblock %}
+
+{% block body %}
+    <h1>Memetic index</h1>
+
+    <a href="{{ path('app_admin_once_human_memetic_new') }}" class="btn btn-primary">Create new</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th colspan="2">Name</th>
+                <th>Parent</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for memetic in memetics %}
+            <tr>
+                <td>{{ memetic.id }}</td>
+                <td>
+                    {% if memetic.icon %}
+                        <img src="{{ vich_uploader_asset(memetic) }}" alt="" width="32" height="32">
+                    {% endif %}
+                </td>
+                <td class="fw-bold">{{ memetic.name }}</td>
+                <td>
+                    {% if memetic.parent %}
+                        {{ memetic.parent.name }}
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_admin_once_human_memetic_show', {'id': memetic.id}) }}">show</a>
+                    <a href="{{ path('app_admin_once_human_memetic_edit', {'id': memetic.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(memetics) }}
+{% endblock %}

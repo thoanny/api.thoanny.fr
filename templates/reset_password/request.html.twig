@@ -4,16 +4,16 @@
 
 {% block body %}
 
-    {{ form_start(requestForm, {attr: {class: 'rounded-box p-6 shadow-xl w-72 bg-base-100'}}) }}
-        <h1>Réinitialiser mon mot de passe</h1>
-        {% for flash_error in app.flashes('reset_password_error') %}
-            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-        {% endfor %}
-        {{ form_row(requestForm.email) }}
-        <div class="label-text-alt">
-            Saisissez l'adresse e-mail de votre compte, et nous vous enverons un lien pour réinitiliser votre mot de passe.
-        </div>
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
 
+    {{ form_start(requestForm) }}
+        <h1>Réinitialiser mon mot de passe</h1>
+        <p>
+            Saisissez l'adresse e-mail de votre compte, et nous vous enverons un lien pour réinitiliser votre mot de passe.
+        </p>
+        {{ form_row(requestForm.email) }}
         <button class="btn btn-primary">Recevoir l'e-mail</button>
     {{ form_end(requestForm) }}
 {% endblock %}

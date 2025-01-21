@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Memetic{% endblock %}
+
+{% block body %}
+    <h1>Create new Memetic</h1>
+
+    {{ include('admin/once_human/memetic/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_once_human_memetic_index') }}" class="btn btn-secondary">back to list</a>
+{% endblock %}

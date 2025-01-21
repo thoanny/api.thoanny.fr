@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipe{% endblock %}
+
+{% block body %}
+    <h1>Recipe</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ recipe.id }}</td>
+            </tr>
+            <tr>
+                <th>Recipe</th>
+                <td>{{ recipe.quantity }}&nbsp;&times; {{ recipe.item.name }}</td>
+            </tr>
+            <tr>
+                <th>Ingredients</th>
+                <td>
+                    <ul>
+                        {% for ingredient in recipe.ingredients %}
+                            <li>{{ ingredient.quantity }}&nbsp;&times; {{ ingredient.item.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Workshop</th>
+                <td>{{ recipe.workshop.name }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ recipe.duration }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_once_human_recipe_index') }}" class="btn btn-secondary">back to list</a>
+
+    <a href="{{ path('app_admin_once_human_recipe_edit', {'id': recipe.id}) }}" class="btn btn-primary">edit</a>
+
+    {{ include('admin/once_human/recipe/_delete_form.html.twig') }}
+{% endblock %}

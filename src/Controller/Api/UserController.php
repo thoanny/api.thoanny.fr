@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class UserController extends AbstractController
 {
-    #[Route('/api/user', name: 'app_api_user', methods: ['GET'])]
+    #[Route('/@me', name: 'app_api_user', methods: ['GET'])]
     #[IsGranted("ROLE_USER")]
     public function index(SerializerInterface $serializer): JsonResponse
     {

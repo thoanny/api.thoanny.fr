@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Specialization{% endblock %}
+
+{% block body %}
+    <h1>Edit Specialization</h1>
+
+    {{ include('admin/once_human/specialization/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_once_human_specialization_index') }}" class="btn btn-secondary">back to list</a>
+
+    {{ include('admin/once_human/specialization/_delete_form.html.twig') }}
+{% endblock %}

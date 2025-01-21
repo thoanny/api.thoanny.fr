@@ -19,10 +19,12 @@ class MenuBuilder extends AbstractController
         $isEnshrouded = $this->isGranted('ROLE_ENSHROUDED');
         $isOnceHuman = $this->isGranted('ROLE_ONCEHUMAN');
         $isPalia = $this->isGranted('ROLE_PALIA');
+        $isUser = $this->isGranted('ROLE_USER');
 
         $menu = $this->factory->createItem('root');
 
-        $menu->addChild('Home', ['route' => 'app_home', 'label' => 'Accueil'])->setExtra('icon', 'xxx');
+        $menu->addChild('Login', ['label' => 'Connexion', 'route' => 'app_login'])->setDisplay(!$isUser);
+        $menu->addChild('Register', ['label' => 'Inscription', 'route' => 'app_register'])->setDisplay(!$isUser);
 
         // Enshrouded
 
@@ -48,7 +50,95 @@ class MenuBuilder extends AbstractController
 
         $menu->addChild('OnceHuman', ['label' => 'Once Human'])->setDisplay($isManager && $isOnceHuman);
 
-        $menu['OnceHuman']->addChild('Specializations', ['uri' => 'app_home', 'label' => 'Spécialisations']);
+        $menu['OnceHuman']
+            ->addChild('Recipes', ['route' => 'app_admin_once_human_recipe_index', 'label' => 'Formules'])
+            ->setExtra('routes', [
+                'app_admin_once_human_recipe_index',
+                'app_admin_once_human_recipe_new',
+                'app_admin_once_human_recipe_show',
+                'app_admin_once_human_recipe_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']->addChild('Memetics', ['label' => 'Mimétiques']);
+        $menu['OnceHuman']['Memetics']
+            ->addChild('All', ['route' => 'app_admin_once_human_memetic_index', 'label' => 'Toutes les mimétiques'])
+            ->setExtra('routes', [
+                'app_admin_once_human_memetic_index',
+                'app_admin_once_human_memetic_new',
+                'app_admin_once_human_memetic_show',
+                'app_admin_once_human_memetic_edit'
+            ]);
+        ;
+        $menu['OnceHuman']['Memetics']
+            ->addChild('Categories', ['route' => 'app_admin_once_human_memetic_category_index', 'label' => 'Catégories'])
+            ->setExtra('routes', [
+                'app_admin_once_human_memetic_category_index',
+                'app_admin_once_human_memetic_category_new',
+                'app_admin_once_human_memetic_category_show',
+                'app_admin_once_human_memetic_category_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']->addChild('Objects', ['label' => 'Objets']);
+        $menu['OnceHuman']['Objects']
+            ->addChild('All', ['route' => 'app_admin_once_human_item_index', 'label' => 'Tous les objets'])
+            ->setExtra('routes', [
+                'app_admin_once_human_item_index',
+                'app_admin_once_human_item_new',
+                'app_admin_once_human_item_show',
+                'app_admin_once_human_item_edit'
+            ]);
+        ;
+        $menu['OnceHuman']['Objects']
+            ->addChild('Categories', ['route' => 'app_admin_once_human_item_category_index', 'label' => 'Catégories'])
+            ->setExtra('routes', [
+                'app_admin_once_human_item_category_index',
+                'app_admin_once_human_item_category_new',
+                'app_admin_once_human_item_category_show',
+                'app_admin_once_human_item_category_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']
+            ->addChild('Scenarios', ['route' => 'app_admin_once_human_scenario_index', 'label' => 'Scénarios'])
+            ->setExtra('routes', [
+                'app_admin_once_human_scenario_index',
+                'app_admin_once_human_scenario_new',
+                'app_admin_once_human_scenario_show',
+                'app_admin_once_human_scenario_edit'
+            ]);
+        ;
+        $menu['OnceHuman']
+            ->addChild('Servers', ['route' => 'app_admin_once_human_server_index', 'label' => 'Serveurs'])
+            ->setExtra('routes', [
+                'app_admin_once_human_server_index',
+                'app_admin_once_human_server_new',
+                'app_admin_once_human_server_show',
+                'app_admin_once_human_server_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']->addChild('Specializations', ['label' => 'Spécialisations']);
+        $menu['OnceHuman']['Specializations']
+            ->addChild('All', ['route' => 'app_admin_once_human_specialization_index', 'label' => 'Toutes les spécialisations'])
+            ->setExtra('routes', [
+                'app_admin_once_human_specialization_index',
+                'app_admin_once_human_specialization_new',
+                'app_admin_once_human_specialization_show',
+                'app_admin_once_human_specialization_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']['Specializations']
+            ->addChild('Groups', ['route' => 'app_admin_once_human_specialization_group_index', 'label' => 'Groupes de spécialisations'])
+            ->setExtra('routes', [
+                'app_admin_once_human_specialization_group_index',
+                'app_admin_once_human_specialization_group_new',
+                'app_admin_once_human_specialization_group_show',
+                'app_admin_once_human_specialization_group_edit'
+            ]);
+        ;
 
         // Palia
 
@@ -77,8 +167,6 @@ class MenuBuilder extends AbstractController
             ->addChild('Users', ['route' => 'app_admin_user_index', 'label' => 'Utilisateurs'])
             ->setExtra('routes', ['app_admin_user_index', 'app_admin_user_edit', 'app_admin_user_show'])
         ;
-
-        $menu->addChild('Logout', ['route' => 'app_logout', 'label' => 'Déconnexion']);
 
         return $menu;
     }

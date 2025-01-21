@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SpecializationGroup index{% endblock %}
+
+{% block body %}
+    <h1>SpecializationGroup index</h1>
+
+    <a href="{{ path('app_admin_once_human_specialization_group_new') }}" class="btn btn-primary">Create new</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for specialization_group in specialization_groups %}
+            <tr>
+                <td>{{ specialization_group.id }}</td>
+                <td>{{ specialization_group.name }}</td>
+                <td>
+                    <a href="{{ path('app_admin_once_human_specialization_group_show', {'id': specialization_group.id}) }}">show</a>
+                    <a href="{{ path('app_admin_once_human_specialization_group_edit', {'id': specialization_group.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(specialization_groups) }}
+
+{% endblock %}

@@ -82,7 +82,7 @@
     {%- endif %}
 {# displaying the item #}
     {% import _self as knp_menu %}
-    <li{{ knp_menu.attributes(attributes) }}>
+    <li{{ knp_menu.attributes(attributes) }} {{ item.hasChildren ? 'data-has-children' : '' }}>
         {%- if item.uri is not empty and (not matcher.isCurrent(item) or options.currentAsLink) %}
         {{ block('linkElement') }}
         {%- else %}

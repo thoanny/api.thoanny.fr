@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Admin;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
@@ -24,7 +24,7 @@ class UserType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
             ])
-            ->add('username')
+            ->add('nickname')
         ;
     }
 
