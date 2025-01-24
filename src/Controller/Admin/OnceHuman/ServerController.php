@@ -20,7 +20,7 @@ final class ServerController extends AbstractController
     public function index(ServerRepository $serverRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $servers = $paginator->paginate(
-            $serverRepository->findAll(),
+            $serverRepository->findBy([], ['name' => 'ASC']),
             $request->query->getInt('page', 1),
             50
         );

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ServerTag index{% endblock %}
+
+{% block body %}
+    <h1>ServerTag index</h1>
+
+    <a href="{{ path('app_admin_once_human_server_tag_new') }}" class="btn btn-primary">Create new</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th colspan="2">Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for server_tag in server_tags %}
+            <tr>
+                <td>{{ server_tag.id }}</td>
+                <td>
+                    {% if server_tag.icon %}
+                        <img src="{{ vich_uploader_asset(server_tag) }}" alt="" width="32" height="32">
+                    {% endif %}
+                </td>
+                <td class="fw-bold">{{ server_tag.name }}</td>
+                <td>{{ server_tag.description }}</td>
+                <td>
+                    <a href="{{ path('app_admin_once_human_server_tag_show', {'id': server_tag.id}) }}">show</a>
+                    <a href="{{ path('app_admin_once_human_server_tag_edit', {'id': server_tag.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(server_tags) }}
+{% endblock %}

@@ -20,7 +20,7 @@ class Scenario
     private ?int $id = null;
 
     #[ORM\Column(length: 55)]
-    #[Groups(['item_show_scenario', 'scenario_index', 'scenario_show', 'server_show_scenario', 'character_index', 'character_show', 'hive_index', 'hive_show', 'memetic_index', 'specialization_index'])]
+    #[Groups(['item_show_scenario', 'scenario_index', 'scenario_show', 'server_index', 'server_show_scenario', 'character_index', 'character_show', 'hive_index', 'hive_show', 'memetic_index', 'specialization_index'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]

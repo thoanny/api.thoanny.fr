@@ -3,6 +3,8 @@
 namespace App\Entity\OnceHuman;
 
 use App\Repository\OnceHuman\ServerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
@@ -22,11 +24,11 @@ class Server
     private ?Scenario $scenario = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['server_show', 'character_show', 'hive_index', 'hive_show'])]
+    #[Groups(['server_index', 'server_show', 'character_show', 'hive_index', 'hive_show'])]
     private ?string $difficulty = null;
 
-    #[ORM\Column]
-    #[Groups(['server_show'])]
+    #[ORM\Column(nullable: true)]
+    #[Groups(['server_index', 'server_show'])]
     private ?\DateTimeImmutable $startAt = null;
 
     #[ORM\Column]
@@ -36,6 +38,19 @@ class Server
     #[ORM\Column(length: 25)]
     #[Groups(['scenario_show_server', 'server_index', 'server_show', 'character_index', 'hive_index', 'hive_show'])]
     private ?string $name = null;
+
+    /**
+     * @var Collection<int, ServerTag>
+     */
+    #[ORM\JoinTable(name: 'oh_server_server_tag')]
+    #[ORM\ManyToMany(targetEntity: ServerTag::class)]
+    #[Groups(['server_index'])]
+    private Collection $tags;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -71,7 +86,7 @@ class Server
         return $this->startAt;
     }
 
-    public function setStartAt(\DateTimeImmutable $startAt): static
+    public function setStartAt(?\DateTimeImmutable $startAt): static
     {
         $this->startAt = $startAt;
 
@@ -98,6 +113,30 @@ class Server
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ServerTag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(ServerTag $tag): static
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(ServerTag $tag): static
+    {
+        $this->tags->removeElement($tag);
 
         return $this;
     }
