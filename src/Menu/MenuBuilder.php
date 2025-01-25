@@ -51,6 +51,16 @@ class MenuBuilder extends AbstractController
         $menu->addChild('OnceHuman', ['label' => 'Once Human'])->setDisplay($isManager && $isOnceHuman);
 
         $menu['OnceHuman']
+            ->addChild('Events', ['route' => 'app_admin_once_human_event_index', 'label' => 'Évènements'])
+            ->setExtra('routes', [
+                'app_admin_once_human_event_index',
+                'app_admin_once_human_event_new',
+                'app_admin_once_human_event_show',
+                'app_admin_once_human_event_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']
             ->addChild('Recipes', ['route' => 'app_admin_once_human_recipe_index', 'label' => 'Formules'])
             ->setExtra('routes', [
                 'app_admin_once_human_recipe_index',

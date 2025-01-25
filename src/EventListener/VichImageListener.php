@@ -40,6 +40,11 @@ final class VichImageListener
                 $image->cover(48, 48);
                 $image->save($file->getPathname());
                 break;
+            case 'oh_events':
+                $image = $this->imageManager->read($file->getPathname());
+                $image->scaleDown(512);
+                $image->save($file->getPathname());
+                break;
 
         endswitch;
     }
