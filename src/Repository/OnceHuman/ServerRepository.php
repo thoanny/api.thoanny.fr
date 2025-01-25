@@ -40,4 +40,16 @@ class ServerRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findAllForAPI()
+    {
+        $limit = (new \DateTime())->modify('-4 months');
+        return $this->createQueryBuilder('s')
+            ->orderBy('s.startAt', 'DESC')
+            ->where('s.startAt >= :limit')
+            ->orWhere('s.startAt IS NULL')
+            ->setParameter('limit', $limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

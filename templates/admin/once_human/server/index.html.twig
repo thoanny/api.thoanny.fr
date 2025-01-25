@@ -12,9 +12,11 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Scenario</th>
                 <th>Difficulty</th>
                 <th>StartAt</th>
                 <th>Closed</th>
+                <th>Tags</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,10 +24,12 @@
         {% for server in servers %}
             <tr>
                 <td>{{ server.id }}</td>
-                <td>{{ server.name }}</td>
+                <td class="fw-bold">{{ server.name }}</td>
+                <td>{{ server.scenario.name }}</td>
                 <td>{{ server.difficulty }}</td>
                 <td>{{ server.startAt ? server.startAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ server.closed ? 'Yes' : 'No' }}</td>
+                <td class="{{ server.closed ? 'text-danger' : 'text-success' }}">{{ server.closed ? 'Yes' : 'No' }}</td>
+                <td>{{ server.tags|length }}</td>
                 <td>
                     <a href="{{ path('app_admin_once_human_server_show', {'id': server.id}) }}">show</a>
                     <a href="{{ path('app_admin_once_human_server_edit', {'id': server.id}) }}">edit</a>

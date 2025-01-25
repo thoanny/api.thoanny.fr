@@ -51,6 +51,16 @@ class MenuBuilder extends AbstractController
         $menu->addChild('OnceHuman', ['label' => 'Once Human'])->setDisplay($isManager && $isOnceHuman);
 
         $menu['OnceHuman']
+            ->addChild('Events', ['route' => 'app_admin_once_human_event_index', 'label' => 'Évènements'])
+            ->setExtra('routes', [
+                'app_admin_once_human_event_index',
+                'app_admin_once_human_event_new',
+                'app_admin_once_human_event_show',
+                'app_admin_once_human_event_edit'
+            ]);
+        ;
+
+        $menu['OnceHuman']
             ->addChild('Recipes', ['route' => 'app_admin_once_human_recipe_index', 'label' => 'Formules'])
             ->setExtra('routes', [
                 'app_admin_once_human_recipe_index',
@@ -109,13 +119,24 @@ class MenuBuilder extends AbstractController
                 'app_admin_once_human_scenario_edit'
             ]);
         ;
-        $menu['OnceHuman']
-            ->addChild('Servers', ['route' => 'app_admin_once_human_server_index', 'label' => 'Serveurs'])
+
+        $menu['OnceHuman']->addChild('Servers', ['label' => 'Serveurs']);
+        $menu['OnceHuman']['Servers']
+            ->addChild('All', ['route' => 'app_admin_once_human_server_index', 'label' => 'Tous les serveurs'])
             ->setExtra('routes', [
                 'app_admin_once_human_server_index',
                 'app_admin_once_human_server_new',
                 'app_admin_once_human_server_show',
                 'app_admin_once_human_server_edit'
+            ]);
+        ;
+        $menu['OnceHuman']['Servers']
+            ->addChild('Tags', ['route' => 'app_admin_once_human_server_tag_index', 'label' => 'Mots-clés'])
+            ->setExtra('routes', [
+                'app_admin_once_human_server_tag_index',
+                'app_admin_once_human_server_tag_new',
+                'app_admin_once_human_server_tag_show',
+                'app_admin_once_human_server_tag_edit'
             ]);
         ;
 

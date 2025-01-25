@@ -4,6 +4,8 @@ namespace App\Form\Admin\OnceHuman;
 
 use App\Entity\OnceHuman\Scenario;
 use App\Entity\OnceHuman\Server;
+use App\Entity\OnceHuman\ServerTag;
+use App\Repository\OnceHuman\ServerTagRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -31,6 +33,16 @@ class ServerType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('closed')
+            ->add('tags', EntityType::class, [
+                'class' => ServerTag::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+                'query_builder' => function (ServerTagRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.name', 'ASC');
+                }
+            ])
         ;
     }
 

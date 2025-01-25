@@ -21,7 +21,7 @@ class ItemController extends AbstractController
     {
         return $this->json(
             [
-                'items' => $this->serializer->normalize($itemRepository->findAll(), context: ['groups' => ['item_index']]),
+                'items' => $this->serializer->normalize($itemRepository->findBy([], ['name' => 'ASC']), context: ['groups' => ['item_index']]),
             ]
         );
     }

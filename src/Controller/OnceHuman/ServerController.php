@@ -20,7 +20,7 @@ class ServerController extends AbstractController
     public function index(ServerRepository $serverRepository): JsonResponse
     {
         return $this->json([
-            'servers' => $this->serializer->normalize($serverRepository->findAll(), context: ['groups' => ['server_index']]),
+            'servers' => $this->serializer->normalize($serverRepository->findAllForAPI(), context: ['groups' => ['server_index']]),
         ]);
     }
 

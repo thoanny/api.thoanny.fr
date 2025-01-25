@@ -16,6 +16,10 @@
                 <td>{{ server.name }}</td>
             </tr>
             <tr>
+                <th>Scenario</th>
+                <td>{{ server.scenario.name }}</td>
+            </tr>
+            <tr>
                 <th>Difficulty</th>
                 <td>{{ server.difficulty }}</td>
             </tr>
@@ -26,6 +30,16 @@
             <tr>
                 <th>Closed</th>
                 <td>{{ server.closed ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>
+                    <ul>
+                        {% for tag in server.tags %}
+                            <li>{{ tag.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
             </tr>
         </tbody>
     </table>
