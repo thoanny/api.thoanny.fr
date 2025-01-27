@@ -20,7 +20,7 @@ class SpecializationController extends AbstractController
     {
         return $this->json([
             'specializations' => $this->serializer->normalize(
-                $specializationRepository->findAll(),
+                $specializationRepository->findBy([], ['name' => 'ASC']),
                 context: ['groups' => ['specialization_index']]
             )
         ]);
