@@ -20,7 +20,7 @@ final class ServerTagController extends AbstractController
     public function index(ServerTagRepository $serverTagRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $serverTags = $paginator->paginate(
-            $serverTagRepository->findAll(),
+            $serverTagRepository->findBy([], ['name' => 'ASC']),
             $request->query->getInt('page', 1),
             50
         );

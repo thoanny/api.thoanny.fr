@@ -7,7 +7,7 @@
 
     <a href="{{ path('app_admin_once_human_item_category_new') }}" class="btn btn-primary">Create new</a>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,7 +19,7 @@
         {% for item_category in item_categories %}
             <tr>
                 <td>{{ item_category.id }}</td>
-                <td>{{ item_category.name }}</td>
+                <td class="fw-bold">{{ item_category.name }}</td>
                 <td>
                     <a href="{{ path('app_admin_once_human_item_category_show', {'id': item_category.id}) }}">show</a>
                     <a href="{{ path('app_admin_once_human_item_category_edit', {'id': item_category.id}) }}">edit</a>

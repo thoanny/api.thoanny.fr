@@ -7,7 +7,7 @@
 
     <a href="{{ path('app_admin_once_human_server_new') }}" class="btn btn-primary">Create new</a>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -22,7 +22,7 @@
         </thead>
         <tbody>
         {% for server in servers %}
-            <tr>
+            <tr class="{{ server.closed ? 'table-danger' : '' }}">
                 <td>{{ server.id }}</td>
                 <td class="fw-bold">{{ server.name }}</td>
                 <td>{{ server.scenario.name }}</td>

@@ -7,7 +7,7 @@
 
     <a href="{{ path('app_admin_once_human_memetic_category_new') }}" class="btn btn-primary">Create new</a>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,7 +19,7 @@
         {% for memetic_category in memetic_categories %}
             <tr>
                 <td>{{ memetic_category.id }}</td>
-                <td>{{ memetic_category.name }}</td>
+                <td class="fw-bold">{{ memetic_category.name }}</td>
                 <td>
                     <a href="{{ path('app_admin_once_human_memetic_category_show', {'id': memetic_category.id}) }}">show</a>
                     <a href="{{ path('app_admin_once_human_memetic_category_edit', {'id': memetic_category.id}) }}">edit</a>

@@ -7,7 +7,7 @@
 
     <a href="{{ path('app_admin_once_human_specialization_group_new') }}" class="btn btn-primary">Create new</a>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
@@ -19,7 +19,7 @@
         {% for specialization_group in specialization_groups %}
             <tr>
                 <td>{{ specialization_group.id }}</td>
-                <td>{{ specialization_group.name }}</td>
+                <td class="fw-bold">{{ specialization_group.name }}</td>
                 <td>
                     <a href="{{ path('app_admin_once_human_specialization_group_show', {'id': specialization_group.id}) }}">show</a>
                     <a href="{{ path('app_admin_once_human_specialization_group_edit', {'id': specialization_group.id}) }}">edit</a>

@@ -20,7 +20,7 @@ final class ItemController extends AbstractController
     public function index(ItemRepository $itemRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $items = $paginator->paginate(
-            $itemRepository->findAll(),
+            $itemRepository->findBy([], ['name' => 'ASC']),
             $request->query->getInt('page', 1),
             50
         );

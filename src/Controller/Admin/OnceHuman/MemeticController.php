@@ -19,7 +19,7 @@ final class MemeticController extends AbstractController
     public function index(MemeticRepository $memeticRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $memetics = $paginator->paginate(
-            $memeticRepository->findAll(),
+            $memeticRepository->findBy([], ['name' => 'ASC']),
             $request->query->getInt('page', 1),
             50
         );

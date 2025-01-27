@@ -7,12 +7,11 @@
 
     <a href="{{ path('app_admin_once_human_scenario_new') }}" class="btn btn-primary">Create new</a>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Description</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,8 +19,7 @@
         {% for scenario in scenarios %}
             <tr>
                 <td>{{ scenario.id }}</td>
-                <td>{{ scenario.name }}</td>
-                <td>{{ scenario.description }}</td>
+                <td class="fw-bold">{{ scenario.name }}</td>
                 <td>
                     <a href="{{ path('app_admin_once_human_scenario_show', {'id': scenario.id}) }}">show</a>
                     <a href="{{ path('app_admin_once_human_scenario_edit', {'id': scenario.id}) }}">edit</a>

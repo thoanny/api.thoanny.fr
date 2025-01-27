@@ -7,12 +7,11 @@
 
     <a href="{{ path('app_admin_once_human_server_tag_new') }}" class="btn btn-primary">Create new</a>
 
-    <table class="table">
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th>Id</th>
                 <th colspan="2">Name</th>
-                <th>Description</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,7 +25,6 @@
                     {% endif %}
                 </td>
                 <td class="fw-bold">{{ server_tag.name }}</td>
-                <td>{{ server_tag.description }}</td>
                 <td>
                     <a href="{{ path('app_admin_once_human_server_tag_show', {'id': server_tag.id}) }}">show</a>
                     <a href="{{ path('app_admin_once_human_server_tag_edit', {'id': server_tag.id}) }}">edit</a>

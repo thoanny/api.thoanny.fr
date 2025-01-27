@@ -20,7 +20,7 @@ final class SpecializationController extends AbstractController
     public function index(SpecializationRepository $specializationRepository, PaginatorInterface $paginator, Request $request): Response
     {
         $specializations = $paginator->paginate(
-            $specializationRepository->findAll(),
+            $specializationRepository->findBy([], ['name' => 'ASC']),
             $request->query->getInt('page', 1),
             50
         );
