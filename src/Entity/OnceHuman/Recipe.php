@@ -19,7 +19,7 @@ class Recipe
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipe')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     #[Groups(['recipe_index', 'recipe_show'])]
     private ?Item $item = null;
 
@@ -28,6 +28,7 @@ class Recipe
     private ?int $quantity = null;
 
     #[ORM\ManyToOne]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     #[Groups(['item_show_recipe', 'recipe_index', 'recipe_show'])]
     private ?Item $workshop = null;
 

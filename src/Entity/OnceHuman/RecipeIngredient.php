@@ -17,11 +17,11 @@ class RecipeIngredient
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'ingredients')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Recipe $recipe = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipeIngredients')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     #[Groups(['item_show_recipe', 'recipe_show_ingredient'])]
     private ?Item $item = null;
 
