@@ -23,7 +23,7 @@ class RegistrationFormType extends AbstractType
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'row_attr' => ['class' => 'checkbox-input'],
-                'label' => 'Je suis d\'accord avec la politique de confidentialité.',
+                'label' => 'Je suis d\'accord avec la politique de confidentialité et les conditions générales d\'utilisation',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter la politique de confidentialité.',
