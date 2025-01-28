@@ -30,7 +30,7 @@ class MembershipType extends AbstractType
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nickname',
                 'required' => false
             ])
         ;

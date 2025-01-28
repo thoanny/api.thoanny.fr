@@ -61,6 +61,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Membership::class, mappedBy: 'user')]
     private Collection $memberships;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $patreonUid = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $twitchUid = null;
+
     public function __construct()
     {
         $this->memberships = new ArrayCollection();
@@ -222,5 +228,41 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    public function getPatreonUid(): ?int
+    {
+        return $this->patreonUid;
+    }
+
+    public function setPatreonUid(?int $patreonUid): static
+    {
+        $this->patreonUid = $patreonUid;
+
+        return $this;
+    }
+
+    public function getTwitchUid(): ?int
+    {
+        return $this->twitchUid;
+    }
+
+    public function setTwitchUid(?int $twitchUid): static
+    {
+        $this->twitchUid = $twitchUid;
+
+        return $this;
+    }
+
+    public function isMember(): bool
+    {
+        $isMember = false;
+        foreach($this->memberships as $membership) {
+            if ($membership->isActive()) {
+                $isMember = true;
+            }
+        }
+
+        return $isMember;
     }
 }

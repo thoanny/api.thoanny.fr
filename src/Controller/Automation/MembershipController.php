@@ -4,6 +4,7 @@ namespace App\Controller\Automation;
 
 use App\Entity\Membership;
 use App\Repository\MembershipRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,7 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 final class MembershipController extends AbstractController
 {
     #[Route('/automation/memberships/{type<twitch|patreon>}', name: 'app_automation_membership', methods: ['POST'])]
-    public function index(string $type, Request $request, MembershipRepository $membershipRepository, EntityManagerInterface $entityManager): JsonResponse
+    public function index(
+        string $type,
+        Request $request,
+        MembershipRepository $membershipRepository,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager
+    ): JsonResponse
     {
         $token = $request->query->get('token');
         if($this->getParameter('automation.token') !== $token) {
@@ -49,6 +56,12 @@ final class MembershipController extends AbstractController
                             ->setUid($member->user_id)
                             ->setUpdatedAt(new \DateTimeImmutable())
                         ;
+
+                        $userExists = $userRepository->findOneBy(['twitchUid' => $member->user_id]);
+                        if($userExists) {
+                            $membership->setUser($userExists);
+                        }
+
                         $entityManager->persist($membership);
                     } else {
                         $membershipExists
@@ -70,6 +83,12 @@ final class MembershipController extends AbstractController
                             ->setUid($member->relationships->user->data->id)
                             ->setUpdatedAt(new \DateTimeImmutable())
                         ;
+
+                        $userExists = $userRepository->findOneBy(['patreonUid' => $member->relationships->user->data->id]);
+                        if($userExists) {
+                            $membership->setUser($userExists);
+                        }
+
                         $entityManager->persist($membership);
                     } else {
                         $membershipExists

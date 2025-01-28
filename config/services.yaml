@@ -5,6 +5,10 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     automation.token: '%env(AUTOMATION_TOKEN)%'
+    patreon.client.id: '%env(PATREON_CLIENT_ID)%'
+    patreon.client.secret: '%env(PATREON_CLIENT_SECRET)%'
+    twitch.client.id: '%env(TWITCH_CLIENT_ID)%'
+    twitch.client.secret: '%env(TWITCH_CLIENT_SECRET)%'
 
 services:
     # default configuration for services in *this* file

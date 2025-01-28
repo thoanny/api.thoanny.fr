@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+    <div style="max-width: 30rem;">
+        <h1>User</h1>
+
+        <h2 class="my-4">Account</h2>
+
+        <div class="list-group">
+            <div class="list-group-item py-3">
+                <strong class="fw-semibold">Pseudonyme</strong>
+                <span class="d-block opacity-75">{{ app.user.nickname }}</span>
+            </div>
+            <div class="list-group-item py-3">
+                <strong class="fw-semibold">Adresse e-mail</strong>
+                <span class="d-block opacity-75">{{ app.user.email }}</span>
+            </div>
+            <div class="list-group-item py-3">
+                <strong class="fw-semibold">Création du compte</strong>
+                <span class="d-block opacity-75">{{ app.user.createdAt|format_datetime('long', 'short') }}</span>
+            </div>
+            <div class="list-group-item py-3">
+                <strong class="fw-semibold">Dernière connexion</strong>
+                <span class="d-block opacity-75">{{ app.user.lastLoginAt|format_datetime('long', 'short') }}</span>
+            </div>
+        </div>
+
+        <h2 class="my-4">Linked accounts</h2>
+
+        <div class="list-group">
+            <div class="list-group-item d-flex gap-3 py-3" aria-current="true">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-brand-patreon rounded-circle flex-shrink-0 bg-primary p-2 text-bg-primary" style="width: 2.5rem; height: 2.5rem;"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7.462 3.1c2.615 -1.268 6.226 -1.446 9.063 -.503c2.568 .853 4.471 3.175 4.475 5.81c.004 3.061 -1.942 5.492 -4.896 6.243c-1.693 .43 -2.338 .75 -2.942 1.582c-.238 .328 -.45 .745 -.796 1.533l-.22 .5c-1.146 2.601 -2.156 3.762 -4.236 3.735c-2.232 -.03 -3.603 -1.742 -4.313 -4.48c-.458 -1.768 -.617 -3.808 -.594 -5.876c.044 -3.993 1.42 -7.072 4.46 -8.545z" /></svg>
+                <div class="d-flex gap-2 w-100 justify-content-between">
+                    <div>
+                        <h6 class="mb-0">Lier votre compte Patreon</h6>
+                        <p class="mb-0 opacity-75">Profitez de vos avantages d'abonnement Patreon.</p>
+                        {% if app.user.patreonUid %}
+                            <a href="{{ path('app_user_patreon_unlink') }}" class="btn btn-sm btn-outline-danger">Délier mon compte Patreon</a>
+                        {% else %}
+                            <a class="btn btn-sm btn-primary" href="{{ patreon_link_url }}">Lier mon compte Patreon</a>
+                        {% endif %}
+                    </div>
+                    {#                <small class="opacity-50 text-nowrap">now</small>#}
+                </div>
+            </div>
+            <div class="list-group-item d-flex gap-3 py-3" aria-current="true">
+                <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-brand-twitch rounded-circle flex-shrink-0 bg-primary p-2 text-bg-primary" style="width: 2.5rem; height: 2.5rem;"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5v11a1 1 0 0 0 1 1h2v4l4 -4h5.584c.266 0 .52 -.105 .707 -.293l2.415 -2.414c.187 -.188 .293 -.442 .293 -.708v-8.585a1 1 0 0 0 -1 -1h-14a1 1 0 0 0 -1 1z" /><path d="M16 8l0 4" /><path d="M12 8l0 4" /></svg>
+                <div class="d-flex gap-2 w-100 justify-content-between">
+                    <div>
+                        <h6 class="mb-0">Lier votre compte Twitch</h6>
+                        <p class="mb-0 opacity-75">Profitez de vos avantages d'abonnement Twitch.</p>
+                        {% if app.user.twitchUid %}
+                            <a href="{{ path('app_user_twitch_unlink') }}" class="btn btn-sm btn-outline-danger">Délier mon compte Twitch</a>
+                        {% else %}
+                            <a class="btn btn-sm btn-primary" href="{{ twitch_link_url }}">Lier mon compte Twitch</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

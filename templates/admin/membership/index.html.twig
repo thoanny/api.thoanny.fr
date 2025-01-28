@@ -24,7 +24,15 @@
                 <td>{{ membership.id }}</td>
                 <td>{{ membership.network }}</td>
                 <td>{{ membership.active ? 'Yes' : 'No' }}</td>
-                <td class="fw-bold">{{ membership.name }}</td>
+                <td class="fw-bold">
+                    {% if membership.user %}
+                        <a href="{{ path('app_admin_user_show', {id: membership.user.id}) }}">
+                            {{ membership.name }}
+                        </a>
+                    {% else %}
+                        {{ membership.name }}
+                    {% endif %}
+                </td>
                 <td>{{ membership.updatedAt ? membership.updatedAt|format_datetime('medium', 'short') : '' }}</td>
                 <td>
                     <a href="{{ path('app_admin_membership_show', {'id': membership.id}) }}">show</a>
