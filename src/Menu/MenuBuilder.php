@@ -185,6 +185,16 @@ class MenuBuilder extends AbstractController
         $menu->addChild('Admin', ['label' => 'Administration'])->setDisplay($isAdmin);
 
         $menu['Admin']
+            ->addChild('Memberships', ['route' => 'app_admin_membership_index', 'label' => 'T-potes'])
+            ->setExtra('routes', [
+                'app_admin_membership_index',
+                'app_admin_membership_new',
+                'app_admin_membership_edit',
+                'app_admin_membership_show'
+            ])
+        ;
+
+        $menu['Admin']
             ->addChild('Users', ['route' => 'app_admin_user_index', 'label' => 'Utilisateurs'])
             ->setExtra('routes', ['app_admin_user_index', 'app_admin_user_edit', 'app_admin_user_show'])
         ;

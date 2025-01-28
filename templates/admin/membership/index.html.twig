@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Membership index{% endblock %}
+
+{% block body %}
+    <h1>Membership index</h1>
+
+    <a href="{{ path('app_admin_membership_new') }}" class="btn btn-primary">Create new</a>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Network</th>
+                <th>Active</th>
+                <th>Name</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for membership in memberships %}
+            <tr>
+                <td>{{ membership.id }}</td>
+                <td>{{ membership.network }}</td>
+                <td>{{ membership.active ? 'Yes' : 'No' }}</td>
+                <td class="fw-bold">{{ membership.name }}</td>
+                <td>{{ membership.updatedAt ? membership.updatedAt|format_datetime('medium', 'short') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_membership_show', {'id': membership.id}) }}">show</a>
+                    <a href="{{ path('app_admin_membership_edit', {'id': membership.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(memberships) }}
+
+{% endblock %}

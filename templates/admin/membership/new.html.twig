@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Membership{% endblock %}
+
+{% block body %}
+    <h1>Create new Membership</h1>
+
+    {{ include('admin/membership/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_membership_index') }}" class="btn btn-secondary">back to list</a>
+{% endblock %}

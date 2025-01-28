@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Membership{% endblock %}
+
+{% block body %}
+    <h1>Edit Membership</h1>
+
+    {{ include('admin/membership/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_membership_index') }}" class="btn btn-secondary">back to list</a>
+
+    {{ include('admin/membership/_delete_form.html.twig') }}
+{% endblock %}
