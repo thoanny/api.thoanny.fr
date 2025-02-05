@@ -254,6 +254,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    #[Groups(['api'])]
     public function isMember(): bool
     {
         $isMember = false;

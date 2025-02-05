@@ -11,4 +11,9 @@ class Api {
     {
         return $this->createResponse(403, $message);
     }
+
+    public function createNotFoundException(string $message = 'Not found'): JsonResponse
+    {
+        return $this->createResponse(404, $message);
+    }
 }

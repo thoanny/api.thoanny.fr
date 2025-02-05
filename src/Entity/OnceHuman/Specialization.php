@@ -19,7 +19,7 @@ class Specialization
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['specialization_index'])]
+    #[Groups(['specialization_index', 'user_character_specialization'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]

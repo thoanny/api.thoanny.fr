@@ -15,12 +15,12 @@ class Server
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['scenario_show_server', 'server_index', 'server_show', 'character_index', 'character_show', 'hive_index', 'hive_show'])]
+    #[Groups(['scenario_show_server', 'server_index', 'server_show', 'character_index', 'character_show', 'hive_index', 'hive_show', 'user_character_index'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'servers')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['server_index', 'character_index', 'character_show', 'hive_index', 'hive_show'])]
+    #[Groups(['server_index', 'character_index', 'character_show', 'hive_index', 'hive_show', 'user_character_index'])]
     private ?Scenario $scenario = null;
 
     #[ORM\Column(length: 10)]
@@ -32,11 +32,11 @@ class Server
     private ?\DateTimeImmutable $startAt = null;
 
     #[ORM\Column]
-    #[Groups(['scenario_show_server', 'server_index', 'server_show'])]
+    #[Groups(['scenario_show_server', 'server_index', 'server_show', 'user_character_index'])]
     private ?bool $closed = null;
 
     #[ORM\Column(length: 25)]
-    #[Groups(['scenario_show_server', 'server_index', 'server_show', 'character_index', 'hive_index', 'hive_show'])]
+    #[Groups(['scenario_show_server', 'server_index', 'server_show', 'character_index', 'hive_index', 'hive_show', 'user_character_index'])]
     private ?string $name = null;
 
     /**

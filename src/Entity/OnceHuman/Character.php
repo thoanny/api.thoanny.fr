@@ -4,6 +4,8 @@ namespace App\Entity\OnceHuman;
 
 use App\Entity\User;
 use App\Repository\OnceHuman\CharacterRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
@@ -14,29 +16,45 @@ class Character
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['character_index', 'character_show', 'hive_show'])]
+    #[Groups(['character_index', 'character_show', 'hive_show', 'user_character_index', 'user_character_specialization'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 55)]
-    #[Groups(['character_index', 'character_show', 'hive_index', 'hive_show'])]
+    #[Groups(['character_index', 'character_show', 'hive_index', 'hive_show', 'user_character_index', 'user_character_specialization'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 10)]
+    #[Groups(['user_character_index'])]
     private ?string $status = null;
 
     #[ORM\Column(length: 45, nullable: true)]
+    #[Groups(['user_character_index'])]
     private ?string $discordUid = null;
 
     #[ORM\Column(length: 45, nullable: true)]
+    #[Groups(['user_character_index'])]
     private ?string $ingameUid = null;
 
     #[ORM\ManyToOne]
-    #[Groups(['character_index', 'character_show', 'hive_index', 'hive_show'])]
+    #[Groups(['character_index', 'character_show', 'hive_index', 'hive_show', 'user_character_index'])]
     private ?Server $server = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    /**
+     * @var Collection<int, Specialization>
+     */
+    #[ORM\ManyToMany(targetEntity: Specialization::class)]
+    #[ORM\JoinTable(name: 'oh_character_specialization')]
+    #[Groups(['user_character_specialization'])]
+    private Collection $specializations;
+
+    public function __construct()
+    {
+        $this->specializations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,6 +129,30 @@ class Character
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Specialization>
+     */
+    public function getSpecializations(): Collection
+    {
+        return $this->specializations;
+    }
+
+    public function addSpecialization(Specialization $specialization): static
+    {
+        if (!$this->specializations->contains($specialization)) {
+            $this->specializations->add($specialization);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialization(Specialization $specialization): static
+    {
+        $this->specializations->removeElement($specialization);
 
         return $this;
     }
