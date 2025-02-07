@@ -4,6 +4,8 @@ namespace App\Repository\OnceHuman;
 
 use App\Entity\OnceHuman\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -40,4 +42,20 @@ class EventRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findCurrentEvents()
+    {
+        $start = date('Y-m-d', strtotime('last monday'));
+        $end = date('Y-m-d', strtotime('next week sunday'));
+
+        return $this->createQueryBuilder('e')
+            ->where('e.startAt < :start AND e.endAt > :start')
+            ->orWhere('e.startAt >= :start AND e.startAt <= :end')
+            ->setParameters(new ArrayCollection(array(
+                new Parameter('start', $start),
+                new Parameter('end', $end)
+            )))
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

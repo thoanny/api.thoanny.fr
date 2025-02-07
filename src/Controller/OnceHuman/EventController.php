@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/once-human/events')]
 final class EventController extends AbstractController
 {
-    public function __construct(private readonly SerializerInterface $serializer, private readonly Api $api)
+    public function __construct(private readonly SerializerInterface $serializer)
     {
     }
 
@@ -22,7 +22,7 @@ final class EventController extends AbstractController
     {
         return $this->json([
             'events' => $this->serializer->normalize(
-                $eventRepository->findBy([], ['startAt' => 'DESC'], 20),
+                $eventRepository->findCurrentEvents(),
                 context: ['groups' => ['event_index']],
             )
         ]);
