@@ -198,3 +198,8 @@ h1 + .btn {
 }
 
 @import "~bootstrap/scss/bootstrap";
+
+textarea {
+    field-sizing: content;
+    max-height: 30rem;
+}
