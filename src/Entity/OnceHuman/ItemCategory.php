@@ -17,7 +17,7 @@ class ItemCategory
     private ?int $id = null;
 
     #[ORM\Column(length: 55)]
-    #[Groups(['category_index', 'item_show'])]
+    #[Groups(['item_index', 'category_index', 'item_show'])]
     private ?string $name = null;
 
     public function getId(): ?int

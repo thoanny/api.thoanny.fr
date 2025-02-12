@@ -20,9 +20,7 @@ class ItemController extends AbstractController
     public function index(ItemRepository $itemRepository): JsonResponse
     {
         return $this->json(
-            [
-                'items' => $this->serializer->normalize($itemRepository->findBy([], ['name' => 'ASC']), context: ['groups' => ['item_index']]),
-            ]
+            $this->serializer->normalize($itemRepository->findBy([], ['name' => 'ASC']), context: ['groups' => ['item_index']]),
         );
     }
 
