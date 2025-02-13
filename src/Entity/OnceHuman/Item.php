@@ -300,7 +300,7 @@ class Item
         return $this->icon;
     }
 
-    #[Groups(['item_index', 'item_show'])]
+    #[Groups(['item_index', 'item_show', 'item_show_recipe', 'recipe_show', 'recipe_show_ingredient'])]
     public function getIconUrl(): ?string
     {
         $root = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/images/once-human/items/';

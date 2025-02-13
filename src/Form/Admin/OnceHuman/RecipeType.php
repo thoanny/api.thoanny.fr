@@ -15,7 +15,9 @@ class RecipeType extends AbstractType
         $builder
             ->add('quantity')
             ->add('item', ItemAutocompleteField::class)
-            ->add('workshop', ItemAutocompleteField::class)
+            ->add('workshop', ItemAutocompleteField::class, [
+                'required' => false,
+            ])
             ->add('duration')
             ->add('ingredients', CollectionType::class, [
                 'entry_type' => RecipeIngredientType::class,

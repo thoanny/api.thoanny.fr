@@ -22,7 +22,7 @@
             <tr>
                 <td>{{ recipe.id }}</td>
                 <td class="fw-bold">{{ recipe.quantity }}&nbsp;&times; {{ recipe.item.name }}</td>
-                <td>{{ recipe.workshop.name }}</td>
+                <td>{{ recipe.workshop ? recipe.workshop.name : '' }}</td>
                 <td>{{ recipe.duration }}</td>
                 <td>
                     <a href="{{ path('app_admin_once_human_recipe_show', {'id': recipe.id}) }}">show</a>
