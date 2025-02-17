@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Category{% endblock %}
+
+{% block body %}
+    <h1>Edit Category</h1>
+
+    {{ include('admin/press_review/category/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_press_review_category_index') }}" class="btn btn-secondary">back to list</a>
+
+    {{ include('admin/press_review/category/_delete_form.html.twig') }}
+{% endblock %}

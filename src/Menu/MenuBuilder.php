@@ -180,6 +180,50 @@ class MenuBuilder extends AbstractController
 
         $menu['Palia']->addChild('Recipes', ['uri' => 'app_home', 'label' => 'Recettes']);
 
+        // Revue de presse
+        $menu->addChild('PressReview', ['label' => 'Revue de presse'])->setDisplay($isAdmin);
+
+        $menu['PressReview']
+            ->addChild('Posts', ['label' => 'Articles', 'route' => 'app_admin_press_review_post_index'])
+            ->setExtra('routes', [
+                'app_admin_press_review_post_index',
+                'app_admin_press_review_post_new',
+                'app_admin_press_review_post_show',
+                'app_admin_press_review_post_edit',
+                'app_admin_press_review_post_delete'
+            ])
+        ;
+        $menu['PressReview']
+            ->addChild('Categories', ['label' => 'Catégories', 'route' => 'app_admin_press_review_category_index'])
+            ->setExtra('routes', [
+                'app_admin_press_review_category_index',
+                'app_admin_press_review_category_new',
+                'app_admin_press_review_category_show',
+                'app_admin_press_review_category_edit',
+                'app_admin_press_review_category_delete'
+            ])
+        ;
+        $menu['PressReview']
+            ->addChild('Issues', ['label' => 'Éditions', 'route' => 'app_admin_press_review_issue_index'])
+            ->setExtra('routes', [
+                'app_admin_press_review_issue_index',
+                'app_admin_press_review_issue_new',
+                'app_admin_press_review_issue_show',
+                'app_admin_press_review_issue_edit',
+                'app_admin_press_review_issue_delete'
+            ])
+        ;
+        $menu['PressReview']
+            ->addChild('Tags', ['label' => 'Mots-clés', 'route' => 'app_admin_press_review_tag_index'])
+            ->setExtra('routes', [
+                'app_admin_press_review_tag_index',
+                'app_admin_press_review_tag_new',
+                'app_admin_press_review_tag_show',
+                'app_admin_press_review_tag_edit',
+                'app_admin_press_review_tag_delete'
+            ])
+        ;
+
         // Administration
 
         $menu->addChild('Admin', ['label' => 'Administration'])->setDisplay($isAdmin);

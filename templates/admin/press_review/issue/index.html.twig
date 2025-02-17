@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Issue index{% endblock %}
+
+{% block body %}
+    <h1>Issue index</h1>
+
+    <a href="{{ path('app_admin_press_review_issue_new') }}" class="btn btn-primary">Create new</a>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Published_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for issue in issues %}
+            <tr>
+                <td>{{ issue.id }}</td>
+                <td>{{ issue.name }}</td>
+                <td>{{ issue.publishedAt ? issue.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_admin_press_review_issue_show', {'id': issue.id}) }}">show</a>
+                    <a href="{{ path('app_admin_press_review_issue_edit', {'id': issue.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

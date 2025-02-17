@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post{% endblock %}
+
+{% block body %}
+    <h1>Post</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ post.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ post.title }}</td>
+            </tr>
+            <tr>
+                <th>Source</th>
+                <td>
+                    <a href="{{ post.link }}" target="_blank">
+                        {{ post.source ?? 'N/A' }}
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th>Thumbnail</th>
+                <td>
+                    {% if post.thumbnail %}
+                        <img src="{{ post.thumbnail }}" alt="">
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Published_at</th>
+                <td>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ post.status }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ post.description }}</td>
+            </tr>
+            <tr>
+                <th>Lvl</th>
+                <td>{{ post.lvl }}</td>
+            </tr>
+            <tr>
+                <th>Uid</th>
+                <td>{{ post.uid }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_press_review_post_index') }}" class="btn btn-secondary">back to list</a>
+
+    <a href="{{ path('app_admin_press_review_post_edit', {'id': post.id}) }}" class="btn btn-primary">edit</a>
+
+    {{ include('admin/press_review/post/_delete_form.html.twig') }}
+{% endblock %}

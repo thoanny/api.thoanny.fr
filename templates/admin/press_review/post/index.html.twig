@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Post index{% endblock %}
+
+{% block body %}
+    <h1>Post index</h1>
+
+    <a href="{{ path('app_admin_press_review_post_new') }}" class="btn btn-primary">Create new</a>
+
+    <form method="get" action="{{ path('app_admin_press_review_post_index') }}">
+        <div class="row g-1 align-items-center">
+            <div class="col-auto">
+                <select name="status" class="form-select">
+                    {% for key, name in status %}
+                        <option value="{{ key }}" {% if key == currentStatus %}selected{% endif %}>{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-outline-primary mt-0">Filter</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Thumbnail</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>{{ post.id }}</td>
+                <td>
+                    <span class="fw-bold">{{ post.title }}</span><br />
+                    <a href="{{ post.link }}" target="_blank">{{ post.source ?? 'N/A' }}</a> - {{ post.publishedAt ? post.publishedAt|format_datetime('medium', 'short') : 'N/A' }}
+                </td>
+                <td>
+                    {% if post.thumbnail %}
+                        <a href="{{ post.thumbnail }}" target="_blank">Oui</a>
+                    {% else %}
+                        Non
+                    {% endif %}
+                </td>
+                <td>
+                    {% if currentStatus == 'todo' %}
+                        <div class="d-flex gap-1">
+                            <a href="{{ path('app_admin_press_review_post_accept', {id: post.id}) }}" class="btn btn-success btn-sm mt-0"><i class="bi bi-check"></i></a>
+                            <a href="{{ path('app_admin_press_review_post_reject', {id: post.id}) }}" class="btn btn-danger btn-sm mt-0"><i class="bi bi-x"></i></a>
+                        </div>
+                    {% else %}
+                        {{ post.status }}
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('app_admin_press_review_post_show', {'id': post.id}) }}">show</a>
+                    <a href="{{ path('app_admin_press_review_post_edit', {'id': post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(posts) }}
+
+{% endblock %}
