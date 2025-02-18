@@ -18,7 +18,7 @@
             </div>
             <div class="col-auto">
                 <select name="category" class="form-select">
-                    <option value="">-- Category --</option>
+                    <option value="0">-- Category --</option>
                     {% for category in categories %}
                         <option value="{{ category.id }}" {% if category.id == currentCategory %}selected{% endif %}>{{ category.name }}</option>
                     {% endfor %}
