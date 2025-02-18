@@ -48,14 +48,7 @@
                     {% endif %}
                 </td>
                 <td>
-                    {% if currentStatus == 'todo' %}
-                        <div class="d-flex gap-1">
-                            <a href="{{ path('app_admin_press_review_post_accept', {id: post.id}) }}" class="btn btn-success btn-sm mt-0"><i class="bi bi-check"></i></a>
-                            <a href="{{ path('app_admin_press_review_post_reject', {id: post.id}) }}" class="btn btn-danger btn-sm mt-0"><i class="bi bi-x"></i></a>
-                        </div>
-                    {% else %}
-                        {{ post.status }}
-                    {% endif %}
+                    {{ post.status }}
                 </td>
                 <td>
                     <a href="{{ path('app_admin_press_review_post_show', {'id': post.id}) }}">show</a>

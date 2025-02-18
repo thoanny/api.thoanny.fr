@@ -6,6 +6,7 @@ use App\Repository\PressReview\TagRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[ORM\Table(name: 'pr_tag')]
@@ -14,9 +15,11 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['tag_autocomplete_new'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['tag_autocomplete_new'])]
     private ?string $name = null;
 
     /**

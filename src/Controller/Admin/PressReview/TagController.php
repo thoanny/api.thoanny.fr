@@ -7,10 +7,12 @@ use App\Form\Admin\PressReview\TagType;
 use App\Repository\PressReview\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[IsGranted("ROLE_ADMIN")]
 #[Route('/admin/press-reviews/tags')]
@@ -79,5 +81,22 @@ final class TagController extends AbstractController
         }
 
         return $this->redirectToRoute('app_admin_press_review_tag_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/autocomplete/new', name: 'app_admin_press_review_tag_autocomplete_new', methods: ['POST'])]
+    public function autocompleteAdd(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): JsonResponse
+    {
+        $tag = (new Tag())
+            ->setName($request->request->getString('name'))
+        ;
+        $entityManager->persist($tag);
+        $entityManager->flush();
+
+        return $this->json(
+            $serializer->normalize(
+                $tag,
+                context: ['groups' => ['tag_autocomplete_new']],
+            )
+        );
     }
 }

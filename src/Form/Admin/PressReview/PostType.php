@@ -5,7 +5,6 @@ namespace App\Form\Admin\PressReview;
 use App\Entity\PressReview\Category;
 use App\Entity\PressReview\Issue;
 use App\Entity\PressReview\Post;
-use App\Entity\PressReview\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -44,12 +43,7 @@ class PostType extends AbstractType
                 'choice_label' => 'name',
                 'required' => false,
             ])
-            ->add('tags', EntityType::class, [
-                'class' => Tag::class,
-                'choice_label' => 'name',
-                'multiple' => true,
-                // TODO : trier par nom avec un QueryBuilder
-            ])
+            ->add('tags', TagAutocompleteField::class)
         ;
     }
 
