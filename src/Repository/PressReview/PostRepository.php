@@ -6,6 +6,7 @@ use App\Entity\PressReview\Issue;
 use App\Entity\PressReview\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -82,5 +83,30 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function getPostsBy(string|null $currentStatus, int $currentCategory): Query
+    {
+        $q = $this->createQueryBuilder('p')
+            ->orderBy('p.lvl', 'ASC')
+            ->orderBy('p.published_at', 'ASC')
+        ;
+
+        if($currentStatus && $currentStatus !== 'all') {
+            $q
+                ->andWhere('p.status = :status')
+                ->setParameter('status', $currentStatus)
+            ;
+        }
+
+        if($currentCategory) {
+            $q
+                ->leftJoin('p.category', 'c')
+                ->andWhere('c.id = :category')
+                ->setParameter('category', $currentCategory)
+            ;
+        }
+
+        return $q->getQuery();
     }
 }

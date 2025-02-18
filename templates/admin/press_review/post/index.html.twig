@@ -17,6 +17,14 @@
                 </select>
             </div>
             <div class="col-auto">
+                <select name="category" class="form-select">
+                    <option value="">-- Category --</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if category.id == currentCategory %}selected{% endif %}>{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-auto">
                 <button type="submit" class="btn btn-outline-primary mt-0">Filter</button>
             </div>
         </div>
@@ -27,7 +35,6 @@
             <tr>
                 <th>Id</th>
                 <th>Title</th>
-                <th>Thumbnail</th>
                 <th>Status</th>
                 <th>actions</th>
             </tr>
@@ -37,18 +44,20 @@
             <tr>
                 <td>{{ post.id }}</td>
                 <td>
-                    <span class="fw-bold">{{ post.title }}</span><br />
-                    <a href="{{ post.link }}" target="_blank">{{ post.source ?? 'N/A' }}</a> - {{ post.publishedAt ? post.publishedAt|format_datetime('medium', 'short') : 'N/A' }}
+                    <div class="d-flex align-items-center gap-2">
+                        {% if post.thumbnail %}
+                            <a href="{{ post.thumbnail }}" target="_blank" class="align-self-start">
+                                <img src="{{ post.thumbnail }}" class="object-fit-cover rounded border" style="height: 3rem; width: 3rem;" alt="">
+                            </a>
+                        {% endif %}
+                        <div>
+                            <a href="{{ post.link }}" target="_blank" class="fw-bold text-body">{{ post.title }}</a><br />
+                            {{ post.source ?? 'N/A' }} - {{ post.publishedAt ? post.publishedAt|format_datetime('medium', 'short') : 'N/A' }}
+                        </div>
+                    </div>
                 </td>
                 <td>
-                    {% if post.thumbnail %}
-                        <a href="{{ post.thumbnail }}" target="_blank">Oui</a>
-                    {% else %}
-                        Non
-                    {% endif %}
-                </td>
-                <td>
-                    {{ post.status }}
+                    <span class="badge rounded-pill badge-pr-post-{{ post.status }}">{{ status[post.status] }}</span>
                 </td>
                 <td>
                     <a href="{{ path('app_admin_press_review_post_show', {'id': post.id}) }}">show</a>

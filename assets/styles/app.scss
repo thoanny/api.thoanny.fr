@@ -203,3 +203,22 @@ textarea {
     field-sizing: content;
     max-height: 30rem;
 }
+
+
+.badge-pr-post {
+    &-todo {
+        background-color: RGBA(var(--bs-secondary-rgb), var(--bs-bg-opacity, 1));
+    }
+    &-rejected {
+        background-color: RGBA(var(--bs-danger-rgb), var(--bs-bg-opacity, 1));
+    }
+    &-accepted {
+        background-color: RGBA(var(--bs-success-rgb), var(--bs-bg-opacity, 1));
+    }
+    &-drafted {
+        background-color: RGBA(var(--bs-info-rgb), var(--bs-bg-opacity, 1));
+    }
+    &-reviewed {
+        background-color: RGBA(var(--bs-primary-rgb), var(--bs-bg-opacity, 1));
+    }
+}

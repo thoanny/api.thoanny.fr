@@ -4,6 +4,7 @@ namespace App\Controller\Admin\PressReview;
 
 use App\Entity\PressReview\Post;
 use App\Form\Admin\PressReview\PostType;
+use App\Repository\PressReview\CategoryRepository;
 use App\Repository\PressReview\PostRepository;
 use App\Service\Url;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,7 @@ final class PostController extends AbstractController
 {
 
     #[Route(name: 'app_admin_press_review_post_index', methods: ['GET'])]
-    public function index(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(PostRepository $postRepository, CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $status = [
             'todo' => 'À faire',
@@ -38,16 +39,22 @@ final class PostController extends AbstractController
             $currentStatus = $_status;
         }
 
+        $currentCategory = $request->query->getInt('category');
+
         $posts = $paginator->paginate(
-            $currentStatus === 'all' ? $postRepository->findBy([], ['id' => 'DESC']) : $postRepository->findBy(['status' => $currentStatus], ['id' => 'DESC']),
+            $postRepository->getPostsBy($currentStatus, $currentCategory),
             $request->query->get('page', 1),
             50
         );
+
+        $categories = $categoryRepository->findBy([], ['name' => 'ASC']);
 
         return $this->render('admin/press_review/post/index.html.twig', [
             'posts' => $posts,
             'status' => $status,
             'currentStatus' => $currentStatus,
+            'categories' => $categories,
+            'currentCategory' => $currentCategory
         ]);
     }
 

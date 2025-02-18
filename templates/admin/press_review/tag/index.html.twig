@@ -12,6 +12,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Posts</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
             <tr>
                 <td>{{ tag.id }}</td>
                 <td>{{ tag.name }}</td>
+                <td>{{ tag.posts|length }}</td>
                 <td>
                     <a href="{{ path('app_admin_press_review_tag_show', {'id': tag.id}) }}">show</a>
                     <a href="{{ path('app_admin_press_review_tag_edit', {'id': tag.id}) }}">edit</a>

@@ -13,21 +13,21 @@
             </tr>
             <tr>
                 <th>Title</th>
-                <td>{{ post.title }}</td>
+                <td>
+                    <a href="{{ post.link }}" target="_blank">
+                        {{ post.title }}
+                    </a>
+                </td>
             </tr>
             <tr>
                 <th>Source</th>
-                <td>
-                    <a href="{{ post.link }}" target="_blank">
-                        {{ post.source ?? 'N/A' }}
-                    </a>
-                </td>
+                <td>{{ post.source }}</td>
             </tr>
             <tr>
                 <th>Thumbnail</th>
                 <td>
                     {% if post.thumbnail %}
-                        <img src="{{ post.thumbnail }}" alt="">
+                        <img src="{{ post.thumbnail }}" class="w-100 h-auto" alt="">
                     {% endif %}
                 </td>
             </tr>
