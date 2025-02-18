@@ -45,7 +45,7 @@ final class PressReviewController extends AbstractController
         $categoryId = $request->request->get('category');
         $category = $categoryRepository->findOneBy(['id' => $categoryId]);
         if(!$category) {
-            return $this->json(['code' => 401, 'message' => 'Catégorie inconnue'], 400);
+            return $this->json(['code' => 400, 'message' => 'Catégorie inconnue'], 400);
         }
 
         $total = 0;
