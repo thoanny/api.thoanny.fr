@@ -16,6 +16,10 @@
                 <td>{{ issue.name }}</td>
             </tr>
             <tr>
+                <th>Category</th>
+                <td>{{ issue.category.name }}</td>
+            </tr>
+            <tr>
                 <th>Published_at</th>
                 <td>{{ issue.publishedAt ? issue.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>

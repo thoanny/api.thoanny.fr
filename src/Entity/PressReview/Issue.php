@@ -6,6 +6,7 @@ use App\Repository\PressReview\IssueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: IssueRepository::class)]
 #[ORM\Table(name: 'pr_issue')]
@@ -14,12 +15,15 @@ class Issue
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['category_show_issues', 'issue_show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['category_show_issues', 'issue_show'])]
     private ?string $name = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['category_show_issues', 'issue_show'])]
     private ?\DateTimeImmutable $published_at = null;
 
     /**
@@ -27,6 +31,11 @@ class Issue
      */
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'issue')]
     private Collection $posts;
+
+    #[ORM\ManyToOne(inversedBy: 'issues')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['issue_show'])]
+    private ?Category $category = null;
 
     public function __construct()
     {
@@ -88,6 +97,18 @@ class Issue
                 $post->setIssue(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

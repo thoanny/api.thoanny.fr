@@ -2,6 +2,7 @@
 
 namespace App\Repository\PressReview;
 
+use App\Entity\PressReview\Category;
 use App\Entity\PressReview\Issue;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,4 +41,15 @@ class IssueRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findPublishedByCategory(Category $category)
+    {
+        return $this->createQueryBuilder('i')
+            ->where('i.category = :category')
+            ->andWhere('i.published_at IS NOT NULL')
+            ->orderBy('i.published_at', 'DESC')
+            ->setParameter('category', $category)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

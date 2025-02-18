@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\Table(name: 'pr_post')]
@@ -15,27 +16,34 @@ class Post
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['issue_show_posts', 'automation_index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['issue_show_posts'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 55, nullable: true)]
+    #[Groups(['issue_show_posts'])]
     private ?string $source = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['issue_show_posts', 'automation_index'])]
     private ?string $link = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['issue_show_posts'])]
     private ?string $thumbnail = null;
 
     #[ORM\Column]
+    #[Groups(['issue_show_posts'])]
     private ?\DateTimeImmutable $published_at = null;
 
     #[ORM\Column(length: 45)]
     private ?string $status = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['issue_show_posts'])]
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
@@ -56,6 +64,7 @@ class Post
      */
     #[ORM\JoinTable(name: 'pr_post_tag')]
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
+    #[Groups(['issue_show_posts'])]
     private Collection $tags;
 
     public function __construct()

@@ -15,11 +15,11 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['tag_autocomplete_new'])]
+    #[Groups(['tag_autocomplete_new', 'issue_show_posts'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['tag_autocomplete_new'])]
+    #[Groups(['tag_autocomplete_new', 'issue_show_posts'])]
     private ?string $name = null;
 
     /**

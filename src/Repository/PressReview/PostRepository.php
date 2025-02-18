@@ -2,6 +2,7 @@
 
 namespace App\Repository\PressReview;
 
+use App\Entity\PressReview\Issue;
 use App\Entity\PressReview\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -52,6 +53,32 @@ class PostRepository extends ServiceEntityRepository
                 new Parameter('date',  (new \DateTime())->modify('-15 days')),
                 new Parameter('status', 'rejected')]
             ))
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findReviewedByIssue(Issue $issue)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.issue = :issue')
+            ->andWhere('p.status = :status')
+            ->orderBy('p.lvl', 'ASC')
+            ->addOrderBy('p.published_at', 'ASC')
+            ->setParameters(new ArrayCollection([
+                new Parameter('issue', $issue),
+                new Parameter('status', 'reviewed')
+            ]))
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAccepted()
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.status = :status')
+            ->setParameter('status', 'accepted')
             ->getQuery()
             ->getResult()
         ;

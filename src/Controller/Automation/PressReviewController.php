@@ -11,11 +11,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Uid\Uuid;
 
 #[Route('/automation/press-reviews')]
 final class PressReviewController extends AbstractController
 {
+    #[Route(name: 'app_automation_press_review_index', methods: ['GET'])]
+    public function index(PostRepository $postRepository, SerializerInterface $serializer): JsonResponse
+    {
+        return $this->json(
+            $serializer->normalize(
+                $postRepository->findAccepted(),
+                context: ['groups' => ['automation_index']],
+            )
+        );
+    }
 
     #[Route(name: 'app_automation_press_review_new', methods: ['POST'])]
     public function new(
