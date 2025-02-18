@@ -18,8 +18,13 @@ use Symfony\Component\Uid\Uuid;
 final class PressReviewController extends AbstractController
 {
     #[Route(name: 'app_automation_press_review_index', methods: ['GET'])]
-    public function index(PostRepository $postRepository, SerializerInterface $serializer): JsonResponse
+    public function index(PostRepository $postRepository, SerializerInterface $serializer, Request $request): JsonResponse
     {
+        $token = $request->query->get('token');
+        if($this->getParameter('automation.token') !== $token) {
+            return $this->json(['code' => 401, 'message' => 'Unauthorized'], 401);
+        }
+
         return $this->json(
             $serializer->normalize(
                 $postRepository->findAccepted(),
@@ -77,6 +82,34 @@ final class PressReviewController extends AbstractController
         }
 
         return $this->json(['code' => 200, 'message' => sprintf('%d articles ajoutés', $total)]);
+    }
+
+    #[Route('/excerpt', name: 'app_automation_press_review_excerpt', methods: ['POST'])]
+    public function excerpt(PostRepository $postRepository, Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $token = $request->query->get('token');
+        if($this->getParameter('automation.token') !== $token) {
+            return $this->json(['code' => 401, 'message' => 'Unauthorized'], 401);
+        }
+
+        $total = 0;
+        $data = json_decode($request->request->get('data'));
+        if($data) {
+            foreach($data as $p) {
+                $post = $postRepository->findOneBy(['id' => $p->id, 'status' => 'accepted']);
+                if($post) {
+                    $post
+                        ->setDescription($p->description)
+                        ->setStatus('drafted')
+                    ;
+                    $total++;
+                }
+            }
+        }
+
+        $entityManager->flush();
+
+        return $this->json(['code' => 200, 'message' => sprintf('%d articles mis à jour', $total)]);
     }
 
     #[Route(name: 'app_automation_press_review_delete', methods: ['DELETE'])]
