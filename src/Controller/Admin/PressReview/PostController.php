@@ -5,6 +5,7 @@ namespace App\Controller\Admin\PressReview;
 use App\Entity\PressReview\Post;
 use App\Form\Admin\PressReview\PostType;
 use App\Repository\PressReview\PostRepository;
+use App\Service\Url;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,6 +19,7 @@ use Symfony\Component\Uid\Uuid;
 #[Route('/admin/press-reviews/posts')]
 final class PostController extends AbstractController
 {
+
     #[Route(name: 'app_admin_press_review_post_index', methods: ['GET'])]
     public function index(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -50,7 +52,7 @@ final class PostController extends AbstractController
     }
 
     #[Route('/new', name: 'app_admin_press_review_post_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Url $url): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -58,8 +60,11 @@ final class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $link = $url->getCleanUrl($form->get('link')->getData());
+
             $namespace = Uuid::fromString(Uuid::NAMESPACE_URL);
-            $post->setUid(Uuid::v3($namespace, $form->get('link')->getData())); // TODO : clean l'URL, retirer params
+            $post->setUid(Uuid::v3($namespace, $link));
+            $post->setLink($link);
 
             $entityManager->persist($post);
             $entityManager->flush();
@@ -82,12 +87,13 @@ final class PostController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_press_review_post_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, Url $url): Response
     {
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setLink($url->getCleanUrl($form->get('link')->getData()));
             $entityManager->flush();
 
             return $this->redirectToRoute('app_admin_press_review_post_index', [], Response::HTTP_SEE_OTHER);

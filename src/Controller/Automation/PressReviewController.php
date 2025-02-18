@@ -5,6 +5,7 @@ namespace App\Controller\Automation;
 use App\Entity\PressReview\Post;
 use App\Repository\PressReview\CategoryRepository;
 use App\Repository\PressReview\PostRepository;
+use App\Service\Url;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,6 +23,7 @@ final class PressReviewController extends AbstractController
         CategoryRepository $categoryRepository,
         Request $request,
         EntityManagerInterface $entityManager,
+        Url $url,
     ): JsonResponse
     {
         $token = $request->query->get('token');
@@ -41,13 +43,14 @@ final class PressReviewController extends AbstractController
             $namespace = Uuid::fromString(Uuid::NAMESPACE_URL);
 
             foreach($data as $p) {
-                $uid = Uuid::v3($namespace, $p->link);
+                $link = $url->getCleanUrl($p->link);
+                $uid = Uuid::v3($namespace, $link);
                 $exists = $postRepository->findOneBy(['uid' => $uid]);
                 if(!$exists) {
                     $post = (new Post())
                         ->setTitle($p->title)
                         ->setSource($p->source ?? null)
-                        ->setLink($p->link)
+                        ->setLink($link)
                         ->setThumbnail($p->thumbnail ?? null)
                         ->setPublishedAt(new \DateTimeImmutable($p->published_at))
                         ->setStatus('todo')
