@@ -6,6 +6,7 @@ use App\Entity\PressReview\Post;
 use App\Form\Admin\PressReview\PostType;
 use App\Repository\PressReview\CategoryRepository;
 use App\Repository\PressReview\PostRepository;
+use App\Repository\PressReview\TagRepository;
 use App\Service\Url;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -22,7 +23,12 @@ final class PostController extends AbstractController
 {
 
     #[Route(name: 'app_admin_press_review_post_index', methods: ['GET'])]
-    public function index(PostRepository $postRepository, CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(
+        PostRepository $postRepository,
+        CategoryRepository $categoryRepository,
+        Request $request,
+        PaginatorInterface $paginator
+    ): Response
     {
         $status = [
             'todo' => 'À faire',
@@ -40,9 +46,11 @@ final class PostController extends AbstractController
         }
 
         $currentCategory = $request->query->getInt('category');
+        $currentTag = $request->query->getInt('tag');
+        $currentIssue = $request->query->getInt('issue');
 
         $posts = $paginator->paginate(
-            $postRepository->getPostsBy($currentStatus, $currentCategory),
+            $postRepository->getPostsBy($currentStatus, $currentCategory, $currentTag, $currentIssue),
             $request->query->get('page', 1),
             50
         );

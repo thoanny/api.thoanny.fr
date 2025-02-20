@@ -1,4 +1,43 @@
 {{ form_start(form) }}
+    <div class="row">
+        <div class="col-9">
+            {{ form_row(form.title) }}
+            <div class="row mb-3">
+                {{ form_row(form.source, {row_attr: {class: 'col-5'}}) }}
+                {{ form_row(form.published_at, {row_attr: {class: 'col-5'}}) }}
+                {{ form_row(form.lvl, {row_attr: {class: 'col-2'}}) }}
+            </div>
+            <div class="row mb-3">
+                {{ form_row(form.link, {row_attr: {class: 'col-6'}}) }}
+                {{ form_row(form.thumbnail, {row_attr: {class: 'col-6'}}) }}
+            </div>
+            {{ form_row(form.description) }}
+            {{ form_row(form.category) }}
+            {{ form_row(form.tags) }}
+        </div>
+        <div class="col-3">
+            <div class="bg-body-secondary p-4 mb-3">
+                {{ form_row(form.status) }}
+                {{ form_row(form.issue) }}
+                <div class="d-grid">
+                    <button class="btn btn-primary mt-0">{{ button_label|default('Save') }}</button>
+                </div>
+            </div>
+
+            {% if post.link %}
+                <a href="{{ post.link }}" target="_blank" class="card w-100 text-decoration-none">
+                    {% if post.thumbnail %}
+                        <img src="{{ post.thumbnail }}" class="card-img-top object-fit-cover w-100 h-100" style="aspect-ratio: 16/6" alt="">
+                    {% endif %}
+                    {% if post.title %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                        </div>
+                    {% endif %}
+                </a>
+            {% endif %}
+        </div>
+    </div>
     {{ form_widget(form) }}
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

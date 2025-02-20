@@ -85,7 +85,7 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getPostsBy(string|null $currentStatus, int $currentCategory): Query
+    public function getPostsBy(string|null $currentStatus, int $currentCategory, int $currentTag, int $currentIssue): Query
     {
         $q = $this->createQueryBuilder('p')
             ->orderBy('p.lvl', 'ASC')
@@ -104,6 +104,22 @@ class PostRepository extends ServiceEntityRepository
                 ->leftJoin('p.category', 'c')
                 ->andWhere('c.id = :category')
                 ->setParameter('category', $currentCategory)
+            ;
+        }
+
+        if($currentTag) {
+            $q
+                ->leftJoin('p.tags', 't')
+                ->andWhere('t.id = :tag')
+                ->setParameter('tag', $currentTag)
+            ;
+        }
+
+        if($currentIssue) {
+            $q
+                ->leftJoin('p.issue', 'i')
+                ->andWhere('i.id = :issue')
+                ->setParameter('issue', $currentIssue)
             ;
         }
 

@@ -13,6 +13,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Category</th>
+                <th>Posts</th>
                 <th>Published_at</th>
                 <th>actions</th>
             </tr>
@@ -21,8 +22,9 @@
         {% for issue in issues %}
             <tr>
                 <td>{{ issue.id }}</td>
-                <td>{{ issue.name }}</td>
+                <td class="fw-bold">{{ issue.name }}</td>
                 <td>{{ issue.category.name }}</td>
+                <td><a href="{{ path('app_admin_press_review_post_index', {status: 'all', issue: issue.id}) }}">{{ issue.posts|length }}</a></td>
                 <td>{{ issue.publishedAt ? issue.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_admin_press_review_issue_show', {'id': issue.id}) }}">show</a>
