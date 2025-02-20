@@ -40,4 +40,12 @@ class HiveRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getCount()
+    {
+        return $this->createQueryBuilder('h')
+            ->select('COUNT(h) AS total')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

@@ -40,4 +40,12 @@ class CharacterRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getCount()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c) AS total')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

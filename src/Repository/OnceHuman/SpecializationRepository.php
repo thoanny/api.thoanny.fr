@@ -40,4 +40,12 @@ class SpecializationRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getCount()
+    {
+        return $this->createQueryBuilder('s')
+            ->select('COUNT(s) AS total')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

@@ -40,4 +40,12 @@ class RecipeRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getCount()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r) AS total')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

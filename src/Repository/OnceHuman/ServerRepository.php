@@ -52,4 +52,18 @@ class ServerRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function getCount()
+    {
+        $limit = (new \DateTime())->modify('-4 months');
+        return $this->createQueryBuilder('s')
+            ->select('COUNT(s) AS total')
+            ->where('s.startAt >= :limit')
+            ->andWhere('s.closed = :false')
+            ->setParameter('limit', $limit)
+            ->setParameter('false', false)
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 }

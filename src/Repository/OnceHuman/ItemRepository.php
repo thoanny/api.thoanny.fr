@@ -40,5 +40,13 @@ class ItemRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getCount()
+    {
+        return $this->createQueryBuilder('i')
+            ->select('COUNT(i) AS total')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
 
 }
