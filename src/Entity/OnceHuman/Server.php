@@ -6,6 +6,7 @@ use App\Repository\OnceHuman\ServerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Slug;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ServerRepository::class)]
@@ -35,9 +36,14 @@ class Server
     #[Groups(['scenario_show_server', 'server_index', 'server_show', 'user_character_index'])]
     private ?bool $closed = null;
 
-    #[ORM\Column(length: 25)]
+    #[ORM\Column(length: 25, unique: true)]
     #[Groups(['scenario_show_server', 'server_index', 'server_show', 'character_index', 'hive_index', 'hive_show', 'user_character_index'])]
     private ?string $name = null;
+
+    #[ORM\Column(length: 25, unique: true)]
+    #[Slug(fields: ['name'])]
+    #[Groups(['scenario_show_server', 'server_index', 'server_show', 'character_index', 'character_show', 'hive_index', 'hive_show', 'user_character_index'])]
+    private ?string $slug = null;
 
     /**
      * @var Collection<int, ServerTag>
@@ -139,5 +145,10 @@ class Server
         $this->tags->removeElement($tag);
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 }
