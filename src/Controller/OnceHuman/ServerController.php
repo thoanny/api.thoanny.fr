@@ -2,10 +2,10 @@
 
 namespace App\Controller\OnceHuman;
 
-use App\Entity\OnceHuman\Server;
 use App\Repository\OnceHuman\ServerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -24,9 +24,13 @@ class ServerController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_api_once_human_server_show', methods: ['GET'])]
-    public function show(Server $server): JsonResponse
+    #[Route('/{slug}', name: 'app_api_once_human_server_show', methods: ['GET'])]
+    public function show($slug, ServerRepository $serverRepository): JsonResponse
     {
+        $server = $serverRepository->findOneBy(['slug' => $slug]);
+        if(!$server) {
+            throw new NotFoundHttpException();
+        }
         return $this->json([
             'server' => $this->serializer->normalize($server, context: ['groups' => ['server_show']]),
             'scenario' => $this->serializer->normalize($server->getScenario(), context: ['groups' => ['server_show_scenario']]),
