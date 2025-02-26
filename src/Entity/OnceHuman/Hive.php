@@ -37,6 +37,10 @@ class Hive
     #[ORM\ManyToMany(targetEntity: Character::class)]
     private Collection $members;
 
+    #[ORM\Column(length: 25, unique: true)]
+    #[Groups(['hive_index', 'hive_show'])]
+    private ?string $token = null;
+
     public function __construct()
     {
         $this->members = new ArrayCollection();
@@ -111,5 +115,17 @@ class Hive
     public function getTotalMembers(): int
     {
         return count($this->members);
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): static
+    {
+        $this->token = $token;
+
+        return $this;
     }
 }

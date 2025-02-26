@@ -11,6 +11,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Component\Uid\Uuid;
 
 class CharacterFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -32,6 +33,7 @@ class CharacterFixtures extends Fixture implements DependentFixtureInterface
                 ->setStatus($this->faker->randomElement(['hidden', 'private', 'public']))
                 ->setUser($this->faker->randomElement($users))
                 ->setServer($this->faker->randomElement($servers))
+                ->setToken(Uuid::v7()->toBase58())
             ;
             $manager->persist($character);
         }

@@ -9,6 +9,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Faker\Generator;
+use Symfony\Component\Uid\Uuid;
 
 class HiveFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -29,6 +30,7 @@ class HiveFixtures extends Fixture implements DependentFixtureInterface
                 ->setLeader($this->faker->randomElement($characters))
                 ->setName($this->faker->words(2, true))
                 ->setStatus($this->faker->randomElement(['hidden', 'private', 'public']))
+                ->setToken(Uuid::v7()->toBase58())
             ;
 
             for($j = 0; $j < $this->faker->numberBetween(5, 10); $j++) {
