@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[Route('/once-human/user/characters')]
 #[IsGranted('ROLE_USER')]
@@ -63,6 +64,7 @@ final class CharacterController extends AbstractController
             ->setStatus( in_array($data->status, ['private', 'hidden', 'public']) ? $data->status : 'private' )
             ->setDiscordUid($data->discord ?? null)
             ->setIngameUid($data->ingame ?? null)
+            ->setToken(Uuid::v7()->toBase58())
         ;
 
         $entityManager->persist($character);

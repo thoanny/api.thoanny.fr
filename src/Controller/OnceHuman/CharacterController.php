@@ -2,11 +2,11 @@
 
 namespace App\Controller\OnceHuman;
 
-use App\Entity\OnceHuman\Character;
 use App\Repository\OnceHuman\CharacterRepository;
 use App\Service\Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -28,9 +28,13 @@ class CharacterController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_api_once_human_character_show', methods: ['GET'])]
-    public function show(Character $character): JsonResponse
+    #[Route('/{token}', name: 'app_api_once_human_character_show', methods: ['GET'])]
+    public function show($token, CharacterRepository $characterRepository): JsonResponse
     {
+        $character = $characterRepository->findOneBy(['token' => $token]);
+        if(!$character) {
+            return $this->api->createNotFoundException('Personnage introuvable');
+        }
         // TODO : Gérer les accès par droits
         if('public' !== $character->getStatus()) {
             return $this->api->createForbiddenException();

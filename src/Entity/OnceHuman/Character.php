@@ -43,6 +43,10 @@ class Character
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column(length: 25, unique: true)]
+    #[Groups(['character_index', 'user_character_index', 'character_show', 'hive_index', 'hive_show'])]
+    private ?string $token = null;
+
     /**
      * @var Collection<int, Specialization>
      */
@@ -153,6 +157,18 @@ class Character
     public function removeSpecialization(Specialization $specialization): static
     {
         $this->specializations->removeElement($specialization);
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): static
+    {
+        $this->token = $token;
 
         return $this;
     }
