@@ -10,13 +10,6 @@
     <form method="get" action="{{ path('app_admin_press_review_post_index') }}">
         <div class="row g-1 align-items-center">
             <div class="col-auto">
-                <select name="status" class="form-select">
-                    {% for key, name in status %}
-                        <option value="{{ key }}" {% if key == currentStatus %}selected{% endif %}>{{ name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-auto">
                 <select name="category" class="form-select">
                     <option value="0">-- Category --</option>
                     {% for category in categories %}
@@ -35,7 +28,7 @@
             <tr>
                 <th>Id</th>
                 <th>Title</th>
-                <th>Status</th>
+                <th>Category</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -57,7 +50,7 @@
                     </div>
                 </td>
                 <td>
-                    <span class="badge rounded-pill badge-pr-post-{{ post.status }}">{{ status[post.status] }}</span>
+                    {{ post.category.name }}
                 </td>
                 <td>
                     <a href="{{ path('app_admin_press_review_post_show', {'id': post.id}) }}">show</a>

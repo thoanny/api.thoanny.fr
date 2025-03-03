@@ -35,14 +35,8 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $published_at = null;
 
-    #[ORM\Column(length: 45)]
-    private ?string $status = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $lvl = null;
 
     #[ORM\Column(length: 40, unique: true)]
     private ?string $uid = null;
@@ -116,18 +110,6 @@ class Post
         return $this;
     }
 
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;
@@ -136,18 +118,6 @@ class Post
     public function setDescription(?string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getLvl(): ?int
-    {
-        return $this->lvl;
-    }
-
-    public function setLvl(?int $lvl): static
-    {
-        $this->lvl = $lvl;
 
         return $this;
     }

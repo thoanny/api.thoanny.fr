@@ -36,16 +36,12 @@
                 <td>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Status</th>
-                <td>{{ post.status }}</td>
+                <th>Category</th>
+                <td>{{ post.category.name }}</td>
             </tr>
             <tr>
                 <th>Description</th>
                 <td>{{ post.description }}</td>
-            </tr>
-            <tr>
-                <th>Lvl</th>
-                <td>{{ post.lvl }}</td>
             </tr>
             <tr>
                 <th>Uid</th>

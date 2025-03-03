@@ -29,25 +29,11 @@ final class PostController extends AbstractController
         PaginatorInterface $paginator
     ): Response
     {
-        $status = [
-            'todo' => 'À faire',
-            'rejected' => 'Rejeté',
-            'accepted' => 'Accepté',
-            'drafted' => 'Rédigé',
-            'reviewed' => 'Révisé',
-            'all' => 'Tous',
-        ];
-
-        $currentStatus = array_key_first($status);
-        $_status = $request->query->get('status');
-        if($_status !== null && in_array($_status, array_keys($status))) {
-            $currentStatus = $_status;
-        }
 
         $currentCategory = $request->query->getInt('category');
 
         $posts = $paginator->paginate(
-            $postRepository->getPostsBy($currentStatus, $currentCategory),
+            $postRepository->getPostsBy($currentCategory),
             $request->query->get('page', 1),
             50
         );
@@ -56,8 +42,6 @@ final class PostController extends AbstractController
 
         return $this->render('admin/press_review/post/index.html.twig', [
             'posts' => $posts,
-            'status' => $status,
-            'currentStatus' => $currentStatus,
             'categories' => $categories,
             'currentCategory' => $currentCategory
         ]);
@@ -115,22 +99,6 @@ final class PostController extends AbstractController
             'post' => $post,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}/accept', name: 'app_admin_press_review_post_accept', methods: ['GET'])]
-    public function accept(Post $post, EntityManagerInterface $entityManager): Response
-    {
-        $post->setStatus('accepted');
-        $entityManager->flush();
-        return $this->redirectToRoute('app_admin_press_review_post_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    #[Route('/{id}/reject', name: 'app_admin_press_review_post_reject', methods: ['GET'])]
-    public function reject(Post $post, EntityManagerInterface $entityManager): Response
-    {
-        $post->setStatus('rejected');
-        $entityManager->flush();
-        return $this->redirectToRoute('app_admin_press_review_post_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}', name: 'app_admin_press_review_post_delete', methods: ['POST'])]

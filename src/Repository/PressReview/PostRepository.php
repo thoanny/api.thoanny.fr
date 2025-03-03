@@ -44,43 +44,21 @@ class PostRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-    public function findRejected()
+    public function findRejected(): Query
     {
         return $this->createQueryBuilder('p')
             ->where('p.published_at <= :date')
-            ->andWhere('p.status = :status')
-            ->setParameters(new ArrayCollection([
-                new Parameter('date',  (new \DateTime())->modify('-15 days')),
-                new Parameter('status', 'rejected')]
-            ))
+            ->setParameter('date',  (new \DateTime())->modify('-2 months'))
             ->getQuery()
             ->getResult()
         ;
     }
 
-    public function findAccepted()
-    {
-        return $this->createQueryBuilder('p')
-            ->where('p.status = :status')
-            ->setParameter('status', 'accepted')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function getPostsBy(string|null $currentStatus, int $currentCategory): Query
+    public function getPostsBy(int $currentCategory): Query
     {
         $q = $this->createQueryBuilder('p')
-            ->orderBy('p.lvl', 'ASC')
-            ->orderBy('p.published_at', 'ASC')
+            ->orderBy('p.id', 'DESC')
         ;
-
-        if($currentStatus && $currentStatus !== 'all') {
-            $q
-                ->andWhere('p.status = :status')
-                ->setParameter('status', $currentStatus)
-            ;
-        }
 
         if($currentCategory) {
             $q

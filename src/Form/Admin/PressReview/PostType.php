@@ -22,17 +22,7 @@ class PostType extends AbstractType
             ->add('published_at', null, [
                 'widget' => 'single_text',
             ])
-            ->add('status', ChoiceType::class, [
-                'choices' => [
-                    'À faire' => 'todo',
-                    'Rejeté' => 'rejected',
-                    'Accepté' => 'accepted',
-                    'Rédigé' => 'drafted',
-                    'Révisé' => 'reviewed',
-                ]
-            ])
             ->add('description')
-            ->add('lvl')
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
