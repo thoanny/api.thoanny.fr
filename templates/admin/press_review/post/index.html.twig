@@ -27,7 +27,7 @@
             <div class="col-auto">
                 <button type="submit" class="btn btn-outline-primary mt-0">Filter</button>
             </div>
-            {% if app.request.query.get('issue') or app.request.query.get('tag') %}
+            {% if app.request.query.get('issue') %}
                 <div class="col-auto">
                     <a href="{{ path('app_admin_press_review_post_index') }}" class="btn btn-outline-danger mt-0">Reset</a>
                 </div>
@@ -59,9 +59,6 @@
                             {% if post.issue %}<span class="badge text-bg-secondary">{{ post.issue.name }}</span>{% endif %}
                             <a href="{{ post.link }}" target="_blank" class="fw-bold text-body">{{ post.title }}</a><br />
                             {{ post.source ?? 'N/A' }} - {{ post.publishedAt ? post.publishedAt|format_datetime('medium', 'short') : 'N/A' }}
-                            {% for tag in post.tags %}
-                                <span class="badge text-bg-light">{{ tag.name }}</span>
-                            {% endfor %}
                         </div>
                     </div>
                 </td>

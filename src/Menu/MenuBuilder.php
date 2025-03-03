@@ -213,16 +213,6 @@ class MenuBuilder extends AbstractController
                 'app_admin_press_review_issue_delete'
             ])
         ;
-        $menu['PressReview']
-            ->addChild('Tags', ['label' => 'Mots-clés', 'route' => 'app_admin_press_review_tag_index'])
-            ->setExtra('routes', [
-                'app_admin_press_review_tag_index',
-                'app_admin_press_review_tag_new',
-                'app_admin_press_review_tag_show',
-                'app_admin_press_review_tag_edit',
-                'app_admin_press_review_tag_delete'
-            ])
-        ;
 
         // Administration
 

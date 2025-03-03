@@ -59,19 +59,6 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'posts')]
     private ?Issue $issue = null;
 
-    /**
-     * @var Collection<int, Tag>
-     */
-    #[ORM\JoinTable(name: 'pr_post_tag')]
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
-    #[Groups(['issue_show_posts'])]
-    private Collection $tags;
-
-    public function __construct()
-    {
-        $this->tags = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -205,30 +192,6 @@ class Post
     public function setIssue(?Issue $issue): static
     {
         $this->issue = $issue;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Tag>
-     */
-    public function getTags(): Collection
-    {
-        return $this->tags;
-    }
-
-    public function addTag(Tag $tag): static
-    {
-        if (!$this->tags->contains($tag)) {
-            $this->tags->add($tag);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): static
-    {
-        $this->tags->removeElement($tag);
 
         return $this;
     }

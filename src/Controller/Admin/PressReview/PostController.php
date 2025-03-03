@@ -6,7 +6,6 @@ use App\Entity\PressReview\Post;
 use App\Form\Admin\PressReview\PostType;
 use App\Repository\PressReview\CategoryRepository;
 use App\Repository\PressReview\PostRepository;
-use App\Repository\PressReview\TagRepository;
 use App\Service\Url;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -46,11 +45,10 @@ final class PostController extends AbstractController
         }
 
         $currentCategory = $request->query->getInt('category');
-        $currentTag = $request->query->getInt('tag');
         $currentIssue = $request->query->getInt('issue');
 
         $posts = $paginator->paginate(
-            $postRepository->getPostsBy($currentStatus, $currentCategory, $currentTag, $currentIssue),
+            $postRepository->getPostsBy($currentStatus, $currentCategory, $currentIssue),
             $request->query->get('page', 1),
             50
         );

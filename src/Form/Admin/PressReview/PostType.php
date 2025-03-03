@@ -43,7 +43,6 @@ class PostType extends AbstractType
                 'choice_label' => 'name',
                 'required' => false,
             ])
-            ->add('tags', TagAutocompleteField::class)
         ;
     }
 
