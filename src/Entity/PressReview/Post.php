@@ -16,29 +16,34 @@ class Post
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['automation_index'])]
+    #[Groups(['automation_index', 'category_show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['category_show'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 55, nullable: true)]
+    #[Groups(['category_show'])]
     private ?string $source = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['automation_index'])]
+    #[Groups(['automation_index', 'category_show'])]
     private ?string $link = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['category_show'])]
     private ?string $thumbnail = null;
 
     #[ORM\Column]
+    #[Groups(['category_show'])]
     private ?\DateTimeImmutable $published_at = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
     #[ORM\Column(length: 40, unique: true)]
+    #[Groups(['category_show'])]
     private ?string $uid = null;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]

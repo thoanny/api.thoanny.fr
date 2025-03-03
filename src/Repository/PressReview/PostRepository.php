@@ -2,6 +2,7 @@
 
 namespace App\Repository\PressReview;
 
+use App\Entity\PressReview\Category;
 use App\Entity\PressReview\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -69,5 +70,16 @@ class PostRepository extends ServiceEntityRepository
         }
 
         return $q->getQuery();
+    }
+
+    public function findForRSSFeed(Category $category)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.category = :category')
+            ->setParameter('category', $category)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

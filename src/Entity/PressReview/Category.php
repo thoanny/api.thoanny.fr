@@ -26,6 +26,7 @@ class Category
      * @var Collection<int, Post>
      */
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'category', orphanRemoval: true)]
+    #[Groups(['category_show'])]
     private Collection $posts;
 
     public function __construct()
