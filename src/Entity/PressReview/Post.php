@@ -16,34 +16,29 @@ class Post
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['issue_show_posts', 'automation_index'])]
+    #[Groups(['automation_index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['issue_show_posts'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 55, nullable: true)]
-    #[Groups(['issue_show_posts'])]
     private ?string $source = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['issue_show_posts', 'automation_index'])]
+    #[Groups(['automation_index'])]
     private ?string $link = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['issue_show_posts'])]
     private ?string $thumbnail = null;
 
     #[ORM\Column]
-    #[Groups(['issue_show_posts'])]
     private ?\DateTimeImmutable $published_at = null;
 
     #[ORM\Column(length: 45)]
     private ?string $status = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['issue_show_posts'])]
     private ?string $description = null;
 
     #[ORM\Column(nullable: true)]
@@ -55,9 +50,6 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
-
-    #[ORM\ManyToOne(inversedBy: 'posts')]
-    private ?Issue $issue = null;
 
     public function getId(): ?int
     {
@@ -180,18 +172,6 @@ class Post
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    public function getIssue(): ?Issue
-    {
-        return $this->issue;
-    }
-
-    public function setIssue(?Issue $issue): static
-    {
-        $this->issue = $issue;
 
         return $this;
     }

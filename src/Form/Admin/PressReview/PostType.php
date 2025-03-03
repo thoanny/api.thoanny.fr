@@ -3,7 +3,6 @@
 namespace App\Form\Admin\PressReview;
 
 use App\Entity\PressReview\Category;
-use App\Entity\PressReview\Issue;
 use App\Entity\PressReview\Post;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -37,11 +36,6 @@ class PostType extends AbstractType
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-            ])
-            ->add('issue', EntityType::class, [
-                'class' => Issue::class,
-                'choice_label' => 'name',
-                'required' => false,
             ])
         ;
     }

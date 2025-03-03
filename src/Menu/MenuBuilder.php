@@ -203,16 +203,6 @@ class MenuBuilder extends AbstractController
                 'app_admin_press_review_category_delete'
             ])
         ;
-        $menu['PressReview']
-            ->addChild('Issues', ['label' => 'Éditions', 'route' => 'app_admin_press_review_issue_index'])
-            ->setExtra('routes', [
-                'app_admin_press_review_issue_index',
-                'app_admin_press_review_issue_new',
-                'app_admin_press_review_issue_show',
-                'app_admin_press_review_issue_edit',
-                'app_admin_press_review_issue_delete'
-            ])
-        ;
 
         // Administration
 

@@ -45,10 +45,9 @@ final class PostController extends AbstractController
         }
 
         $currentCategory = $request->query->getInt('category');
-        $currentIssue = $request->query->getInt('issue');
 
         $posts = $paginator->paginate(
-            $postRepository->getPostsBy($currentStatus, $currentCategory, $currentIssue),
+            $postRepository->getPostsBy($currentStatus, $currentCategory),
             $request->query->get('page', 1),
             50
         );
