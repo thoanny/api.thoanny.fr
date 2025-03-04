@@ -30,6 +30,13 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@editorjs/checklist": "^1.6.0",
+        "@editorjs/editorjs": "^2.30.8",
+        "@editorjs/embed": "^2.7.6",
+        "@editorjs/header": "^2.8.8",
+        "@editorjs/list": "^2.0.6",
+        "@editorjs/quote": "^2.7.6",
+        "@editorjs/table": "^2.4.3",
         "bootstrap-icons": "^1.11.3"
     }
 }

@@ -1,0 +1,7 @@
+{% block editor_js_row %}
+    <div>
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        <div id="editorjs" data-input-target="{{ form.vars.id }}"></div>
+    </div>
+{% endblock %}
