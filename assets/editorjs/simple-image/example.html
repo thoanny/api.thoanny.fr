@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="simple-image.css" rel="stylesheet"/>
+  <style>
+    /*.ce-block__content {*/
+    /*  border: 1px solid red;*/
+    /*  padding: .5rem;*/
+    /*}*/
+    /*.codex-editor__redactor {*/
+    /*  display: flex;*/
+    /*  flex-direction: column;*/
+    /*  gap: 1rem;*/
+    /*}*/
+  </style>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+  <script src="simple-image.js"></script>
+  <title>Simple Image Example</title>
+</head>
+<body>
+
+  <div id="editorjs"></div>
+
+  <button id="save-button" class="py-2 px-3 bg-blue-500 rounded cursor-pointer font-semibold text-white m-4">Save</button>
+  <pre id="output" class="border rounded p-4 m-4"></pre>
+
+  <script>
+    const editor = new EditorJS({
+      autofocus: true,
+      tools: {
+        image: {
+          class: SimpleImage,
+          inlineToolbar: true,
+          config: {
+            placeholder: 'Paste image URL'
+          }
+        },
+      },
+      data: {
+        "time": 1741157299404,
+        "blocks": [
+          {
+            "id": "NU8BRaml-C",
+            "type": "image",
+            "data": {
+              "url": "https://dummyimage.com/1280x720/fff/aaa",
+              "caption": "My <i>caption</i> <b>text</b>",
+              "withBorder": true,
+              "withBackground": true,
+              "stretched": true
+            }
+          },
+          {
+            "id": "ZPEQikOICd",
+            "type": "image",
+            "data": {
+              "url": "https://dummyimage.com/1280x720/fff/aaa",
+              "caption": "",
+              "withBorder": true,
+              "withBackground": false,
+              "stretched": false
+            }
+          }
+        ],
+        "version": "2.31.0-rc.7"
+      }
+    });
+
+    const saveButton = document.getElementById('save-button');
+    const output = document.getElementById('output');
+
+    saveButton.addEventListener('click', () => {
+      editor.save().then(savedData => {
+        output.innerHTML = JSON.stringify(savedData, null, 4);
+      });
+    });
+  </script>
+
+</body>
+</html>
