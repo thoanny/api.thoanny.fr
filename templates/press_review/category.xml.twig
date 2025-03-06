@@ -12,7 +12,7 @@
         <atom:link href="{{ url('app_api_press_review_category', {id: category.id, _format: 'xml'}) }}" rel="self" type="application/rss+xml" />
         <link>https://api.thoanny.fr</link>
         <description>Revue de presse d'articles disponibles sur Google Actualités, sur le thème "{{ category.name }}".</description>
-        <lastBuildDate>Fri, 28 Jun 2024 16:10:42 +0000</lastBuildDate>
+        <lastBuildDate>{{ 'now'|date('r') }}</lastBuildDate>
         <language>fr-FR</language>
         <sy:updatePeriod>daily</sy:updatePeriod>
         <sy:updateFrequency>1</sy:updateFrequency>
@@ -31,8 +31,11 @@
                 <dc:creator><![CDATA[{{ post.source }}]]></dc:creator>
                 <pubDate>{{ post.publishedAt|date('r') }}</pubDate>
                 <category><![CDATA[{{ category.name }}]]></category>
+                <description><![CDATA[Article publié sur {{ post.source }} le {{ post.publishedAt|format_datetime('long', 'short') }}.]]></description>
                 <guid isPermaLink="false">{{ post.uid }}</guid>
-                <enclosure url="{{ post.thumbnail }}" type="image/jpeg" />
+                {% if post.thumbnail %}
+                    <enclosure url="{{ post.thumbnail }}" type="image/jpeg" />
+                {% endif %}
             </item>
             {% endfor %}
     </channel>
