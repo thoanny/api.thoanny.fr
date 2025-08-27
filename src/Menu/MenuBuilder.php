@@ -28,6 +28,35 @@ class MenuBuilder extends AbstractController
 
         // Enshrouded
 
+        $menu->addChild('Blog')->setDisplay($isAdmin);
+        $menu['Blog']
+            ->addChild('Posts', ['route' => 'app_admin_blog_post_index', 'label' => 'Articles'])
+            ->setExtra('routes', [
+                'app_admin_blog_post_index',
+                'app_admin_blog_post_new',
+                'app_admin_blog_post_show',
+                'app_admin_blog_post_edit'
+            ]);
+        ;
+        $menu['Blog']
+            ->addChild('Categories', ['route' => 'app_admin_blog_category_index', 'label' => 'Catégories'])
+            ->setExtra('routes', [
+                'app_admin_blog_category_index',
+                'app_admin_blog_category_new',
+                'app_admin_blog_category_show',
+                'app_admin_blog_category_edit'
+            ]);
+        ;
+        $menu['Blog']
+            ->addChild('Tags', ['route' => 'app_admin_blog_tag_index', 'label' => 'Mots-clés'])
+            ->setExtra('routes', [
+                'app_admin_blog_tag_index',
+                'app_admin_blog_tag_new',
+                'app_admin_blog_tag_show',
+                'app_admin_blog_tag_edit'
+            ]);
+        ;
+
         $menu->addChild('Enshrouded')->setDisplay($isManager && $isEnshrouded);
 
         $menu['Enshrouded']->addChild('Map', ['label' => 'Carte interactive']);

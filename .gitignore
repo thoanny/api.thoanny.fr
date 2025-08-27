@@ -28,3 +28,6 @@ yarn-error.log
 
 *.mwb.bak
 /public/images/*
+
+/public/uploads/*
+!/public/uploads/.gitignore

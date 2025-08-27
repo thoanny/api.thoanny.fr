@@ -22,3 +22,7 @@ vich_uploader:
             uri_prefix: /images/once-human/events
             upload_destination: '%kernel.project_dir%/public/images/once-human/events'
             namer: Vich\UploaderBundle\Naming\Base64Namer
+        uploads:
+            uri_prefix: /uploads
+            upload_destination: '%kernel.project_dir%/public/uploads'
+            namer: Vich\UploaderBundle\Naming\Base64Namer

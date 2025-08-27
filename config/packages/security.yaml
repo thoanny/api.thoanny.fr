@@ -55,6 +55,7 @@ security:
     access_control:
         - { path: ^/(token), roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_MANAGER }
+#        - { path: ^/efconnect, role: ROLE_MANAGER }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
