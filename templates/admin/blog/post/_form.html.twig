@@ -1,4 +1,44 @@
 {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col-12 col-xl-9">
+            {{ form_row(form.title) }}
+            {{ form_row(form.excerpt) }}
+            {{ form_row(form.content) }}
+            <div class="card mb-3">
+                <div class="card-header">SEO</div>
+                <div class="card-body">
+                    {{ form_row(form.seoTitle) }}
+                    {{ form_row(form.seoDescription) }}
+                    {{ form_row(form.seoKeywords) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    {{ form_row(form.publishedAt) }}
+                    {{ form_row(form.status) }}
+                    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header">Taxonomies</div>
+                <div class="card-body">
+                    {{ form_row(form.categories) }}
+                    {{ form_row(form.tags) }}
+                </div>
+            </div>
+            <div class="card mb-3">
+                <div class="card-header">Illustration</div>
+                <div class="card-body">
+                    {{ form_row(form.imageCaption) }}
+                    {{ form_row(form.imageFile) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

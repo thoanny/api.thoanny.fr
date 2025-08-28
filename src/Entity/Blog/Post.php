@@ -88,6 +88,10 @@ class Post
     #[Groups(['post_show'])]
     private ?string $imageCaption = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['post_index'])]
+    private ?string $excerpt = null;
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
@@ -308,5 +312,17 @@ class Post
     {
         $root = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].'/uploads/';
         return $this->imageName ? $root.$this->imageName : null;
+    }
+
+    public function getExcerpt(): ?string
+    {
+        return $this->excerpt;
+    }
+
+    public function setExcerpt(?string $excerpt): static
+    {
+        $this->excerpt = $excerpt;
+
+        return $this;
     }
 }

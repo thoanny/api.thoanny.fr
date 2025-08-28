@@ -16,6 +16,10 @@
                 <td>{{ post.title }}</td>
             </tr>
             <tr>
+                <th>Excerpt</th>
+                <td>{{ post.excerpt }}</td>
+            </tr>
+            <tr>
                 <th>Content</th>
                 <td>{{ post.content ? post.content|json_encode : '' }}</td>
             </tr>
@@ -52,19 +56,39 @@
                 <td>{{ post.slug }}</td>
             </tr>
             <tr>
-                <th>ImageName</th>
-                <td>{{ post.imageName }}</td>
+                <th>Image</th>
+                <td>
+                    {% if post.imageName %}
+                        <img src="{{ vich_uploader_asset(post) }}" alt="">
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>ImageCaption</th>
                 <td>{{ post.imageCaption }}</td>
             </tr>
+            <tr>
+                <th>Categories</th>
+                <td>
+                    {% for category in post.categories %}
+                        {{ category.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td>
+                    {% for tag in post.tags %}
+                        {{ tag.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_blog_post_index') }}">back to list</a>
+    <a href="{{ path('app_admin_blog_post_index') }}" class="btn btn-secondary">Retourner à la liste</a>
 
-    <a href="{{ path('app_admin_blog_post_edit', {'id': post.id}) }}">edit</a>
+    <a href="{{ path('app_admin_blog_post_edit', {'id': post.id}) }}" class="btn btn-primary">Modifier</a>
 
     {{ include('admin/blog/post/_delete_form.html.twig') }}
 {% endblock %}

@@ -5,43 +5,73 @@
 {% block body %}
     <h1>Post index</h1>
 
+    <a href="{{ path('app_admin_blog_post_new') }}" class="btn btn-primary">Ajouter un article</a>
+
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>PublishedAt</th>
-                <th>Slug</th>
-                <th>ImageName</th>
-                <th>actions</th>
+                <th width="1">#</th>
+                <th>Article</th>
+                <th>Statut</th>
+                <th>Publication</th>
+                <th>Création</th>
+                <th width="1">&nbsp;</th>
             </tr>
         </thead>
         <tbody>
         {% for post in posts %}
             <tr>
                 <td>{{ post.id }}</td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.status }}</td>
-                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.publishedAt ? post.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.slug }}</td>
-                <td>{{ post.imageName }}</td>
                 <td>
-                    <a href="{{ path('app_admin_blog_post_show', {'id': post.id}) }}">show</a>
-                    <a href="{{ path('app_admin_blog_post_edit', {'id': post.id}) }}">edit</a>
+                    <div class="d-flex align-items-center gap-2">
+                        {% if post.imageName %}
+                        <a href="{{ vich_uploader_asset(post) }}" target="_blank" class="align-self-start">
+                            <img src="{{ vich_uploader_asset(post) }}" class="object-fit-cover rounded border" style="height: 3rem; width: 3rem;" alt="">
+                        </a>
+                        {% endif %}
+                        <div>
+                            <span class="fw-bold text-body">{{ post.title }}</span><br />
+                            <small class="fw-medium {{ post.excerpt ? 'text-success' : 'text-danger' }}">
+                                {{ post.excerpt ? '<i class="bi bi-check-circle-fill"></i>' : '<i class="bi bi-x-circle-fill"></i>' }} Extrait
+                            </small>
+                            <small class="fw-medium">SEO&nbsp;:</small>
+                            <small class="fw-medium {{ post.seoTitle ? 'text-success' : 'text-danger' }}">
+                                {{ post.seoTitle ? '<i class="bi bi-check-circle-fill"></i>' : '<i class="bi bi-x-circle-fill"></i>' }} Titre
+                            </small>
+                            <small class="fw-medium {{ post.seoDescription ? 'text-success' : 'text-danger' }}">
+                                {{ post.seoDescription ? '<i class="bi bi-check-circle-fill"></i>' : '<i class="bi bi-x-circle-fill"></i>' }} Description
+                            </small>
+                            <small class="fw-medium {{ post.seoKeywords ? 'text-success' : 'text-danger' }}">
+                                {{ post.seoKeywords ? '<i class="bi bi-check-circle-fill"></i>' : '<i class="bi bi-x-circle-fill"></i>' }} Mots-clés
+                            </small>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    {% if post.status == 'published' %}
+                        <span class="badge text-bg-success">Publié</span>
+                    {% else %}
+                        <span class="badge text-bg-warning">Brouillon</span>
+                    {% endif %}
+                </td>
+                <td>{{ post.publishedAt ? post.publishedAt|format_datetime('medium', 'short') : '' }}</td>
+                <td>{{ post.createdAt ? post.createdAt|format_datetime('medium', 'short') : '' }}</td>
+                <td>
+                    <div class="d-flex gap-1">
+                        <a href="{{ path('app_admin_blog_post_show', {'id': post.id}) }}" class="btn btn-primary mt-0"><i class="bi bi-eye"></i></a>
+                        <a href="{{ path('app_admin_blog_post_edit', {'id': post.id}) }}" class="btn btn-primary mt-0"><i class="bi bi-pencil-square"></i></a>
+                        <a href="https://thoanny.fr/{{ post.slug }}" class="btn btn-primary mt-0" target="_blank"><i class="bi bi-box-arrow-up-right"></i></a>
+                    </div>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="14">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_blog_post_new') }}">Create new</a>
+    {{ knp_pagination_render(posts) }}
+
 {% endblock %}
