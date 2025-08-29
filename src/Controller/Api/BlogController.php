@@ -5,7 +5,9 @@ namespace App\Controller\Api;
 use App\Entity\Blog\Category;
 use App\Entity\Blog\Post;
 use App\Entity\Blog\Tag;
+use App\Repository\Blog\CategoryRepository;
 use App\Repository\Blog\PostRepository;
+use App\Repository\Blog\TagRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -130,6 +132,47 @@ final class BlogController extends AbstractController
                 context: ['groups' => ['post_index']],
             ),
             'next' => $next
+        ]);
+    }
+
+    #[Route('/sitemap', name: 'app_api_blog_sitemap')]
+    public function index(
+        PostRepository $postRepository,
+        CategoryRepository $categoryRepository,
+        TagRepository $tagRepository
+    ): JsonResponse
+    {
+        $locs = [];
+
+        $posts = $postRepository->createQueryBuilder('p')
+            ->select('p.slug', 'p.publishedAt', 'p.updatedAt')
+            ->where('p.status = :status')
+            ->setParameter('status', 'published')
+            ->getQuery()
+            ->getResult();
+
+        $categories = $categoryRepository->createQueryBuilder('c')
+            ->select('c.slug')
+            ->innerJoin('c.posts', 'p')
+            ->where('p.status = :status')
+            ->groupBy('c')
+            ->setParameter('status', 'published')
+            ->getQuery()
+            ->getResult();
+
+        $tags = $tagRepository->createQueryBuilder('t')
+            ->select('t.slug')
+            ->innerJoin('t.posts', 'p')
+            ->where('p.status = :status')
+            ->groupBy('t')
+            ->setParameter('status', 'published')
+            ->getQuery()
+            ->getResult();
+
+        return $this->json([
+            'posts' => $posts,
+            'categories' => $categories,
+            'tags' => $tags
         ]);
     }
 }
