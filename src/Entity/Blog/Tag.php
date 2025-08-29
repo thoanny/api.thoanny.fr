@@ -16,16 +16,16 @@ class Tag
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['post_show'])]
+    #[Groups(['post_show', 'tag_show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['post_show'])]
+    #[Groups(['post_show', 'tag_show'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 100)]
     #[Slug(fields: ['name'])]
-    #[Groups(['post_show'])]
+    #[Groups(['post_show', 'tag_show'])]
     private ?string $slug = null;
 
     /**
