@@ -89,7 +89,7 @@ class Post
     private ?string $imageCaption = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['post_index'])]
+    #[Groups(['post_index', 'post_show'])]
     private ?string $excerpt = null;
 
     public function __construct()
