@@ -5,18 +5,17 @@
         "@hotwired/stimulus": "^3.0.0",
         "@popperjs/core": "^2.11.8",
         "@symfony/stimulus-bridge": "^3.2.0",
-        "@symfony/ux-autocomplete": "file:vendor/symfony/ux-autocomplete/assets",
         "@symfony/webpack-encore": "^5.0.0",
+        "@vue/compiler-sfc": "^3.5.38",
         "autoprefixer": "^10.4.20",
-        "bootstrap": "^5.3.3",
         "core-js": "^3.38.0",
-        "jquery": "^3.7.1",
         "postcss": "^8.4.49",
         "postcss-loader": "^8.1.1",
         "regenerator-runtime": "^0.13.9",
         "sass": "^1.83.1",
         "sass-loader": "^16.0.4",
-        "tom-select": "^2.2.2",
+        "vue": "^3.5.38",
+        "vue-loader": "^17.4.2",
         "webpack": "^5.74.0",
         "webpack-cli": "^5.1.0",
         "webpack-notifier": "^1.15.0"
@@ -43,7 +42,6 @@
         "@editorjs/raw": "^2.5.1",
         "@editorjs/table": "^2.4.3",
         "@editorjs/warning": "^1.4.1",
-        "bootstrap-icons": "^1.11.3",
         "editorjs-anchor": "^1.1.3"
     }
 }

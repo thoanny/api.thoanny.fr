@@ -266,4 +266,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $isMember;
     }
+
+    public function __toString(): string
+    {
+        return $this->nickname;
+    }
 }
