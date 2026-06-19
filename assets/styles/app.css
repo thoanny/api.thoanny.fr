@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@source not "../../public";
+@source inline("alert-{soft,info,success,warning,error}");
+
+:root {
+    --primary-color: #93C045;
+    --depth: 0;
+}
