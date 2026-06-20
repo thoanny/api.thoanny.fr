@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repository\OnceHuman;
+namespace App\Repository\Enshrouded\Item;
 
-use App\Entity\OnceHuman\Character;
+use App\Entity\Enshrouded\Item\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Character>
+ * @extends ServiceEntityRepository<Category>
  */
-class CharacterRepository extends ServiceEntityRepository
+class CategoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Character::class);
+        parent::__construct($registry, Category::class);
     }
 
     //    /**
-    //     * @return Character[] Returns an array of Character objects
+    //     * @return Category[] Returns an array of Category objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class CharacterRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Character
+    //    public function findOneBySomeField($value): ?Category
     //    {
     //        return $this->createQueryBuilder('c')
     //            ->andWhere('c.exampleField = :val')
@@ -40,12 +40,4 @@ class CharacterRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-    public function getCount()
-    {
-        return $this->createQueryBuilder('c')
-            ->select('COUNT(c) AS total')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
 }

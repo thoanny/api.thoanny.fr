@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repository\OnceHuman;
+namespace App\Repository\Enshrouded\Recipe;
 
-use App\Entity\OnceHuman\Item;
+use App\Entity\Enshrouded\Recipe\Ingredient;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Item>
+ * @extends ServiceEntityRepository<Ingredient>
  */
-class ItemRepository extends ServiceEntityRepository
+class IngredientRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Item::class);
+        parent::__construct($registry, Ingredient::class);
     }
 
     //    /**
-    //     * @return Item[] Returns an array of Item objects
+    //     * @return Ingredient[] Returns an array of Ingredient objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class ItemRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Item
+    //    public function findOneBySomeField($value): ?Ingredient
     //    {
     //        return $this->createQueryBuilder('i')
     //            ->andWhere('i.exampleField = :val')
@@ -40,13 +40,4 @@ class ItemRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-    public function getCount()
-    {
-        return $this->createQueryBuilder('i')
-            ->select('COUNT(i) AS total')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
-
 }

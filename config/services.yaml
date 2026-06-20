@@ -10,6 +10,9 @@ parameters:
     twitch.client.id: '%env(TWITCH_CLIENT_ID)%'
     twitch.client.secret: '%env(TWITCH_CLIENT_SECRET)%'
     uploads_directory: '%kernel.project_dir%/public/uploads'
+    uploads.enshrouded_item_icon_dir: '/uploads/api/enshrouded/items'
+    uploads.enshrouded_npc_icon_dir: '/uploads/api/enshrouded/npcs'
+    
 
 services:
     # default configuration for services in *this* file

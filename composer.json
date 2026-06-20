@@ -49,6 +49,7 @@
         "symfony/translation": "7.2.*",
         "symfony/twig-bundle": "7.2.*",
         "symfony/uid": "7.2.*",
+        "symfony/ux-autocomplete": "^2.36",
         "symfony/validator": "7.2.*",
         "symfony/web-link": "7.2.*",
         "symfony/webpack-encore-bundle": "^2.2",

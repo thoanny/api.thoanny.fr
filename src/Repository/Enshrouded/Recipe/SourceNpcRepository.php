@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repository\OnceHuman;
+namespace App\Repository\Enshrouded\Recipe;
 
-use App\Entity\OnceHuman\SpecializationGroup;
+use App\Entity\Enshrouded\Recipe\SourceNpc;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<SpecializationGroup>
+ * @extends ServiceEntityRepository<SourceNpc>
  */
-class SpecializationGroupRepository extends ServiceEntityRepository
+class SourceNpcRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, SpecializationGroup::class);
+        parent::__construct($registry, SourceNpc::class);
     }
 
     //    /**
-    //     * @return SpecializationGroup[] Returns an array of SpecializationGroup objects
+    //     * @return SourceNpc[] Returns an array of SourceNpc objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class SpecializationGroupRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?SpecializationGroup
+    //    public function findOneBySomeField($value): ?SourceNpc
     //    {
     //        return $this->createQueryBuilder('s')
     //            ->andWhere('s.exampleField = :val')

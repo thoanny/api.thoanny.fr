@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repository\OnceHuman;
+namespace App\Repository\Enshrouded\Recipe;
 
-use App\Entity\OnceHuman\Specialization;
+use App\Entity\Enshrouded\Recipe\SourceItem;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Specialization>
+ * @extends ServiceEntityRepository<SourceItem>
  */
-class SpecializationRepository extends ServiceEntityRepository
+class SourceItemRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Specialization::class);
+        parent::__construct($registry, SourceItem::class);
     }
 
     //    /**
-    //     * @return Specialization[] Returns an array of Specialization objects
+    //     * @return SourceItem[] Returns an array of SourceItem objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class SpecializationRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Specialization
+    //    public function findOneBySomeField($value): ?SourceItem
     //    {
     //        return $this->createQueryBuilder('s')
     //            ->andWhere('s.exampleField = :val')
@@ -40,12 +40,4 @@ class SpecializationRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-    public function getCount()
-    {
-        return $this->createQueryBuilder('s')
-            ->select('COUNT(s) AS total')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-    }
 }

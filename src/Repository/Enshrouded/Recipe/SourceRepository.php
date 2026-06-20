@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repository\OnceHuman;
+namespace App\Repository\Enshrouded\Recipe;
 
-use App\Entity\OnceHuman\Scenario;
+use App\Entity\Enshrouded\Recipe\Source;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Scenario>
+ * @extends ServiceEntityRepository<Source>
  */
-class ScenarioRepository extends ServiceEntityRepository
+class SourceRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Scenario::class);
+        parent::__construct($registry, Source::class);
     }
 
     //    /**
-    //     * @return Scenario[] Returns an array of Scenario objects
+    //     * @return Source[] Returns an array of Source objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class ScenarioRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Scenario
+    //    public function findOneBySomeField($value): ?Source
     //    {
     //        return $this->createQueryBuilder('s')
     //            ->andWhere('s.exampleField = :val')

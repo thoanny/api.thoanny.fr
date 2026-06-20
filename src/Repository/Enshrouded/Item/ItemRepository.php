@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repository\OnceHuman;
+namespace App\Repository\Enshrouded\Item;
 
-use App\Entity\OnceHuman\ItemCategory;
+use App\Entity\Enshrouded\Item\Item;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ItemCategory>
+ * @extends ServiceEntityRepository<Item>
  */
-class ItemCategoryRepository extends ServiceEntityRepository
+class ItemRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ItemCategory::class);
+        parent::__construct($registry, Item::class);
     }
 
     //    /**
-    //     * @return ItemCategory[] Returns an array of ItemCategory objects
+    //     * @return Item[] Returns an array of Item objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class ItemCategoryRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?ItemCategory
+    //    public function findOneBySomeField($value): ?Item
     //    {
     //        return $this->createQueryBuilder('i')
     //            ->andWhere('i.exampleField = :val')
@@ -40,4 +40,21 @@ class ItemCategoryRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getItemsCount()
+    {
+        return $this->createQueryBuilder('i')
+            ->select('COUNT(i)')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    public function getItemsId()
+    {
+        return $this->createQueryBuilder('i')
+            ->select('i.id')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

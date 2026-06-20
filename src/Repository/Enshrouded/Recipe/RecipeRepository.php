@@ -1,23 +1,23 @@
 <?php
 
-namespace App\Repository\OnceHuman;
+namespace App\Repository\Enshrouded\Recipe;
 
-use App\Entity\OnceHuman\RecipeIngredient;
+use App\Entity\Enshrouded\Recipe\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<RecipeIngredient>
+ * @extends ServiceEntityRepository<Recipe>
  */
-class RecipeIngredientRepository extends ServiceEntityRepository
+class RecipeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, RecipeIngredient::class);
+        parent::__construct($registry, Recipe::class);
     }
 
     //    /**
-    //     * @return RecipeIngredient[] Returns an array of RecipeIngredient objects
+    //     * @return Recipe[] Returns an array of Recipe objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class RecipeIngredientRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?RecipeIngredient
+    //    public function findOneBySomeField($value): ?Recipe
     //    {
     //        return $this->createQueryBuilder('r')
     //            ->andWhere('r.exampleField = :val')
@@ -40,4 +40,21 @@ class RecipeIngredientRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getRecipesCount()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r)')
+            ->getQuery()
+            ->getSingleScalarResult()
+        ;
+    }
+
+    public function getItemsId()
+    {
+        return $this->createQueryBuilder('r')
+            ->select('r.id')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
