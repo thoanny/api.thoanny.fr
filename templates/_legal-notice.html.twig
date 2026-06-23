@@ -6,10 +6,9 @@
 <p>Les sites web suivants sont édités par EI Anthony Destenay :</p>
 
 <ul>
-    <li><a href="https://api.thoanny.fr">api.thoanny.fr</a></li>
-    <li><a href="https://enshrouded.thoanny.fr">enshrouded.thoanny.fr</a></li>
-    <li><a href="https://once-human.thoanny.fr">once-human.thoanny.fr</a></li>
-    <li><a href="https://palia.thoanny.fr">palia.thoanny.fr</a></li>
+    {% for item in sites.list %}
+        <li><a href="{{ item.url }}" target="_blank" class="link">{{ item.domain }}</a></li>
+    {% endfor %}
 </ul>
 
 <p>
@@ -30,7 +29,7 @@
 <p>
     Vercel Inc.<br />
     340 S Lemon Ave #4133, Walnut<br />
-    CA 91789, États-Unis</p>
+    CA 91789, États-Unis
 </p>
 
 <h2>Politique de confidentialité</h2>

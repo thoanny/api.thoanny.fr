@@ -12,6 +12,27 @@ parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads'
     uploads.enshrouded_item_icon_dir: '/uploads/api/enshrouded/items'
     uploads.enshrouded_npc_icon_dir: '/uploads/api/enshrouded/npcs'
+    sites:
+        - name: 'API de Thoanny'
+          description: 'API et interface de gestion de données des différentes applications'
+          url: 'https://api.thoanny.fr'
+          domain: 'api.thoanny.fr'
+        - name: 'Dune: Awakening (fansite)'
+          description: 'Outils pour le landsraad : progression, Grandes Maisons et skins d''objets débloqués'
+          url: 'https://dune.thoanny.fr'
+          domain: 'dune.thoanny.fr'
+        - name: 'Enshrouded (fansite)'
+          description: 'Base de données d''objets, de recettes et liens utiles de Valdebraise'
+          url: 'https://enshrouded.vercel.app'
+          domain: 'enshrouded.vercel.app'
+        - name: 'Loftia (fansite)'
+          description: 'Outil pour suivre la progression des dons aux stations de recherches'
+          url: 'https://loftia.thoanny.fr'
+          domain: 'loftia.thoanny.fr'
+        - name: 'Générateur de planning'
+          description: 'Générateur de planning Twitch personnalisé et gratuit, à diffuser sur vos réseaux sociaux numériques'
+          url: 'https://planning.thoanny.fr'
+          domain: 'planning.thoanny.fr'
     
 
 services:

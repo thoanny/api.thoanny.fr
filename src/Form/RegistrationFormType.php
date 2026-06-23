@@ -5,8 +5,10 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -18,25 +20,55 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nickname')
-            ->add('email')
+            ->add('nickname', TextType::class, [
+                'label_attr' => [
+                    'class' => 'label'
+                ],
+                'attr' => [
+                    'class' => 'input'
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'label_attr' => [
+                    'class' => 'label'
+                ],
+                'attr' => [
+                    'class' => 'input'
+                ]
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'row_attr' => ['class' => 'checkbox-input'],
-                'label' => 'Je suis d\'accord avec la politique de confidentialité et les conditions générales d\'utilisation',
+                'label' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'Vous devez accepter la politique de confidentialité.',
                     ]),
                 ],
+                'attr' => [
+                    'class' => 'checkbox checkbox-sm'
+                ]
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Répéter le mot de passe'],
+                'first_options'  => [
+                    'label' => 'Mot de passe',
+                    'label_attr' => [
+                        'class' => 'label'
+                    ],
+                    'attr' => [
+                        'class' => 'input'
+                    ]],
+                'second_options' => [
+                    'label' => 'Répéter le mot de passe',
+                    'label_attr' => [
+                        'class' => 'label'
+                    ],
+                    'attr' => [
+                        'class' => 'input'
+                    ]],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Merci de saisir votre mot de passe.',

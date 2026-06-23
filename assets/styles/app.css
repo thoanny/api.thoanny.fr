@@ -7,3 +7,44 @@
     --primary-color: #93C045;
     --depth: 0;
 }
+
+.page.legal-notice {
+    @apply max-w-2xl mx-auto;
+
+    h1, h2, h3, h4, p, ul, ol {
+        @apply mb-4;
+    }
+
+    ul, ol {
+        @apply ml-5;
+    }
+
+    ul {
+        @apply list-disc;
+    }
+
+    ol {
+        @apply list-decimal;
+    }
+
+    h1, h2, h3, h4 {
+        @apply font-bold;
+        color: var(--primary-color);
+    }
+
+    h1 {
+        @apply text-3xl;
+    }
+
+    h2 {
+        @apply text-2xl;
+    }
+
+    h3 {
+        @apply text-xl;
+    }
+
+    h4 {
+        @apply text-lg;
+    }
+}

@@ -1,26 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription | {{ parent() }}{% endblock %}
 
 {% block body %}
 
     <div>
         {% for flash_error in app.flashes('verify_email_error') %}
-            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            <div class="alert alert-error mb-4" role="alert">{{ flash_error }}</div>
         {% endfor %}
 
-        {{ form_errors(registrationForm) }}
+        {{ form_start(registrationForm) }}
 
-        {{ form_start(registrationForm, {attr: {class: 'rounded-box p-6 shadow-xl w-72 bg-base-100'}}) }}
-        <h1>Inscription</h1>
-        {{ form_row(registrationForm.nickname, {label: 'Pseudonyme'}) }}
-        {{ form_row(registrationForm.email, {label: 'Adresse e-mail'}) }}
-        {{ form_row(registrationForm.plainPassword, { label: 'Mot de passe' }) }}
+        <fieldset class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 mx-auto">
+            <legend class="fieldset-legend">Inscription</legend>
 
-        {{ form_row(registrationForm.agreeTerms) }}
-        <p>Pour les consulter, <a href="{{ path('app_legal_notice') }}" target="_blank">cliquez ici</a> <small>(nouvelle fenêtre)</small>.</p>
+            {{ form_errors(registrationForm) }}
 
-        <button type="submit" class="btn btn-primary mt-3">S'inscrire</button>
+            {{ form_label(registrationForm.nickname, 'Pseudonyme') }}
+            {{ form_widget(registrationForm.nickname) }}
+
+            {{ form_label(registrationForm.email, 'Adresse e-mail') }}
+            {{ form_widget(registrationForm.email) }}
+
+            {{ form_label(registrationForm.plainPassword.first, 'Mot de passe') }}
+            {{ form_widget(registrationForm.plainPassword.first) }}
+
+            {{ form_label(registrationForm.plainPassword.second, 'Répéter le mot de passe') }}
+            {{ form_widget(registrationForm.plainPassword.second) }}
+
+            <label class="label">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                <span class="whitespace-normal">Je suis d'accord avec la politique de confidentialité et les conditions générales d'utilisation</span>
+            </label>
+
+            <p>Pour les consulter, <a href="{{ path('app_legal_notice') }}" target="_blank" class="link">cliquez ici ↗</a>.</p>
+
+            <button type="submit" class="btn btn-primary mt-3">S'inscrire</button>
+
+        </fieldset>
+
         {{ form_end(registrationForm) }}
     </div>
 
