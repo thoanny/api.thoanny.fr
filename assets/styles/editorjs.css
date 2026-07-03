@@ -1,3 +1,7 @@
 #editorjs {
     padding-left: 3.5rem;
 }
+
+#editorjs .icon-tabler path[stroke="none"] {
+    stroke: none !important;
+}

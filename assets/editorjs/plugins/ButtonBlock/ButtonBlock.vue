@@ -2,34 +2,41 @@
     <div class="button-block">
         <!-- Mode édition -->
         <div v-if="isEditing" class="button-block__edit">
-            <div class="button-block__field">
-                <label>Libellé</label>
+            <div>
+                <label class="form-control-label required">Libellé</label>
                 <input
                     v-model="localTitle"
                     type="text"
-                    placeholder="ex. Voir le projet"
+                    placeholder=""
                     @keydown.enter.prevent="commit"
+                    class="form-control"
                 />
             </div>
 
-            <div class="button-block__field">
-                <label>URL</label>
+            <div>
+                <label class="form-control-label required">URL</label>
                 <input
                     v-model="localUrl"
                     type="url"
                     placeholder="https://..."
                     @keydown.enter.prevent="commit"
+                    class="form-control"
                 />
             </div>
 
-            <label class="button-block__checkbox">
-                <input v-model="localNewTab" type="checkbox" />
+            <label>
+                <input
+                    v-model="localNewTab"
+                    type="checkbox"
+                    class="form-check-input"
+                />
                 Ouvrir dans une nouvelle fenêtre
             </label>
-
-            <button class="button-block__validate" @click.prevent="commit">
-                ✓ Valider
-            </button>
+            <div>
+                <button class="btn btn-primary" @click.prevent="commit">
+                    Valider
+                </button>
+            </div>
         </div>
 
         <!-- Mode aperçu -->
@@ -38,7 +45,7 @@
                 :href="localUrl"
                 :target="localNewTab ? '_blank' : '_self'"
                 :rel="localNewTab ? 'noopener noreferrer' : null"
-                class="button-block__cta"
+                class="btn btn-primary"
                 @click.prevent
             >
                 {{ localTitle }}
@@ -53,10 +60,10 @@
 
             <button
                 v-if="!readOnly"
-                class="button-block__edit-btn"
+                class="btn btn-secondary"
                 @click.prevent="isEditing = true"
             >
-                ✎ Modifier
+                Modifier
             </button>
         </div>
     </div>
@@ -94,57 +101,25 @@ function commit() {
 <style scoped>
 .button-block {
     font-family: inherit;
+    font-size: 0.875rem;
+}
+
+.button-block input {
+    font-size: var(--font-size-base, 14px);
+}
+
+.button-block a.btn {
+    text-decoration: none;
 }
 
 /* --- Édition --- */
 .button-block__edit {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    border: 1px solid #ddd;
-}
-.button-block__field {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-.button-block__field label {
-    font-size: 12px;
-    font-weight: 500;
-    color: #888;
-}
-.button-block__field input {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 7px 10px;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.15s;
-}
-.button-block__field input:focus {
-    border-color: #555;
-}
-.button-block__checkbox {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 13px;
-    cursor: pointer;
-    user-select: none;
-}
-.button-block__validate {
-    align-self: flex-start;
-    padding: 6px 14px;
-    border-radius: 6px;
-    border: none;
-    background: #1a73e8;
-    color: #fff;
-    font-size: 13px;
-    cursor: pointer;
-}
-.button-block__validate:hover {
-    background: #1558b0;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: var(--border-radius, 0.25rem);
+    box-shadow: inset 0 0 0 1px var(--form-fieldset-border-color, #eee);
 }
 
 /* --- Aperçu --- */
@@ -155,35 +130,12 @@ function commit() {
     flex-wrap: wrap;
     padding: 4px 0;
 }
-.button-block__cta {
-    display: inline-flex;
-    align-items: center;
-    padding: 9px 20px;
-    border-radius: 6px;
-    background: #1a73e8;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 500;
-    text-decoration: none;
-    pointer-events: none;
-}
+
 .button-block__meta {
     display: flex;
     flex-direction: column;
     gap: 2px;
-    font-size: 12px;
     color: #999;
-}
-.button-block__edit-btn {
-    padding: 5px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    background: transparent;
-    font-size: 12px;
-    cursor: pointer;
-    margin-left: auto;
-}
-.button-block__edit-btn:hover {
-    border-color: #999;
+    flex-grow: 1;
 }
 </style>
