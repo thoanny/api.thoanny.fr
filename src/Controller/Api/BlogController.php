@@ -20,7 +20,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 final class BlogController extends AbstractController
 {
 
-    private $limit = 10;
+    private int $limit = 10;
     #[Route('/posts', name: 'app_api_blog_post_index')]
     public function post_index(
         PostRepository $postRepository,

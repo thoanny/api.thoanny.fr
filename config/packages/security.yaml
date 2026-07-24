@@ -14,7 +14,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         api:
-            pattern: ^/(token|@me|once-human|enshrouded|palia)
+            pattern: ^/(token|@me|enshrouded)
             stateless: true
             entry_point: jwt
             json_login:
@@ -44,11 +44,9 @@ security:
             # switch_user: true
 
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_MANAGER, ROLE_ENSHROUDED, ROLE_ONCEHUMAN, ROLE_PALIA]
+        ROLE_ADMIN: [ROLE_MANAGER, ROLE_ENSHROUDED]
         ROLE_MANAGER: ROLE_USER
         ROLE_ENSHROUDED: ROLE_USER
-        ROLE_ONCEHUMAN: ROLE_USER
-        ROLE_PALIA: ROLE_USER
         
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

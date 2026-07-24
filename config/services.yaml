@@ -10,6 +10,30 @@ parameters:
     twitch.client.id: '%env(TWITCH_CLIENT_ID)%'
     twitch.client.secret: '%env(TWITCH_CLIENT_SECRET)%'
     uploads_directory: '%kernel.project_dir%/public/uploads'
+    uploads.enshrouded_item_icon_dir: '/uploads/api/enshrouded/items'
+    uploads.enshrouded_npc_icon_dir: '/uploads/api/enshrouded/npcs'
+    sites:
+        - name: 'API de Thoanny'
+          description: 'API et interface de gestion de données des différentes applications'
+          url: 'https://api.thoanny.fr'
+          domain: 'api.thoanny.fr'
+        - name: 'Dune: Awakening (fansite)'
+          description: 'Outils pour le landsraad : progression, Grandes Maisons et skins d''objets débloqués'
+          url: 'https://dune.thoanny.fr'
+          domain: 'dune.thoanny.fr'
+        - name: 'Enshrouded (fansite)'
+          description: 'Base de données d''objets, de recettes et liens utiles de Valdebraise'
+          url: 'https://enshrouded.vercel.app'
+          domain: 'enshrouded.vercel.app'
+        - name: 'Loftia (fansite)'
+          description: 'Outil pour suivre la progression des dons aux stations de recherches'
+          url: 'https://loftia.thoanny.fr'
+          domain: 'loftia.thoanny.fr'
+        - name: 'Générateur de planning'
+          description: 'Générateur de planning Twitch personnalisé et gratuit, à diffuser sur vos réseaux sociaux numériques'
+          url: 'https://planning.thoanny.fr'
+          domain: 'planning.thoanny.fr'
+    
 
 services:
     # default configuration for services in *this* file
@@ -28,12 +52,6 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    
-    app.menu_builder:
-        class: App\Menu\MenuBuilder
-        arguments: [ "@knp_menu.factory" ]
-        tags:
-            - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
 
     App\EventListener\VichImageListener:
         tags:
@@ -59,10 +77,3 @@ services:
             # The `annotation_reader` service was deprecated in Symfony 6.4 and removed in Symfony 7.0
 #            - [ setAnnotationReader, [ '@annotation_reader' ] ]
     
-    
-    App\Form\DataTransformer\JsonToArrayTransformer: ~
-    
-    App\Form\Type\EditorJsType:
-        arguments:
-            $transformer: '@App\Form\DataTransformer\JsonToArrayTransformer'
-        tags: [ 'form.type' ]

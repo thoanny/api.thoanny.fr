@@ -2,6 +2,7 @@ vich_uploader:
     db_driver: orm
 
     mappings:
+#        TODO : delete oh_*
         oh_items:
             uri_prefix: /images/once-human/items
             upload_destination: '%kernel.project_dir%/public/images/once-human/items'
@@ -26,3 +27,11 @@ vich_uploader:
             uri_prefix: /uploads
             upload_destination: '%kernel.project_dir%/public/uploads'
             namer: Vich\UploaderBundle\Naming\Base64Namer
+        enshrouded_item_icon:
+            uri_prefix: '%uploads.enshrouded_item_icon_dir%'
+            upload_destination: '%kernel.project_dir%/public%uploads.enshrouded_item_icon_dir%'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer
+        enshrouded_npc_icon:
+            uri_prefix: '%uploads.enshrouded_npc_icon_dir%'
+            upload_destination: '%kernel.project_dir%/public%uploads.enshrouded_npc_icon_dir%'
+            namer: Vich\UploaderBundle\Naming\UniqidNamer

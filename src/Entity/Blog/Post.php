@@ -15,6 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[ORM\Table(name: 'blog_post')]
 #[Vich\Uploadable]
+#[ORM\HasLifecycleCallbacks]
 class Post
 {
     #[ORM\Id]
@@ -151,6 +152,12 @@ class Post
         return $this;
     }
 
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
@@ -161,6 +168,12 @@ class Post
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function getPublishedAt(): ?\DateTimeImmutable
@@ -187,6 +200,11 @@ class Post
         return $this;
     }
 
+    public function hasSeoTitle(): bool
+    {
+        return $this->seoTitle !== null;
+    }
+
     public function getSeoDescription(): ?string
     {
         return $this->seoDescription;
@@ -199,6 +217,11 @@ class Post
         return $this;
     }
 
+    public function hasSeoDescription(): bool
+    {
+        return $this->seoDescription !== null;
+    }
+
     public function getSeoKeywords(): ?string
     {
         return $this->seoKeywords;
@@ -209,6 +232,11 @@ class Post
         $this->seoKeywords = $seoKeywords;
 
         return $this;
+    }
+
+    public function hasSeoKeywords(): bool
+    {
+        return $this->seoKeywords !== null;
     }
 
     public function getSlug(): ?string

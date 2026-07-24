@@ -3,6 +3,8 @@ twig:
     form_themes: 
         - 'bootstrap_5_layout.html.twig'
         - 'form/editorjs_type.html.twig'
+    globals:
+        sites: '@App\Service\Sites'
 
 when@test:
     twig:

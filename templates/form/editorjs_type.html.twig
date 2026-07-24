@@ -1,7 +1,11 @@
 {% block editor_js_row %}
-    <div>
-        {{ form_label(form) }}
-        {{ form_widget(form) }}
-        <div id="editorjs" data-input-target="{{ form.vars.id }}"></div>
+    <div class="col-12">
+        <div class="{{ ea_crud_form.ea_field.columns|default('form-group') }}">
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+            <div id="editorjs" data-input-target="{{ id }}"></div>
+            {{ form_errors(form) }}
+        </div>
     </div>
+    <div class="flex-fill"></div>
 {% endblock %}

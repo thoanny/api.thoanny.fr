@@ -48,6 +48,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
 
+            $this->addFlash('success', 'Un e-mail pour confirmer la création de votre compte vient de vous être envoyé.');
             return $this->redirectToRoute('app_home');
         }
 

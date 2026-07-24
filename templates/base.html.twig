@@ -13,51 +13,27 @@
         {% endblock %}
     </head>
     <body>
-        <main class="d-flex flex-nowrap">
-            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-4">api.thoanny.fr</span>
-                </a>
-                <hr>
-                <div id="main-menu">
-                    {{ knp_menu_render('main', {'template': 'menu/main.html.twig'}) }}
-                </div>
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <hr>
-                    <div class="dropdown">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-{#                            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">#}
-                            <strong>{{ app.user.nickname }}</strong>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="{{ path('app_user') }}">Mon compte</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
-                        </ul>
-                    </div>
-                {% endif %}
-            </div>
-            <div class="p-3 flex-grow-1 overflow-y-auto">
+        <div class="container p-4 min-h-dvh mx-auto flex flex-col gap-4">
+            <header>
+                {% include '_menu.html.twig' %}
+            </header>
+
+            <main class="grow">
                 {% for label, messages in app.flashes %}
                     {% for message in messages %}
-                        <div class="alert alert-{{ label }}">
+                        <div class="alert alert-{{ label }} mb-4">
                             {{ message }}
                         </div>
                     {% endfor %}
                 {% endfor %}
                 {% block body %}{% endblock %}
+            </main>
 
-                <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-                    <p class="col-md-4 mb-0 text-body-secondary">© {{ date('now')|date('Y') }} *.thoanny.fr</p>
-
-                    <ul class="nav col-md-4 justify-content-end">
-                        <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link px-2 text-body-secondary">Accueil</a></li>
-                        <li class="nav-item"><a href="{{ path('app_legal_notice') }}" class="nav-link px-2 text-body-secondary">Mentions légales</a></li>
-                    </ul>
-                </footer>
-            </div>
-        </main>
+            <footer class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4 rounded-box">
+                <aside>
+                    <p>© {{ date('now')|date('Y') }} *.thoanny.fr - Tous droits réservés - <a href="{{ path('app_legal_notice') }}" class="link">Mentions légales</a></p>
+                </aside>
+            </footer>
+        </div>
     </body>
 </html>
