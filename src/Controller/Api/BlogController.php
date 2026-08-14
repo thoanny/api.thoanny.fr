@@ -32,7 +32,9 @@ final class BlogController extends AbstractController
         $posts = $paginator->paginate(
             $postRepository->createQueryBuilder('p')
                 ->where('p.status = :status')
+                ->andWhere('p.publishedAt <= :now')
                 ->setParameter('status', 'published')
+                ->setParameter('now', new \DateTimeImmutable())
                 ->orderBy('p.publishedAt', 'DESC'),
             $request->query->getInt('page', 1),
             $this->limit
