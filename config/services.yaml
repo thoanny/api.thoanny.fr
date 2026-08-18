@@ -12,6 +12,20 @@ parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads'
     uploads.enshrouded_item_icon_dir: '/uploads/api/enshrouded/items'
     uploads.enshrouded_npc_icon_dir: '/uploads/api/enshrouded/npcs'
+    uploads.vestigia_item_dir: '/uploads/api/vestigia/items'
+    vestigia.item.rarity:
+        common: Commun
+        uncommon: Non commun
+        rare: Rare
+        epic: Épique
+        legendary: Légendaire
+    vestigia.item.type:
+          currency: Monnaie
+          consumable: Consommable
+          material: Matériaux
+          equipment: Équipement
+          cosmetic: Cosmétique
+          quest: Quête
     sites:
         - name: 'API de Thoanny'
           description: 'API et interface de gestion de données des différentes applications'

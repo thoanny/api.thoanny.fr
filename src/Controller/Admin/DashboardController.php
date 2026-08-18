@@ -12,6 +12,7 @@ use App\Controller\Admin\Enshrouded\RecipeCategoryCrudController as EnshroudedRe
 use App\Controller\Admin\Enshrouded\RecipeCrudController as EnshroudedRecipeCrudController;
 use App\Controller\Admin\Enshrouded\RecipeSourceItemCrudController as EnshroudedRecipeSourceItemCrudController;
 use App\Controller\Admin\Enshrouded\RecipeSourceNpcCrudController as EnshroudedRecipeSourceNpcCrudController;
+use App\Controller\Admin\Vestigia\ItemCrudController as VestigiaItemCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -63,6 +64,8 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkTo(EnshroudedRecipeSourceNpcCrudController::class, 'Sources (persos)'),
             ]),
             MenuItem::linkTo(EnshroudedNpcCrudController::class, 'Personnages'),
+            MenuItem::section('Vestigia'),
+            MenuItem::linkTo(VestigiaItemCrudController::class, 'Objets'),
         ];
     }
 
