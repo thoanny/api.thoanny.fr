@@ -14,7 +14,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         api:
-            pattern: ^/(token|@me|enshrouded)
+            pattern: ^/(token|@me|enshrouded|vestigia)
             stateless: true
             entry_point: jwt
             json_login:
