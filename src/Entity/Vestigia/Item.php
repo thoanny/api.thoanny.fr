@@ -19,11 +19,11 @@ class Item
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['items'])]
+    #[Groups(['items', 'me', 'goals'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['items'])]
+    #[Groups(['items', 'goals'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -193,5 +193,10 @@ class Item
     {
         // TODO : à changer quand en place
         return false;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }
