@@ -16,7 +16,6 @@ class Account
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['me'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -30,7 +29,7 @@ class Account
     /**
      * @var Collection<int, Character>
      */
-    #[ORM\OneToMany(targetEntity: Character::class, mappedBy: 'account', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Character::class, mappedBy: 'account', cascade: ['persist'], orphanRemoval: true)]
     private Collection $characters;
 
     /**
@@ -132,5 +131,12 @@ class Account
         }
 
         return $this;
+    }
+
+    #[Groups(['me'])]
+    public function getFullnickname(): string
+    {
+        $discriminator = str_pad($this->characters->count(), 4, '0', STR_PAD_LEFT);
+        return "$this->nickname#$discriminator";
     }
 }

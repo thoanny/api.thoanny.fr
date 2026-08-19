@@ -26,6 +26,13 @@ parameters:
           equipment: Équipement
           cosmetic: Cosmétique
           quest: Quête
+    vestigia.character.defaults:
+        hpMin: 100
+        hpMax: 100
+        atk: 10
+        def: 15
+        apMin: 100
+        apMax: 100
     sites:
         - name: 'API de Thoanny'
           description: 'API et interface de gestion de données des différentes applications'

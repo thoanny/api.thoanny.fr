@@ -33,6 +33,11 @@ class Api {
         return $this->createResponse(201, $message);
     }
 
+    public function respondOk(string $message = 'Ok'): JsonResponse
+    {
+        return $this->createResponse(200, $message);
+    }
+
     public function transformJsonBody(Request $request): Request
     {
         $data = json_decode($request->getContent(), true);
