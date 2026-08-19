@@ -21,14 +21,61 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/vestigia')]
 final class UserController extends AbstractController
 {
+
+    public function __construct(
+        protected readonly CharacterRepository $characterRepository
+    )
+    {
+    }
+
+    private function createCharacter(Account $account, $avatar = null): Character
+    {
+        $defaults = $this->getParameter('vestigia.character.defaults');
+        $totalCharacters = $account->getCharacters()->count();
+        $previousCharacter = $this->characterRepository->findOneBy(['account' => $account, 'dead' => true], ['id' => 'DESC']);
+
+        $character = (new Character())
+            ->setIteration($totalCharacters+1)
+            ->setDead(false)
+            ->setHpMin($defaults['hpMin'])
+            ->setHpMax($defaults['hpMax'])
+            ->setAtk($defaults['atk'])
+            ->setDef($defaults['def'])
+            ->setApMin($defaults['apMin'])
+            ->setApMax($defaults['apMax'])
+            ->setLvl(1)
+            ->setXp(0)
+        ;
+
+        if($avatar) {
+            $character
+                ->setAvatarBody($avatar['body'])
+                ->setAvatarHead($avatar['head'])
+                ->setAvatarFace($avatar['face'])
+                ->setAvatarHairs($avatar['hairs'] ?: '')
+                ->setAvatarAccessory($avatar['accessory'] ?: '')
+            ;
+        } elseif($previousCharacter) {
+            $character
+                ->setAvatarBody($previousCharacter->getAvatarBody())
+                ->setAvatarHead($previousCharacter->getAvatarHead())
+                ->setAvatarFace($previousCharacter->getAvatarFace())
+                ->setAvatarHairs($previousCharacter->getAvatarHairs())
+                ->setAvatarAccessory($previousCharacter->getAvatarAccessory())
+            ;
+        }
+
+        return $character;
+    }
+
     #[Route('/@me', name: 'app_api_vestigia_user')]
     #[IsGranted("ROLE_USER")]
     public function user(
         AccountRepository $accountRepository,
         AccountGoalRepository $accountGoalRepository,
         InventoryItemRepository $inventoryItemRepository,
-        CharacterRepository $characterRepository,
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        EntityManagerInterface $entityManager,
     ): JsonResponse
     {
         $user = $this->getUser();
@@ -36,10 +83,12 @@ final class UserController extends AbstractController
 
         $goals = $accountGoalRepository->findBy(['account' => $account]);
         $inventory = $inventoryItemRepository->findBy(['account' => $account]);
-        $currentCharacter = $characterRepository->findOneBy(['account' => $account, 'dead' => false]);
+        $currentCharacter = $this->characterRepository->findOneBy(['account' => $account, 'dead' => false]);
 
         if($account && !$currentCharacter) {
-            // TODO : créer la prochaine itération
+            $currentCharacter = $this->createCharacter($account);
+            $account->addCharacter($currentCharacter);
+            $entityManager->flush();
         }
 
         return new JsonResponse([
@@ -76,6 +125,7 @@ final class UserController extends AbstractController
 
         $request = $api->transformJsonBody($request);
         $nickname = $request->get('nickname');
+        $avatar = $request->get('avatar');
 
         $account = $accountRepository->findOneBy(['nickname' => $nickname]);
         if($account) {
@@ -87,29 +137,7 @@ final class UserController extends AbstractController
             ->setUser($user)
         ;
 
-        $totalCharacters = $account->getCharacters()->count();
-        if($totalCharacters <= 0) {
-            $avatar = $request->get('avatar');
-            $defaults = $this->getParameter('vestigia.character.defaults');
-            $character = (new Character())
-                ->setIteration($totalCharacters+1)
-                ->setDead(false)
-                ->setHpMin($defaults['hpMin'])
-                ->setHpMax($defaults['hpMax'])
-                ->setAtk($defaults['atk'])
-                ->setDef($defaults['def'])
-                ->setApMin($defaults['apMin'])
-                ->setApMax($defaults['apMax'])
-                ->setLvl(1)
-                ->setXp(0)
-                ->setAvatarBody($avatar['body'])
-                ->setAvatarHead($avatar['head'])
-                ->setAvatarFace($avatar['face'])
-                ->setAvatarHairs($avatar['hairs'] ?: '')
-                ->setAvatarAccessory($avatar['accessory'] ?: '')
-            ;
-            $account->addCharacter($character);
-        }
+       $account->addCharacter($this->createCharacter($account, $avatar));
 
         $entityManager->persist($account);
         $entityManager->flush();
@@ -123,7 +151,6 @@ final class UserController extends AbstractController
         Api $api,
         Request $request,
         AccountRepository $accountRepository,
-        CharacterRepository $characterRepository,
         EntityManagerInterface $entityManager,
     ): JsonResponse
     {
@@ -135,7 +162,7 @@ final class UserController extends AbstractController
             return $api->createNotFoundException('Account not found');
         }
 
-        $currentCharacter = $characterRepository->findOneBy(['account' => $account, 'dead' => false]);
+        $currentCharacter = $this->characterRepository->findOneBy(['account' => $account, 'dead' => false]);
         if(!$currentCharacter) {
             return $api->createNotFoundException('Current character not found');
         }
