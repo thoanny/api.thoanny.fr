@@ -19,11 +19,11 @@ class Item
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['items', 'me', 'goals'])]
+    #[Groups(['items', 'me', 'goals', 'loot'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['items', 'goals'])]
+    #[Groups(['items', 'goals', 'loot'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -35,7 +35,7 @@ class Item
     private ?string $type = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['items'])]
+    #[Groups(['items', 'loot'])]
     private ?string $rarity = null;
 
     #[ORM\Column]
@@ -46,7 +46,7 @@ class Item
     private ?File $iconFile = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['items'])]
+    #[Groups(['items', 'loot'])]
     private ?string $icon = null;
 
     #[ORM\Column(nullable: true)]

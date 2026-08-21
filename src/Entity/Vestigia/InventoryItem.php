@@ -4,10 +4,12 @@ namespace App\Entity\Vestigia;
 
 use App\Repository\Vestigia\InventoryItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: InventoryItemRepository::class)]
 #[ORM\Table(name: '`vestigia_inventory_item`')]
+#[UniqueEntity(fields: ['item', 'account'])]
 class InventoryItem
 {
     #[ORM\Id]
