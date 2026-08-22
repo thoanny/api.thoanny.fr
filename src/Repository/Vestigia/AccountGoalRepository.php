@@ -2,6 +2,7 @@
 
 namespace App\Repository\Vestigia;
 
+use App\Entity\Vestigia\Account;
 use App\Entity\Vestigia\AccountGoal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,4 +41,22 @@ class AccountGoalRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findAccountGoals(Account $account)
+    {
+        $results = $this->createQueryBuilder('ag')
+            ->select('g.id AS goalId', 'ag.updatedAt AS date', 'ag.status')
+            ->leftJoin('ag.goal', 'g')
+            ->where('ag.account = :account')
+            ->setParameter('account', $account)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return array_map(/**
+         * @throws \Exception
+         */ function ($goal) {
+            $goal['date'] = $goal['date']->format('Y-m-d');
+            return $goal;
+        }, $results);
+    }
 }

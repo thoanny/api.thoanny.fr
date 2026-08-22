@@ -19,7 +19,7 @@ class Item
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['items', 'me', 'goals', 'loot'])]
+    #[Groups(['items', 'me', 'goals', 'loot', 'goal'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]

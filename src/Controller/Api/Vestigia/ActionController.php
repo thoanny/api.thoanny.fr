@@ -64,7 +64,7 @@ final class ActionController extends AbstractController
             $vestigiaInventory->removeItem(1, $item, $account);
             return $this->json($loots);
         } catch (\Exception) {
-            return $api->createBadRequestException('xx');
+            return $api->createBadRequestException();
         }
     }
 

@@ -81,7 +81,7 @@ final class UserController extends AbstractController
         $user = $this->getUser();
         $account = $accountRepository->findOneBy(['user' => $user]);
 
-        $goals = $accountGoalRepository->findBy(['account' => $account]);
+        $goals = $accountGoalRepository->findAccountGoals($account);
         $inventory = $inventoryItemRepository->findBy(['account' => $account]);
         $currentCharacter = $this->characterRepository->findOneBy(['account' => $account, 'dead' => false]);
 

@@ -13,7 +13,7 @@ class Goal
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['goals'])]
+    #[Groups(['goals', 'goal'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -33,11 +33,11 @@ class Goal
     private ?int $steps = null;
 
     #[ORM\ManyToOne]
-    #[Groups(['goals'])]
+    #[Groups(['goals', 'goal'])]
     private ?Item $rewardItem = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['goals'])]
+    #[Groups(['goals', 'goal'])]
     private ?int $rewardQuantity = null;
 
     public function getId(): ?int

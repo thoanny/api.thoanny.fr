@@ -23,12 +23,17 @@ class AccountGoal
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(length: 15)]
-    #[Groups(['me'])]
+    #[Groups(['me', 'goal'])]
     private ?string $status = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Account $account = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['goal'])]
+    private ?Goal $goal = null;
 
     public function getId(): ?int
     {
@@ -69,5 +74,23 @@ class AccountGoal
         $this->account = $account;
 
         return $this;
+    }
+
+    public function getGoal(): ?Goal
+    {
+        return $this->goal;
+    }
+
+    public function setGoal(?Goal $goal): static
+    {
+        $this->goal = $goal;
+
+        return $this;
+    }
+
+    #[Groups(['goal'])]
+    public function getDate(): string
+    {
+        return $this->updatedAt->format('Y-m-d');
     }
 }
