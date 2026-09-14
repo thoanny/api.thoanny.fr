@@ -8,6 +8,12 @@ class Api {
     {
         return new JsonResponse(['code' => $code, 'message' => $message], $code);
     }
+
+    public function createUnauthorizedException(string $message = 'Unauthorized'): JsonResponse
+    {
+        return $this->createResponse(401, $message);
+    }
+
     public function createForbiddenException(string $message = 'Forbidden'): JsonResponse
     {
         return $this->createResponse(403, $message);
