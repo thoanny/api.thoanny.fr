@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
+use SortDirection;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: NestedTreeRepository::class)]
@@ -51,7 +52,7 @@ class Category
     private ?Category $parent = null;
 
     #[ORM\OneToMany(targetEntity: Category::class, mappedBy: 'parent')]
-    #[ORM\OrderBy(['lft' => 'ASC'])]
+    #[ORM\OrderBy(['lft' => SortDirection::Ascending])]
     private $children;
 
     public function __construct()
